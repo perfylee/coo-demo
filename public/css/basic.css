@@ -1,3 +1,63 @@
-body{
+html,body{
+    font-family: 'Microsoft YaHei UI Light';
+}
+
+a{
+    color: #1aa586;
+}
+
+.ui.button{
+    border-radius: 0;
+}
+
+.ui.green.button{
+    background: #1aa586;
+}
+
+.ui.green.button:hover{
+    background: #1ab392;
+}
+
+.ui.green.button:active {
+    background: #16896f;
+}
+
+
+.ui.dimmer{
+    background-color:rgba(0, 0, 0, 0.4)
+}
+
+.ui.modal {
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.ui.large.modal > .header:not(.ui),
+.ui.small.modal > .header:not(.ui),
+.ui.modal > .header:not(.ui),
+.ui.modal > .header {
+    border-bottom-width: 0;
+    font-size: 16px;
+    color: #666666;
+    font-family: 'Microsoft YaHei UI Light';
+    font-weight: normal;
+}
+
+.ui.modal > .header > i.icon{
+    font-size:18px;
+}
+
+.ui.small.modal {
+    width: 84%;
+    margin: 0em 0em 0em -42%
+}
+
+
+.ui.large.modal{
+    width:100%;
+    margin: 0em 0em 0em -50%;
+}
+
+.ui.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){
     font-family: 'Microsoft YaHei UI Light';
 }

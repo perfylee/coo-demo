@@ -7,5 +7,5 @@ angular.module('coo',[
 
 .config(['$locationProvider','$routeProvider',function ($locationProvider,$routeProvider) {
     $locationProvider.hashPrefix('!')
-    $routeProvider.otherwise({redirectTo: '/reservation'})
+    $routeProvider.otherwise({redirectTo: '/index'})
 }])
