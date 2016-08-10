@@ -54,7 +54,7 @@
 
 
 .index-service {
-    padding: 46px 0px 12px 0px;
+    padding: 46px 0 12px 0;
     background: #1aa586;
     color: #fff;
 
@@ -86,7 +86,7 @@
 }
 
 .index-service > .item.active{
-    padding-top:0px;
+    padding-top:0;
 }
 
 .index-service > .item.active > .name{
@@ -111,9 +111,11 @@
 .index-main {
     position: absolute;
     top: 196px;
-    bottom: 42px;
+    bottom: 106px;
     width: 100%;
-    padding: 26px 12px 90px 32px;
+    padding: 26px 32px 0 32px;
+
+    overflow-y: auto;;
 }
 
 .index-main > .item{
@@ -132,7 +134,7 @@
 }
 
 .index-main > .item > .name > .icon {
-    margin-right: 10px;
+    margin-right: 12px;
     font-size: 20px;
     color: #1aa586;
 }
@@ -150,7 +152,7 @@
 
 .index-main > .item > .sub{
     display: block;
-    padding-left:40px;
+    padding-left:42px;
     color: #999;
     line-height: 20px;
 }
@@ -165,15 +167,14 @@
 }
 
 
-
-.index-main > .start {
+.index-start {
     position: absolute;
-    bottom: 10px;
+    bottom: 50px;
     right: 32px;
     left: 32px;
 }
 
-.index-main > .start > .ui.green.button{
+.index-start > .ui.green.button{
     border-radius:0;
     font-family: "Microsoft YaHei UI";
     font-weight:normal;
@@ -222,7 +223,7 @@
 }
 
 .car-selector > .car:last-child{
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .car-selector > .car > .pn{
@@ -246,7 +247,6 @@
 
 .car-selector > .car.active > .pn {
     color: #1aa586;
-    font-weight: bold;
 }
 
 .car-selector > .car.active > .model {
@@ -282,24 +282,99 @@
     color:#ccc;
 }
 
+.time-selector > .item > .times > span.current{
+    color:#f2711c;
+    font-weight: bold;
+}
 
 
 
+/*shop selector*/
 
+.shop-selector > .label{
+    padding: 0.4em 0.8em;
+    margin:8px 0;
+    font-weight: normal;
+}
+
+.shop-selector > .label:first-child{
+    margin-top: 0;
+}
+
+.shop-selector > .label:before{
+    content: '';
+    display: block;
+}
+
+.shop-selector > .shop {
+    position: relative;
+    display: block;
+    padding:6px 6px 6px 106px ;
+}
+
+.shop-selector > .shop > img{
+    position: absolute;
+    left: 0;
+    top:6px;
+    height: 65px;
+    width: 100px;
+    border-radius: 4px;
+}
+
+.shop-selector > .shop > .name{
+    line-height: 14px;
+    font-size:14px;
+    padding-bottom: 4px;
+    color: #333;
+}
+.shop-selector > .shop > .address{
+    line-height: 12px;
+    font-size:12px;
+    padding-bottom: 2px;
+    color: #999;
+}
+
+.shop-selector > .shop > .stars{
+    height: 12px;
+    margin-bottom: 8px;
+}
+
+.shop-selector > .shop > .stars > .icon{
+    font-size: 12px;
+    line-height: 12px;
+    margin-right: 0;
+}
+
+.shop-selector > .shop > .addition{
+    height: 16px;
+}
+
+.shop-selector > .shop > .addition > div{
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    color:#999;
+    font-size: 12px;
+}
+
+.shop-selector > .shop > .addition > div > .icon{
+    margin-right: 0;
+    font-size: 12px;
+}
 
 /** iphone 5 5s se**/
 @media screen and (max-width: 320px) {
     .index-service{
-        padding: 28px 0px 10px 0px;
+        padding: 28px 0 10px 0;
     }
 
     .index-main {
         top: 176px;
-        padding: 20px 32px 90px 32px;
+        /*padding: 20px 32px 90px 32px;*/
     }
 
     .index-main > .item{
-        padding-bottom: 12px;
+        padding-bottom: 10px;
 
     }
 
@@ -312,15 +387,8 @@
         font-size: 16px;
     }
 
-    .index-main > .item > .sub{
-        font-size:13px;
-        padding-left:34px;
+    .index-main > .item > .sub {
+        font-size: 13px;
+        padding-left: 36px;
     }
 }
-
-
-
-
-
-
-

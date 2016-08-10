@@ -38,6 +38,12 @@ angular.module('coo.components.modal',[function () {
                 }
             })
 
+            var close = angular.element(element[0].querySelector('.content > div > .close'))
+
+            close.bind('click',function () {
+                scope.show = false
+                scope.$apply()
+            })
 
             scope.$watch('show', function (val) {
                 if (val == false || val == undefined)

@@ -24,7 +24,8 @@ angular.module('coo.modules.index',[
     //当前选项
     $scope.current = {
         car: null,
-        time:null
+        time: null,
+        shop: null
     }
 
     //选择车辆
@@ -115,6 +116,10 @@ angular.module('coo.modules.index',[
             $scope.current.time = time
         return;
     }
+    
+    $scope.selectTimeCls = function (time) {
+        return time.status == 0 ? 'selected' : ($scope.current.time != null && $scope.current.time.id == time.id ? 'current' : '')
+    }
 
 
     //选择门店
@@ -123,6 +128,61 @@ angular.module('coo.modules.index',[
     $scope.toggleSelectShop = function () {
         $scope.isShowSelectShop = !$scope.isShowSelectShop
     }
+
+    $scope.shops_quick = [
+        {
+            id: 1,
+            name: '速途驰加中铁国际城店',
+            address: '庐阳区清源路中铁国际城一期',
+            img: 'http://i1.sinaimg.cn/qc/2011/0729/U260P33DT20110729150612.jpg',
+            rate: 5,
+            distance: 5.26,
+            comment: 36,
+            sold: 1607,
+            default_service:'普洗(轿车)',
+            default_service_price:15,
+            category: '最常去'
+        },
+        {
+            id: 2,
+            name: '速途驰加中铁国际城店',
+            address: '庐阳区清源路中铁国际城一期',
+            img: 'http://i1.sinaimg.cn/qc/2011/0729/U260P33DT20110729150612.jpg',
+            rate: 5,
+            distance: 5.26,
+            comment: 36,
+            sold: 1607,
+            service:'普洗(轿车)',
+            price:15,
+            category: '最常去'
+        },
+        {
+            id: 3,
+            name: '速途驰加中铁国际城店',
+            address: '庐阳区清源路中铁国际城一期',
+            img: 'http://i1.sinaimg.cn/qc/2011/0729/U260P33DT20110729150612.jpg',
+            rate: 5,
+            distance: 5.26,
+            comment: 36,
+            sold: 1607,
+            service:'普洗(轿车)',
+            price:15,
+            category: '最近的'
+        },
+        {
+            id: 4,
+            name: '速途驰加中铁国际城店',
+            address: '庐阳区清源路中铁国际城一期',
+            img: 'http://i1.sinaimg.cn/qc/2011/0729/U260P33DT20110729150612.jpg',
+            rate: 5,
+            distance: 5.26,
+            comment: 36,
+            sold: 1607,
+            service:'普洗(轿车)',
+            price:15,
+            category: '最近的'
+        }
+    ]
 
     //提交
     $scope.isShowSubmit = false

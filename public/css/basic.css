@@ -85,6 +85,24 @@ a{
     margin-top:8px;
 }
 
+.dimmer > .content > div > .close {
+    position: absolute;
+    display: inline-block;
+    right: 0;
+    top:0;
+    padding: 10px;
+    margin-right: 0;
+    width:44px;
+    height: 44px;
+    line-height: 24px;
+
+    font-size:24px;
+    color: #ccc;
+
+    z-index:1000;
+}
+
+
 
 .ui.secondary.pointing.menu{
     border-bottom-color: rgba(0,0,0,0);
@@ -92,11 +110,14 @@ a{
 }
 
 .ui.secondary.pointing.menu .item{
-    font-weight:normal;
     padding: 0.8em 1em;
 }
 .ui.menu .green.active.item,
 .ui.green.menu .active.item{
     border-color: #1aa586 !important;
     color: #1aa586 !important;
+}
+
+.ui.secondary.pointing.menu .active.item{
+    font-weight: normal;
 }

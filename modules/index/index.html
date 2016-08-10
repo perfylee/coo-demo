@@ -59,7 +59,7 @@
                 <span>庐阳区清源路中铁国际城一期</span>
             </div>
             <div class="sub">
-                <span class=" orange">普洗(轿车) 费用 15元</span>
+                <span class="orange">普洗(轿车) 费用 15元</span>
             </div>
         </div>
 
@@ -76,12 +76,12 @@
             </div>
         </div>
 
-        <div class="start">
-            <button class="ui green button big fluid">
-                一键预约
-            </button>
-        </div>
+    </div>
 
+    <div class="index-start">
+        <button class="ui green button big fluid">
+            一键预约
+        </button>
     </div>
 
     <div class="index-footer">
@@ -108,7 +108,7 @@
 
 
 <coo-modal size="small" show="isShowSubmit">
-
+    <i class="icon close"></i>
     <div class="title">
         <i class="icon add to cart"></i> 预约订单确认
     </div>
@@ -148,7 +148,7 @@
 </coo-modal>
 
 <coo-modal size="large" show="isShowSelectCar">
-
+    <i class="icon close"></i>
     <div class="title">
         <i class="icon car"></i> 选择车辆
     </div>
@@ -165,7 +165,7 @@
 </coo-modal>
 
 <coo-modal size="large" show="isShowSelectTime">
-
+    <i class="icon close"></i>
     <div class="title">
         <i class="icon time"></i> 选择时间
     </div>
@@ -174,7 +174,7 @@
             <div class="item" ng-repeat="(index,timesOfDay) in times">
                 <div class="ui mini orange label title">{{index == 0 ?'今天':(index == 1 ?'明天':'后天')}}</div>
                 <div class="times">
-                    <span ng-repeat="time in timesOfDay" class="{{time.status == 1?'':'selected'}}" ng-click="selectTime(time)">
+                    <span ng-repeat="time in timesOfDay" class="{{selectTimeCls(time)}}" ng-click="selectTime(time)">
                         {{Date(time.time) | date:'HH:mm'}}
                     </span>
                 </div>
@@ -185,7 +185,7 @@
 </coo-modal>
 
 <coo-modal size="large" show="isShowSelectShop">
-
+    <i class="icon close"></i>
     <div class="title">
         <i class="icon building outline"></i> 选择门店
     </div>
@@ -195,17 +195,60 @@
             <a class="item">我的收藏</a>
             <a class="item">所有门店 </a>
         </div>
-        <div>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <p>1</p>
-            <button class="ui button basic" ng-click="toggleSelectShop()">Close</button>
+        <div  class="shop-selector">
+            <div class="ui label small orange">最常去的门店</div>
+
+            <div class="shop" ng-repeat="shop in shops_quick | filter:{category:'最常去'}">
+                <img ng-src="{{shop.img}}">
+                <div class="name">{{shop.name}}</div>
+                <div class="address">{{shop.address}}</div>
+                <div class="stars">
+                    <i class="icon star orange"></i>
+                    <i class="icon star orange"></i>
+                    <i class="icon star orange"></i>
+                </div>
+                <div class="addition">
+                    <div>
+                        <i class="icon marker"></i>
+                        {{shop.distance}}
+                    </div>
+                    <div>
+                        <i class="icon comment"></i>
+                        {{shop.comment}}
+                    </div>
+                    <div>
+                        <i class="icon marker"></i>
+                        {{shop.sold}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui label small green">最近的门店</div>
+
+            <div class="shop" ng-repeat="shop in shops_quick | filter:{category:'最近的'}">
+                <img ng-src="{{shop.img}}">
+                <div class="name">{{shop.name}}</div>
+                <div class="address">{{shop.address}}</div>
+                <div class="stars">
+                    <i class="icon star"></i>
+                    <i class="icon star"></i>
+                    <i class="icon star"></i>
+                </div>
+                <div class="addition">
+                    <div>
+                        <i class="icon marker"></i>
+                        {{shop.distance}}
+                    </div>
+                    <div>
+                        <i class="icon comment"></i>
+                        {{shop.comment}}
+                    </div>
+                    <div>
+                        <i class="icon marker"></i>
+                        {{shop.sold}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
