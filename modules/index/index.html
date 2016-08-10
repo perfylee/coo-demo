@@ -37,17 +37,17 @@
 
     <div class="index-main">
 
-        <div class="item" ng-click="selectCar()">
+        <div class="item" ng-click="toggleSelectCar()">
             <div class="name">
                 <i class="icon car"></i>
-                <span>皖APF630</span>
+                <span>{{current.car.pn}}</span>
             </div>
             <span class="sub">
-                <span>大众迈腾</span>
+                <span>{{current.car.model}}</span>
             </span>
         </div>
 
-        <div class="item">
+        <div class="item" ng-click="toggleSelectShop()">
             <div class="name">
                 <i class="icon building"></i>
                 <span>
@@ -63,26 +63,21 @@
             </div>
         </div>
 
-        <div class="item">
+        <div class="item" ng-click="toggleSelectTime()">
             <div class="name">
                 <i class="icon time"></i>
-                <span>明天上午 09:00</span>
+                <span>  {{current.time.label}}</span>
             </div>
-            <div class="sub">
-                <a href="#">
-                    10:00
-                </a>
-                <a href="#">
-                    11:00
-                </a>
-                <a href="#">
-                    12:00
-                </a>
+            <div class="sub times">
+
+                <span  class="{{time.id == current.time.id?'selected':''}}" ng-click="selectTimeQuick(time,$event)" ng-repeat="time in times_quick ">
+                    {{FormatTimeLabel(time.label)}}
+                </span>
             </div>
         </div>
 
         <div class="start">
-            <button class="ui green button big fluid" ng-click="confirmOrder()">
+            <button class="ui green button big fluid">
                 一键预约
             </button>
         </div>
@@ -112,85 +107,107 @@
 </div>
 
 
-<div class="ui small modal confirmModal">
-    <div class="header">
-       <i class="icon add to cart"></i> 预约订单确认
-    </div>
-    <div class="image content">
-        <div class="description">
-            <div class="ui header">李鹏飞先生：</div>
-            <p>您的爱车皖APF630预约了以下服务，请确认</p>
+<coo-modal size="small" show="isShowSubmit">
 
-            <div class="ui list">
-                <div class="item">
-                    <i class="icon time"></i>
-                    <div class="content">今天下午15点</div>
-                </div>
-                <div class="item">
-                    <i class="icon building"></i>
-                    <div class="content">速途驰加中铁国际城店</div>
-                </div>
-                <div class="item">
-                    <i class="icon user"></i>
-                    <div class="content">
-                        轿车普洗 服务，预计费用 15元
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="buttons">
-            <button class="ui button fluid close">
-                容我三思
-            </button>
-            <button class="ui green button fluid" >
-                确认
-            </button>
-            <button class="ui blue button fluid">
-                确认并导航至门店
-            </button>
-        </div>
-    </div>
-</div>
-
-
-<div class="ui large modal carModal">
-    <div class="header">
+    <div class="title">
         <i class="icon add to cart"></i> 预约订单确认
     </div>
-    <div class="image content">
-        <div class="description">
-            <div class="ui header">李鹏飞先生：</div>
-            <p>您的爱车皖APF630预约了以下服务，请确认</p>
+    <div class="description">
+        <div class="ui header">李鹏飞先生：</div>
+        <p>您的爱车皖APF630预约了以下服务，请确认</p>
 
-            <div class="ui list">
-                <div class="item">
-                    <i class="icon time"></i>
-                    <div class="content">今天下午15点</div>
-                </div>
-                <div class="item">
-                    <i class="icon building"></i>
-                    <div class="content">速途驰加中铁国际城店</div>
-                </div>
-                <div class="item">
-                    <i class="icon user"></i>
-                    <div class="content">
-                        轿车普洗 服务，预计费用 15元
-                    </div>
+        <div class="ui list">
+            <div class="item">
+                <i class="icon time"></i>
+                <div class="content">今天下午15点</div>
+            </div>
+            <div class="item">
+                <i class="icon building"></i>
+                <div class="content">速途驰加中铁国际城店</div>
+            </div>
+            <div class="item">
+                <i class="icon user"></i>
+                <div class="content">
+                    轿车普洗 服务，预计费用 15元
                 </div>
             </div>
         </div>
+    </div>
+    <div class="buttons">
+        <button class="ui button fluid close" ng-click="toggleSubmit()">
+            容我三思
+        </button>
+        <button class="ui green button fluid" >
+            确认
+        </button>
+        <button class="ui blue button fluid">
+            确认并导航至门店
+        </button>
+    </div>
 
-        <div class="buttons">
-            <button class="ui button fluid close">
-                容我三思
-            </button>
-            <button class="ui green button fluid" >
-                确认
-            </button>
-            <button class="ui blue button fluid">
-                确认并导航至门店
-            </button>
+</coo-modal>
+
+<coo-modal size="large" show="isShowSelectCar">
+
+    <div class="title">
+        <i class="icon car"></i> 选择车辆
+    </div>
+    <div class="description">
+        <div class="ui list car-selector">
+            <div class="item car {{activeCarCls(car)}}" ng-repeat="car in cars" ng-click="selectCar(car)">
+                <div class="pn">{{car.pn}}</div>
+                <div class="model">{{car.model}}</div>
+                <i class="icon checkmark"></i>
+            </div>
         </div>
     </div>
-</div>
+
+</coo-modal>
+
+<coo-modal size="large" show="isShowSelectTime">
+
+    <div class="title">
+        <i class="icon time"></i> 选择时间
+    </div>
+    <div class="description">
+        <div class="ui list time-selector">
+            <div class="item" ng-repeat="(index,timesOfDay) in times">
+                <div class="ui mini orange label title">{{index == 0 ?'今天':(index == 1 ?'明天':'后天')}}</div>
+                <div class="times">
+                    <span ng-repeat="time in timesOfDay" class="{{time.status == 1?'':'selected'}}" ng-click="selectTime(time)">
+                        {{Date(time.time) | date:'HH:mm'}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</coo-modal>
+
+<coo-modal size="large" show="isShowSelectShop">
+
+    <div class="title">
+        <i class="icon building outline"></i> 选择门店
+    </div>
+    <div class="description">
+        <div class="ui green secondary pointing menu three item ">
+            <a class="item active">快速选择 </a>
+            <a class="item">我的收藏</a>
+            <a class="item">所有门店 </a>
+        </div>
+        <div>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <p>1</p>
+            <button class="ui button basic" ng-click="toggleSelectShop()">Close</button>
+        </div>
+    </div>
+
+</coo-modal>
+

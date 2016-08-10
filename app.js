@@ -2,7 +2,8 @@
 
 angular.module('coo',[
     'ngRoute',
-    'coo.reservation'
+    'coo.components.modal',
+    'coo.modules.index'
 ])
 
 .config(['$locationProvider','$routeProvider',function ($locationProvider,$routeProvider) {

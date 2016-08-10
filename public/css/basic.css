@@ -2,8 +2,18 @@ html,body{
     font-family: 'Microsoft YaHei UI Light';
 }
 
+.main{
+    height:100%;
+    overflow: hidden;
+}
+
 a{
     color: #1aa586;
+}
+
+.ui .header{
+    font-family: 'Microsoft YaHei UI Light';
+    font-size: 14px;
 }
 
 .ui.button{
@@ -23,41 +33,70 @@ a{
 }
 
 
-.ui.dimmer{
-    background-color:rgba(0, 0, 0, 0.4)
+.dimmer > .content{
+    position: relative;
 }
 
-.ui.modal {
-    box-shadow: none;
-    border-radius: 0;
+.dimmer > .content > div {
+    position: absolute;
+    padding: 48px 16px 16px 16px;
+    color: #666;
+    background: #fff;
+    text-align: left;
+    overflow-x:hidden;
+    overflow-y: auto;
+
 }
 
-.ui.large.modal > .header:not(.ui),
-.ui.small.modal > .header:not(.ui),
-.ui.modal > .header:not(.ui),
-.ui.modal > .header {
-    border-bottom-width: 0;
+.dimmer > .content > .small {
+    display: none;
+    top: 50%;
+    margin: -50% auto auto 7.5%;
+    width: 85%;
+    max-height: 85%;
+    color: #666;
+}
+
+.dimmer > .content > .large {
+    display: none;
+    right:0;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    max-height: 85%;
+    color: #666;
+}
+
+.dimmer > .content > div > .title {
+    display: block;
+    padding: 16px 0 ;
     font-size: 16px;
-    color: #666666;
+    color: #999;
+    position:absolute;
+    top:0;
+    width: 100%;
+}
+
+.dimmer > .content > div > .description{
+    padding-bottom: 16px;
+}
+
+.dimmer > .content > div .buttons > .button{
+    margin-top:8px;
+}
+
+
+.ui.secondary.pointing.menu{
+    border-bottom-color: rgba(0,0,0,0);
     font-family: 'Microsoft YaHei UI Light';
-    font-weight: normal;
 }
 
-.ui.modal > .header > i.icon{
-    font-size:18px;
+.ui.secondary.pointing.menu .item{
+    font-weight:normal;
+    padding: 0.8em 1em;
 }
-
-.ui.small.modal {
-    width: 84%;
-    margin: 0em 0em 0em -42%
-}
-
-
-.ui.large.modal{
-    width:100%;
-    margin: 0em 0em 0em -50%;
-}
-
-.ui.header:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6){
-    font-family: 'Microsoft YaHei UI Light';
+.ui.menu .green.active.item,
+.ui.green.menu .active.item{
+    border-color: #1aa586 !important;
+    color: #1aa586 !important;
 }

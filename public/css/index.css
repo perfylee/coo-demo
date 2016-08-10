@@ -113,7 +113,7 @@
     top: 196px;
     bottom: 42px;
     width: 100%;
-    padding: 26px 32px 90px 32px;
+    padding: 26px 12px 90px 32px;
 }
 
 .index-main > .item{
@@ -128,7 +128,7 @@
     display: inline-block;
     color:#666666;
     font-size: 20px;
-    line-height: 32px;
+    line-height: 36px;
 }
 
 .index-main > .item > .name > .icon {
@@ -155,10 +155,15 @@
     line-height: 20px;
 }
 
-.index-main > .item > .sub > a {
+.index-main > .item > .sub.times > span{
     display: inline-block;
     margin-right: 8px;
 }
+
+.index-main > .item > .sub.times > span.selected{
+    color:#1aa586;
+}
+
 
 
 .index-main > .start {
@@ -210,13 +215,75 @@
 }
 
 
-.confirmModal .buttons > .ui.button{
-    margin-top: 4px;
+
+.car-selector > .car{
+    position:relative;
+    margin-bottom: 12px;
 }
 
-.confirmModal .buttons > .ui.button:first-child{
-    margin-top: 16px;
+.car-selector > .car:last-child{
+    margin-bottom: 0px;
 }
+
+.car-selector > .car > .pn{
+    font-size: 18px;
+    line-height:26px;
+}
+
+.car-selector > .car > .model {
+    font-size: 12px;
+    color:#999;
+}
+
+.car-selector.ui.list > .item > i.icon{
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    font-size: 22px;
+    color: #1aa586;
+}
+
+.car-selector > .car.active > .pn {
+    color: #1aa586;
+    font-weight: bold;
+}
+
+.car-selector > .car.active > .model {
+    color: #1aa586;
+}
+
+.car-selector.ui.list > .item.car.active > i.icon{
+    display: block;
+}
+
+
+
+.time-selector > .item > .title{
+    padding: 0.3em 0.6em;
+}
+
+.time-selector > .item > .times {
+    margin: 12px 0 10px 12px;
+    padding: 0 0 0 12px;
+    border-left: 1px dotted #ccc;
+}
+
+.time-selector > .item > .times > span{
+    display: inline-block;
+    padding: 6px 8px;
+    margin:0 6px 8px 0;
+    font-size: 16px;
+    color:#1aa486;
+}
+
+
+.time-selector > .item > .times > span.selected{
+    color:#ccc;
+}
+
+
+
 
 
 
