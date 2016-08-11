@@ -1,8 +1,7 @@
 <div class="index">
-
     <div class="index-header ">
        <div class="date">
-           <span class="day">06</span>
+           <span class="day">07</span>
            <span class="month">Aug.</span>
        </div>
 
@@ -18,19 +17,9 @@
     </div>
 
     <div class="index-service">
-        <div class="item">
-            <span class="name">保养</span>
-            <span class="sub">Maintenance</span>
-        </div>
-
-        <div class="item active">
-            <span class="name">洗车</span>
-            <span class="sub">Vehicle Cleaning</span>
-        </div>
-
-        <div class="item">
-            <span class="name">维修</span>
-            <span class="sub">Maintenance</span>
+        <div class="item item{{service.sort}}" ng-repeat="service in services" ng-click="selectService(service)">
+            <span class="name">{{service.name}}</span>
+            <span class="sub">{{service.en}}</span>
         </div>
 
     </div>
@@ -51,15 +40,15 @@
             <div class="name">
                 <i class="icon building"></i>
                 <span>
-                    速途驰佳中铁国际城店
-                    <div class="floating ui orange label">最常去</div>
+                    {{current.shop.name}}
+                    <div class="floating ui {{current.shop.category == '最常去'?'orange':'green'}} label" ng-if="current.shop!=null && current.shop.category!=null && current.shop.category!=''">{{current.shop.category}}</div>
                 </span>
             </div>
             <div class="sub">
-                <span>庐阳区清源路中铁国际城一期</span>
+                <span>{{current.shop.address}}</span>
             </div>
             <div class="sub">
-                <span class="orange">普洗(轿车) 费用 15元</span>
+                <span class="orange">{{current.shop.service}} 费用 {{current.shop.price}}元</span>
             </div>
         </div>
 
@@ -191,14 +180,16 @@
     </div>
     <div class="description">
         <div class="ui green secondary pointing menu three item ">
-            <a class="item active">快速选择 </a>
-            <a class="item">我的收藏</a>
-            <a class="item">所有门店 </a>
+            <a class="item {{selectShopTab == 'quickView'?'active':''}}" ng-click="selectShopTab = 'quickView'">快速选择 </a>
+            <a class="item {{selectShopTab == 'favoView'?'active':''}}" ng-click="selectShopTab = 'favoView'">我的收藏</a>
+            <a class="item {{selectShopTab == 'mapView'?'active':''}}" ng-click="selectShopTab = 'mapView'">所有门店 </a>
         </div>
-        <div  class="shop-selector">
+
+        <div  class="shop-selector" ng-show="selectShopTab == 'quickView'">
+
             <div class="ui label small orange">最常去的门店</div>
 
-            <div class="shop" ng-repeat="shop in shops_quick | filter:{category:'最常去'}">
+            <div class="shop {{shop.id == current.shop.id ?'current':''}}" ng-click="selectShop(shop)" ng-repeat="shop in shops_quick | filter:{category:'最常去'}">
                 <img ng-src="{{shop.img}}">
                 <div class="name">{{shop.name}}</div>
                 <div class="address">{{shop.address}}</div>
@@ -225,14 +216,14 @@
 
             <div class="ui label small green">最近的门店</div>
 
-            <div class="shop" ng-repeat="shop in shops_quick | filter:{category:'最近的'}">
+            <div class="shop {{shop.id == current.shop.id ?'current':''}}" ng-click="selectShop(shop)" ng-repeat="shop in shops_quick | filter:{category:'最近的'}">
                 <img ng-src="{{shop.img}}">
                 <div class="name">{{shop.name}}</div>
                 <div class="address">{{shop.address}}</div>
                 <div class="stars">
-                    <i class="icon star"></i>
-                    <i class="icon star"></i>
-                    <i class="icon star"></i>
+                    <i class="icon star orange"></i>
+                    <i class="icon star orange"></i>
+                    <i class="icon star orange"></i>
                 </div>
                 <div class="addition">
                     <div>
@@ -250,6 +241,38 @@
                 </div>
             </div>
         </div>
+
+        <div class="shop-selector"  ng-show="selectShopTab == 'favoView'">
+            <div class="shop {{shop.id == current.shop.id ?'current':''}}" ng-click="selectShop(shop)" ng-repeat="shop in shops_quick">
+                <img ng-src="{{shop.img}}">
+                <div class="name">{{shop.name}}</div>
+                <div class="address">{{shop.address}}</div>
+                <div class="stars">
+                    <i class="icon star orange"></i>
+                    <i class="icon star orange"></i>
+                    <i class="icon star orange"></i>
+                </div>
+                <div class="addition">
+                    <div>
+                        <i class="icon marker"></i>
+                        {{shop.distance}}
+                    </div>
+                    <div>
+                        <i class="icon comment"></i>
+                        {{shop.comment}}
+                    </div>
+                    <div>
+                        <i class="icon marker"></i>
+                        {{shop.sold}}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ng-show="selectShopTab == 'mapView'">
+            地图
+        </div>
+
     </div>
 
 </coo-modal>

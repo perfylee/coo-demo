@@ -19,8 +19,8 @@ a{
 .ui.button{
     border-radius: 0;
 }
-
-.ui.green.button{
+.ui.green.button,
+.ui.green.button:visited{
     background: #1aa586;
 }
 
@@ -120,4 +120,21 @@ a{
 
 .ui.secondary.pointing.menu .active.item{
     font-weight: normal;
+}
+
+
+.coo-loader.ui.dimmer{
+    background: rgba(0,0,0,0);
+}
+
+.coo-loader.ui.dimmer > .loader{
+    padding:70px 20px 20px 20px;
+    background: rgba(0,0,0,.6);
+    border-radius: 10px;
+    color: #fff;
+}
+
+.coo-loader.ui.dimmer > .loader:before,
+.coo-loader.ui.dimmer > .loader:after{
+    margin:20px 0em 0em -1.14285714rem
 }

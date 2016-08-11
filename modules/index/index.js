@@ -23,9 +23,38 @@ angular.module('coo.modules.index',[
 
     //当前选项
     $scope.current = {
+        service:null,
         car: null,
         time: null,
         shop: null
+    }
+
+    //选择服务
+    $scope.services = [
+        {id:1,name:'保养',en:'Maintenance',sort:0},
+        {id:2,name:'洗车',en:'Vehicle Cleaning',sort:1},
+        {id:3,name:'维修',en:'Maintenance',sort:2}
+    ]
+    
+    $scope.selectService = function (service) {
+        if ($scope.current.service != null && service.id == $scope.current.service.id)
+            return
+
+        $scope.current.service = service
+
+        if (service.id == 1) {
+            $scope.services[0].sort = 1
+            $scope.services[1].sort = 2
+            $scope.services[2].sort = 0
+        } else if (service.id == 2) {
+            $scope.services[0].sort = 0
+            $scope.services[1].sort = 1
+            $scope.services[2].sort = 2
+        } else if (service.id == 3) {
+            $scope.services[0].sort = 2
+            $scope.services[1].sort = 0
+            $scope.services[2].sort = 1
+        }
     }
 
     //选择车辆
@@ -95,6 +124,7 @@ angular.module('coo.modules.index',[
         {id: 4, time:'2016/08/10 18:00', label:'今天18:00点', status: 1},
         {id: 5,  time:'2016/08/11 09:00', label:'明天09:00点', status: 1}
     ]
+
     $scope.current.time = $scope.times_quick[0]
 
     $scope.isShowSelectTime = false
@@ -129,6 +159,8 @@ angular.module('coo.modules.index',[
         $scope.isShowSelectShop = !$scope.isShowSelectShop
     }
 
+    $scope.selectShopTab = 'quickView'
+
     $scope.shops_quick = [
         {
             id: 1,
@@ -139,8 +171,8 @@ angular.module('coo.modules.index',[
             distance: 5.26,
             comment: 36,
             sold: 1607,
-            default_service:'普洗(轿车)',
-            default_service_price:15,
+            service:'普洗(轿车)',
+            price:15,
             category: '最常去'
         },
         {
@@ -183,6 +215,16 @@ angular.module('coo.modules.index',[
             category: '最近的'
         }
     ]
+
+    $scope.current.shop = $scope.shops_quick[0]
+    
+    $scope.selectShop = function (shop) {
+        if (shop.id != $scope.current.shop.id) {
+            $scope.current.shop = shop
+            $scope.toggleSelectShop()
+        }
+    }
+
 
     //提交
     $scope.isShowSubmit = false

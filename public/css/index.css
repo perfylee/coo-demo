@@ -54,25 +54,36 @@
 
 
 .index-service {
+    position: relative;
     padding: 46px 0 12px 0;
     background: #1aa586;
     color: #fff;
 
-    /*height:128px*/
+    height:120px;
 }
 
 .index-service > .item{
     display: inline-block;
+    position: absolute;
     height: 62px;
     width: 33.33%;
     text-align: center;
     color: #f0f0f0;
 
-    float: left;
     vertical-align: bottom;
     padding-top:22px;
 
-    cursor: pointer;
+}
+
+.index-service > .item.item0{
+    left:0;
+}
+.index-service > .item.item1 {
+    left: 33.33%;
+}
+
+.index-service > .item.item2 {
+    left: 66.66%;
 }
 
 .index-service > .item > .name{
@@ -85,17 +96,17 @@
 
 }
 
-.index-service > .item.active{
+.index-service > .item.item1{
     padding-top:0;
 }
 
-.index-service > .item.active > .name{
+.index-service > .item.item1 > .name{
     line-height: 42px;
     font-size: 32px;
     color:#fff;
 }
 
-.index-service > .item.active > .sub{
+.index-service > .item.item1 > .sub{
     font-size: 14px;
     color:#fff;
 }
@@ -309,7 +320,7 @@
 .shop-selector > .shop {
     position: relative;
     display: block;
-    padding:6px 6px 6px 106px ;
+    padding:6px 6px 6px 110px ;
 }
 
 .shop-selector > .shop > img{
@@ -333,6 +344,13 @@
     padding-bottom: 2px;
     color: #999;
 }
+
+
+.shop-selector > .shop.current > .name{
+    font-weight:bold;
+    color: #f2711c;
+}
+
 
 .shop-selector > .shop > .stars{
     height: 12px;
@@ -366,6 +384,9 @@
 @media screen and (max-width: 320px) {
     .index-service{
         padding: 28px 0 10px 0;
+
+        /**46 12 **/
+        height:100px;
     }
 
     .index-main {

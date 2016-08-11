@@ -25,7 +25,7 @@ angular.module('coo.components.modal',[function () {
                 scope.size = 'small'
 
             var content = angular.element(element[0].querySelector('.content > div'))
-            var content_transition = scope.size == 'small' ? 'vertical flip' : 'fade up'
+            var content_transition = scope.size == 'small' ? 'vertical flip' : 'fly up'
 
             var dimmer = angular.element(element).dimmer({
                 opacity: 0.4,
