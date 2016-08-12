@@ -1,8 +1,8 @@
 <div class="index">
     <div class="index-header ">
        <div class="date">
-           <span class="day">07</span>
-           <span class="month">Aug.</span>
+           <span class="day">{{DAY}}</span>
+           <span class="month">{{MONTH}}</span>
        </div>
 
         <div class="slogan">
@@ -10,10 +10,12 @@
             <span>爱车没有洗干净之前，一切总看似不可能。</span>
         </div>
 
+        <!--
         <div class="tools">
             <a href="#"><i class="icon alarm outline"></i></a>
             <a href="#"><i class="icon ellipsis horizontal"></i></a>
         </div>
+        -->
     </div>
 
     <div class="index-service">
@@ -29,10 +31,10 @@
         <div class="item" ng-click="toggleSelectCar()">
             <div class="name">
                 <i class="icon car"></i>
-                <span>{{current.car.pn}}</span>
+                <span> {{reservationCar.pn}}</span>
             </div>
             <span class="sub">
-                <span>{{current.car.model}}</span>
+                <span>{{reservationCar.model}}</span>
             </span>
         </div>
 
@@ -67,7 +69,7 @@
 
     </div>
 
-    <div class="index-start">
+    <div class="index-start" ng-click="toggleSubmit()">
         <button class="ui green button big fluid">
             一键预约
         </button>
@@ -81,14 +83,14 @@
             <div class="floating ui red label">2</div>
         </div>
 
-        <div class="item">
-            <i class="icon car"></i>
-            <span class="name">默认车辆</span>
-        </div>
+        <a class="item" href="#!/defaultSetting">
+            <i class="icon setting"></i>
+            <span class="name">默认设置</span>
+        </a>
 
         <div class="item">
-            <i class="icon building outline"></i>
-            <span class="name">默认店面</span>
+            <i class="icon file text outline"></i>
+            <span class="name">我的订单</span>
         </div>
 
     </div>
@@ -103,21 +105,21 @@
     </div>
     <div class="description">
         <div class="ui header">李鹏飞先生：</div>
-        <p>您的爱车皖APF630预约了以下服务，请确认</p>
+        <p>您的爱车 {{current.car.pn}} 预约了以下服务，请确认</p>
 
         <div class="ui list">
             <div class="item">
                 <i class="icon time"></i>
-                <div class="content">今天下午15点</div>
+                <div class="content">{{current.time.label}}</div>
             </div>
             <div class="item">
                 <i class="icon building"></i>
-                <div class="content">速途驰加中铁国际城店</div>
+                <div class="content">{{current.shop.name}}</div>
             </div>
             <div class="item">
                 <i class="icon user"></i>
                 <div class="content">
-                    轿车普洗 服务，预计费用 15元
+                    {{current.shop.service}} 服务，预计费用 {{current.shop.price}}元
                 </div>
             </div>
         </div>
@@ -128,9 +130,6 @@
         </button>
         <button class="ui green button fluid" >
             确认
-        </button>
-        <button class="ui blue button fluid">
-            确认并导航至门店
         </button>
     </div>
 
@@ -146,7 +145,7 @@
             <div class="item car {{activeCarCls(car)}}" ng-repeat="car in cars" ng-click="selectCar(car)">
                 <div class="pn">{{car.pn}}</div>
                 <div class="model">{{car.model}}</div>
-                <i class="icon checkmark"></i>
+                <i class="icon check mark"></i>
             </div>
         </div>
     </div>

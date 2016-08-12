@@ -28,9 +28,12 @@ a{
     background: #1ab392;
 }
 
-.ui.green.button:active {
+.ui.green.button:active,
+.ui.green.button:focus{
     background: #16896f;
 }
+
+
 
 
 .dimmer > .content{
@@ -138,3 +141,43 @@ a{
 .coo-loader.ui.dimmer > .loader:after{
     margin:20px 0em 0em -1.14285714rem
 }
+
+
+.page-header {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background: #1aa586;
+    padding: 24px 12px;
+    text-align: right;
+    margin-bottom: 16px;
+}
+
+.page-header > .tools {
+    position: absolute;
+    left: 0;
+    top: 24px;
+}
+
+.page-header > .tools >  a,
+.page-header > .tools > a > .icon {
+    font-size: 48px;
+    line-height: 48px;
+    color: #fff;
+}
+
+
+.page-header > .title{
+    display: block;
+    padding-bottom: 8px;
+    font-size: 32px;
+    line-height: 32px;
+    color: #fff;
+}
+
+.page-header > .sub{
+    font-size: 14px;
+    color: #fff;
+}
+

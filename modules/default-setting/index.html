@@ -1,0 +1,42 @@
+<div class="default-setting">
+    <div class="page-header">
+        <div class="tools">
+            <a href="#!/index">
+                <i class="icon angle arrow left"></i>
+            </a>
+        </div>
+        <div class="title">
+            默认设置
+        </div>
+        <div class="sub">
+            设置默认车辆和门店
+        </div>
+    </div>
+
+    <div class="ui label orange small">
+        默认车辆
+    </div>
+
+    <div class="ui list selector">
+        <div class="item {{car.default?'selected':''}}" ng-repeat="car in cars">
+            <div class="name">{{car.name}}</div>
+            <div class="sub">{{car.sub}}</div>
+            <i class="icon check mark"></i>
+        </div>
+    </div>
+
+    <div class="ui label orange small">
+        默认门店
+    </div>
+
+    <div class="ui list selector">
+        <div class="item {{shop.default?'selected':''}}" ng-repeat="shop in shops">
+            <div class="name">{{shop.name}}</div>
+            <div class="sub">{{shop.sub}}</div>
+            <i class="icon check mark"></i>
+        </div>
+    </div>
+
+
+</div>
+

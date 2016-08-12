@@ -2,28 +2,28 @@
 
 angular.module('coo.modules.index',[
     'ngRoute',
+    'coo.services.global',
     'coo.components.modal'
 ])
 
-.config(['$routeProvider',function ($routeProvider) {
-    $routeProvider.when('/index', {
-        templateUrl: 'modules/index/index.html',
-        controller: 'indexCtrl'
-    })
+.controller('indexCtrl',['$rootScope','$scope','cooGlobal',function ($rootScope,$scope,cooGlobal) {
 
-}])
+    $scope.DAY = new Date().getDate()
+    $scope.DAY = $scope.DAY < 10 ? ('0'+$scope.DAY) : $scope.DAY
 
-.controller('indexCtrl',['$scope',function ($scope) {
+    $scope.MONTH = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][new Date().getMonth()]+'.'
+
+
     $scope.Date = function (date) {
         return new Date(date)
     }
     $scope.FormatTimeLabel = function (label) {
-        return label.replace('今天','').replace('点','')
+        return label.replace('今天', '').replace('点', '')
     }
 
     //当前选项
     $scope.current = {
-        service:null,
+        service: null,
         car: null,
         time: null,
         shop: null
@@ -62,7 +62,10 @@ angular.module('coo.modules.index',[
         {id:'1',pn:'皖APF630',model:'大众迈腾'},
         {id:'2',pn:'皖APF631',model:'布加迪威龙'}
     ]
-    $scope.current.car = $scope.cars[0]
+
+    if($rootScope.reservationCar == null)
+        $rootScope.reservationCar = $scope.cars[0]
+
 
     $scope.isShowSelectCar = false
 
@@ -71,14 +74,15 @@ angular.module('coo.modules.index',[
     }
 
     $scope.selectCar = function (car) {
-        if (car.id != $scope.current.car.id) {
-            $scope.current.car = car
+        if (car.id != $rootScope.reservationCar.id) {
+            $rootScope.reservationCar = car
             $scope.isShowSelectCar = false
         }
     }
 
+
     $scope.activeCarCls = function (car) {
-        return ($scope.current.car != null && $scope.current.car.id == car.id) ? "active" : ""
+        return ($rootScope.reservationCar != null && $rootScope.reservationCar.id == car.id) ? "active" : ""
     }
 
     //选择时间
