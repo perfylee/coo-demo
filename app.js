@@ -2,7 +2,7 @@
 
 angular.module('coo',[
     'ngRoute',
-    'coo.services.global',
+    'coo.global',
     'coo.components.modal',
     'coo.modules.index',
     'coo.modules.default-setting'
@@ -20,6 +20,9 @@ angular.module('coo',[
         .when('/defaultSetting', {
             templateUrl: 'modules/default-setting/index.html',
             controller: 'defaultSettingCtrl'
+        })
+        .when('/test',{
+            templateUrl: 'testData/customerAndCarsInfo.json',
         })
         .otherwise({redirectTo: '/index'})
 

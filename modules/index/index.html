@@ -1,13 +1,13 @@
 <div class="index">
     <div class="index-header ">
        <div class="date">
-           <span class="day">{{DAY}}</span>
-           <span class="month">{{MONTH}}</span>
+           <span class="day">{{top.day}}</span>
+           <span class="month">{{top.month}}.</span>
        </div>
 
         <div class="slogan">
-            <i class="icon certificate"></i>
-            <span>爱车没有洗干净之前，一切总看似不可能。</span>
+            <!--<i class="icon certificate"></i>-->
+            <span>{{top.slogan}}</span>
         </div>
 
         <!--
@@ -19,22 +19,22 @@
     </div>
 
     <div class="index-service">
-        <div class="item item{{service.sort}}" ng-repeat="service in services" ng-click="selectService(service)">
-            <span class="name">{{service.name}}</span>
-            <span class="sub">{{service.en}}</span>
+        <div class="item item{{item.sort}}" ng-repeat="item in category.items" ng-click="category.select(item)">
+            <span class="name">{{item.name}}</span>
+            <span class="sub">{{item.en}}</span>
         </div>
 
     </div>
 
     <div class="index-main">
 
-        <div class="item" ng-click="toggleSelectCar()">
+        <div class="item" ng-click="car.modalVisible = true">
             <div class="name">
                 <i class="icon car"></i>
-                <span> {{reservationCar.pn}}</span>
+                <span> {{appointment.car.CarNum}}</span>
             </div>
             <span class="sub">
-                <span>{{reservationCar.model}}</span>
+                <span>{{appointment.car.CarBrand}} {{appointment.car.CarModel}}</span>
             </span>
         </div>
 
@@ -135,16 +135,16 @@
 
 </coo-modal>
 
-<coo-modal size="large" show="isShowSelectCar">
+<coo-modal size="large" show="car.modalVisible">
     <i class="icon close"></i>
     <div class="title">
         <i class="icon car"></i> 选择车辆
     </div>
     <div class="description">
         <div class="ui list car-selector">
-            <div class="item car {{activeCarCls(car)}}" ng-repeat="car in cars" ng-click="selectCar(car)">
-                <div class="pn">{{car.pn}}</div>
-                <div class="model">{{car.model}}</div>
+            <div class="item car " ng-repeat="item in car.items" ng-click="car.select(item)">
+                <div class="pn">{{item.CarNum}}</div>
+                <div class="model">{{item.CarBrand}} {{item.CarModel}}</div>
                 <i class="icon check mark"></i>
             </div>
         </div>
@@ -152,7 +152,7 @@
 
 </coo-modal>
 
-<coo-modal size="large" show="isShowSelectTime">
+<coo-modal size="large" show="time.modalVisible">
     <i class="icon close"></i>
     <div class="title">
         <i class="icon time"></i> 选择时间
@@ -172,7 +172,7 @@
 
 </coo-modal>
 
-<coo-modal size="large" show="isShowSelectShop">
+<coo-modal size="large" show="shop.modalVisible">
     <i class="icon close"></i>
     <div class="title">
         <i class="icon building outline"></i> 选择门店
