@@ -4,7 +4,10 @@ angular.module('coo',[
     'ngRoute',
     'coo.global',
     'coo.components.modal',
+    'coo.components.loader',
+
     'coo.modules.index',
+    'coo.modules.index.complete',
     'coo.modules.default-setting'
 ])
 
@@ -17,12 +20,13 @@ angular.module('coo',[
             templateUrl: 'modules/index/index.html',
             controller: 'indexCtrl'
         })
-        .when('/defaultSetting', {
+        .when('/index/setting', {
             templateUrl: 'modules/default-setting/index.html',
             controller: 'defaultSettingCtrl'
         })
-        .when('/test',{
-            templateUrl: 'testData/customerAndCarsInfo.json',
+        .when('/index/complete', {
+            templateUrl: 'modules/index/complete.html',
+            controller: 'completeCtrl'
         })
         .otherwise({redirectTo: '/index'})
 

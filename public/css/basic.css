@@ -130,18 +130,36 @@ a{
     background: rgba(0,0,0,0);
 }
 
-.coo-loader.ui.dimmer > .loader{
-    padding:70px 20px 20px 20px;
+.coo-loader.ui.dimmer > .ui.loader{
+
     background: rgba(0,0,0,.6);
     border-radius: 10px;
     color: #fff;
+    width:90px;
+    height: 90px;
 }
 
-.coo-loader.ui.dimmer > .loader:before,
-.coo-loader.ui.dimmer > .loader:after{
-    margin:20px 0em 0em -1.14285714rem
+.coo-loader.ui.dimmer > .ui.loader:before,
+.coo-loader.ui.dimmer > .ui.loader:after{
+    top:21px;
+    -webkit-animation: loader 0.8s linear;
+    animation : loader 0.8s linear;
+    animation-iteration-count:infinite;
+    -webkit-animation-iteration-count:infinite;
 }
 
+.page-with-title {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    padding: 124px 16px 32px 16px;
+    background: #fcfcfc;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
 .page-header {
     position:fixed;

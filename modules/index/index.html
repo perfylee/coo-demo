@@ -31,45 +31,45 @@
         <div class="item" ng-click="car.modalVisible = true">
             <div class="name">
                 <i class="icon car"></i>
-                <span> {{appointment.car.CarNum}}</span>
+                <span> {{appointment.car.CarNum || '-'}}</span>
             </div>
             <span class="sub">
-                <span>{{appointment.car.CarBrand}} {{appointment.car.CarModel}}</span>
+                <span>{{appointment.car.CarBrand || '-'}} {{appointment.car.CarModel }}</span>
             </span>
         </div>
 
-        <div class="item" ng-click="toggleSelectShop()">
+        <div class="item" ng-click="store.modalVisible = true">
             <div class="name">
                 <i class="icon building"></i>
                 <span>
-                    {{current.shop.name}}
-                    <div class="floating ui {{current.shop.category == '最常去'?'orange':'green'}} label" ng-if="current.shop!=null && current.shop.category!=null && current.shop.category!=''">{{current.shop.category}}</div>
+                    {{appointment.store.StoreName || '-'}}
+                    <div class="floating ui label small {{appointment.store.Tag == '最常去'?'orange':'green'}}" ng-if="appointment.store!=null && appointment.store.Tag!=null && appointment.store.Tag!=''">{{appointment.store.Tag}}</div>
                 </span>
             </div>
             <div class="sub">
-                <span>{{current.shop.address}}</span>
+                <span>{{appointment.store.StoreAddress || '-'}}</span>
             </div>
-            <div class="sub">
-                <span class="orange">{{current.shop.service}} 费用 {{current.shop.price}}元</span>
+            <div class="sub orange">
+                <span>{{appointment.service.name || '-'}} 费用 {{appointment.service.price || '-'}}</span>
             </div>
         </div>
 
-        <div class="item" ng-click="toggleSelectTime()">
+        <div class="item" ng-click="time.modalVisible = true">
             <div class="name">
                 <i class="icon time"></i>
-                <span>  {{current.time.label}}</span>
+                <span>  {{appointment.time.AccurateStartTime | shortTime}}</span>
             </div>
             <div class="sub times">
 
-                <span  class="{{time.id == current.time.id?'selected':''}}" ng-click="selectTimeQuick(time,$event)" ng-repeat="time in times_quick ">
-                    {{FormatTimeLabel(time.label)}}
+                <span  class="{{appointment.time.AccurateStartTime == item.AccurateStartTime ?'selected':''}}" ng-click="time.quickSelect(item,$event)" ng-repeat="item in time.quickItems ">
+                    {{ item.AccurateStartTime | shortTime:1}}
                 </span>
             </div>
         </div>
 
     </div>
 
-    <div class="index-start" ng-click="toggleSubmit()">
+    <div class="index-start" ng-click="appointment.submitVisible = true">
         <button class="ui green button big fluid">
             一键预约
         </button>
@@ -77,13 +77,13 @@
 
     <div class="index-footer">
 
-        <div class="item">
+        <div class="item" ng-click="appointment.test()">
             <i class="icon empty heart"></i>
             <span class="name">优惠活动</span>
-            <div class="floating ui red label">2</div>
+            <div class="floating ui red label small">2</div>
         </div>
 
-        <a class="item" href="#!/defaultSetting">
+        <a class="item" href="#!/index/setting">
             <i class="icon setting"></i>
             <span class="name">默认设置</span>
         </a>
@@ -95,40 +95,42 @@
 
     </div>
 
+    <coo-loader show="loaderVisible"></coo-loader>
+
 </div>
 
 
-<coo-modal size="small" show="isShowSubmit">
+<coo-modal size="small" show="appointment.submitVisible">
     <i class="icon close"></i>
     <div class="title">
         <i class="icon add to cart"></i> 预约订单确认
     </div>
     <div class="description">
-        <div class="ui header">李鹏飞先生：</div>
-        <p>您的爱车 {{current.car.pn}} 预约了以下服务，请确认</p>
+        <div class="ui header">{{user.CustomerName}} {{user.Sex}}：</div>
+        <p>您的爱车 {{appointment.car.CarNum}} 预约了以下服务，请确认</p>
 
         <div class="ui list">
             <div class="item">
                 <i class="icon time"></i>
-                <div class="content">{{current.time.label}}</div>
+                <div class="content">{{appointment.time.AccurateStartTime | shortTime}}</div>
             </div>
             <div class="item">
                 <i class="icon building"></i>
-                <div class="content">{{current.shop.name}}</div>
+                <div class="content">{{appointment.store.StoreName || '-'}}</div>
             </div>
             <div class="item">
                 <i class="icon user"></i>
                 <div class="content">
-                    {{current.shop.service}} 服务，预计费用 {{current.shop.price}}元
+                    {{appointment.service.name}} 服务，预计费用 {{appointment.service.price || '-'}} 元
                 </div>
             </div>
         </div>
     </div>
     <div class="buttons">
-        <button class="ui button fluid close" ng-click="toggleSubmit()">
+        <button class="ui button fluid close" ng-click="appointment.submitVisible = false">
             容我三思
         </button>
-        <button class="ui green button fluid" >
+        <button class="ui green button fluid"  ng-click="appointment.submit()">
             确认
         </button>
     </div>
@@ -142,7 +144,7 @@
     </div>
     <div class="description">
         <div class="ui list car-selector">
-            <div class="item car " ng-repeat="item in car.items" ng-click="car.select(item)">
+            <div class="item car {{item.CarGuid == appointment.car.CarGuid?'selected':''}}" ng-repeat="item in car.items" ng-click="car.select(item)">
                 <div class="pn">{{item.CarNum}}</div>
                 <div class="model">{{item.CarBrand}} {{item.CarModel}}</div>
                 <i class="icon check mark"></i>
@@ -159,11 +161,11 @@
     </div>
     <div class="description">
         <div class="ui list time-selector">
-            <div class="item" ng-repeat="(index,timesOfDay) in times">
-                <div class="ui mini orange label title">{{index == 0 ?'今天':(index == 1 ?'明天':'后天')}}</div>
+            <div class="item" ng-if="time.items[index].length > 0" ng-repeat="(index,dayItems) in time.items">
+                <div class="ui {{['green','blue','orange'][index]}} label title">{{['今天','明天','后天'][index]}}</div>
                 <div class="times">
-                    <span ng-repeat="time in timesOfDay" class="{{selectTimeCls(time)}}" ng-click="selectTime(time)">
-                        {{Date(time.time) | date:'HH:mm'}}
+                    <span ng-repeat="item in time.items[index]" class="{{item.IsUsed != 0?'used':(item.AccurateStartTime == appointment.time.AccurateStartTime?'selected':'')}}" ng-click="time.select(item)">
+                        {{ item.AccurateStartTime | shortTime:2}}
                     </span>
                 </div>
             </div>
@@ -172,26 +174,26 @@
 
 </coo-modal>
 
-<coo-modal size="large" show="shop.modalVisible">
+<coo-modal size="large" show="store.modalVisible">
     <i class="icon close"></i>
     <div class="title">
         <i class="icon building outline"></i> 选择门店
     </div>
+
     <div class="description">
-        <div class="ui green secondary pointing menu three item ">
-            <a class="item {{selectShopTab == 'quickView'?'active':''}}" ng-click="selectShopTab = 'quickView'">快速选择 </a>
-            <a class="item {{selectShopTab == 'favoView'?'active':''}}" ng-click="selectShopTab = 'favoView'">我的收藏</a>
-            <a class="item {{selectShopTab == 'mapView'?'active':''}}" ng-click="selectShopTab = 'mapView'">所有门店 </a>
+        <div class="ui green secondary pointing menu two item ">
+            <a class="item {{store.tabIndex == 'listView'?'active':''}}" ng-click="store.tabIndex = 'listView'">所有门店 </a>
+            <a class="item {{store.tabIndex == 'mapView'?'active':''}}" ng-click="store.tabIndex = 'mapView'">地图模式</a>
         </div>
 
-        <div  class="shop-selector" ng-show="selectShopTab == 'quickView'">
+        <div  class="shop-selector" ng-show="store.tabIndex == 'listView'">
+            <div class="shop {{item.StoreID == appointment.store.StoreID ?'selected':''}}" ng-click="store.select(item)" ng-repeat="item in store.items">
+                <img ng-src="{{item.StoreImage}}">
 
-            <div class="ui label small orange">最常去的门店</div>
+                <a class="ui left ribbon label {{item.Tag == '最常去'?'orange':'green'}}"  ng-if="item.Tag != null && item.Tag != ''">{{item.Tag}}</a>
 
-            <div class="shop {{shop.id == current.shop.id ?'current':''}}" ng-click="selectShop(shop)" ng-repeat="shop in shops_quick | filter:{category:'最常去'}">
-                <img ng-src="{{shop.img}}">
-                <div class="name">{{shop.name}}</div>
-                <div class="address">{{shop.address}}</div>
+                <div class="name">{{item.StoreName}}</div>
+                <div class="address">{{item.StoreAddress}}</div>
                 <div class="stars">
                     <i class="icon star orange"></i>
                     <i class="icon star orange"></i>
@@ -200,79 +202,28 @@
                 <div class="addition">
                     <div>
                         <i class="icon marker"></i>
-                        {{shop.distance}}
+                        {{item.Distance}}
                     </div>
                     <div>
                         <i class="icon comment"></i>
-                        {{shop.comment}}
+                        {{item.TotalComments}}
                     </div>
                     <div>
                         <i class="icon marker"></i>
-                        {{shop.sold}}
-                    </div>
-                </div>
-            </div>
-
-            <div class="ui label small green">最近的门店</div>
-
-            <div class="shop {{shop.id == current.shop.id ?'current':''}}" ng-click="selectShop(shop)" ng-repeat="shop in shops_quick | filter:{category:'最近的'}">
-                <img ng-src="{{shop.img}}">
-                <div class="name">{{shop.name}}</div>
-                <div class="address">{{shop.address}}</div>
-                <div class="stars">
-                    <i class="icon star orange"></i>
-                    <i class="icon star orange"></i>
-                    <i class="icon star orange"></i>
-                </div>
-                <div class="addition">
-                    <div>
-                        <i class="icon marker"></i>
-                        {{shop.distance}}
-                    </div>
-                    <div>
-                        <i class="icon comment"></i>
-                        {{shop.comment}}
-                    </div>
-                    <div>
-                        <i class="icon marker"></i>
-                        {{shop.sold}}
+                        {{item.StoreScale}}
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="shop-selector"  ng-show="selectShopTab == 'favoView'">
-            <div class="shop {{shop.id == current.shop.id ?'current':''}}" ng-click="selectShop(shop)" ng-repeat="shop in shops_quick">
-                <img ng-src="{{shop.img}}">
-                <div class="name">{{shop.name}}</div>
-                <div class="address">{{shop.address}}</div>
-                <div class="stars">
-                    <i class="icon star orange"></i>
-                    <i class="icon star orange"></i>
-                    <i class="icon star orange"></i>
-                </div>
-                <div class="addition">
-                    <div>
-                        <i class="icon marker"></i>
-                        {{shop.distance}}
-                    </div>
-                    <div>
-                        <i class="icon comment"></i>
-                        {{shop.comment}}
-                    </div>
-                    <div>
-                        <i class="icon marker"></i>
-                        {{shop.sold}}
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div ng-show="selectShopTab == 'mapView'">
+        <div ng-show="store.tabIndex == 'mapView'">
             地图
         </div>
 
     </div>
 
 </coo-modal>
+
+
 

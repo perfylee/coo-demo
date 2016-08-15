@@ -157,9 +157,11 @@
 }
 
 .index-main > .item > .name > span > .ui.floating.label {
+    padding: 0.3em 0.4em;
     top: -12px;
     width: 48px;
     text-align: center;
+    opacity: 0.8;
 }
 
 .index-main > .item > .sub{
@@ -177,6 +179,11 @@
 .index-main > .item > .sub.times > span.selected{
     color:#1aa586;
 }
+
+.index-main > .item > .sub.orange > span{
+    color:#f2711c;
+}
+
 
 
 .index-start {
@@ -215,14 +222,13 @@
     color: #999;
 }
 
-
 .index-footer > .item > i.icon{
     margin: 0;
 }
 
-.index .ui.floating.label {
-    top: -0.1em;
-    padding: 0.2em 0.4em;
+.index-footer > .item > .ui.floating.label {
+    top: -4px;
+    padding: 0.3em 0.4em;
     opacity: 0.9;
     font-weight: normal;
 }
@@ -257,15 +263,15 @@
     color: #1aa586;
 }
 
-.car-selector > .car.active > .pn {
+.car-selector > .car.selected > .pn {
     color: #1aa586;
 }
 
-.car-selector > .car.active > .model {
+.car-selector > .car.selected > .model {
     color: #1aa586;
 }
 
-.car-selector.ui.list > .item.car.active > i.icon{
+.car-selector.ui.list > .item.car.selected > i.icon{
     display: block;
 }
 
@@ -290,11 +296,11 @@
 }
 
 
-.time-selector > .item > .times > span.selected{
+.time-selector > .item > .times > span.used{
     color:#ccc;
 }
 
-.time-selector > .item > .times > span.current{
+.time-selector > .item > .times > span.selected{
     color:#f2711c;
     font-weight: bold;
 }
@@ -303,20 +309,7 @@
 
 /*shop selector*/
 
-.shop-selector > .label{
-    padding: 0.4em 0.8em;
-    margin:8px 0;
-    font-weight: normal;
-}
 
-.shop-selector > .label:first-child{
-    margin-top: 0;
-}
-
-.shop-selector > .label:before{
-    content: '';
-    display: block;
-}
 
 .shop-selector > .shop {
     position: relative;
@@ -344,10 +337,16 @@
     font-size:12px;
     padding-bottom: 2px;
     color: #999;
+    height:14px;
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
 }
 
 
-.shop-selector > .shop.current > .name{
+.shop-selector > .shop.selected > .name{
     font-weight:bold;
     color: #f2711c;
 }
@@ -379,6 +378,19 @@
 .shop-selector > .shop > .addition > div > .icon{
     margin-right: 0;
     font-size: 12px;
+}
+
+.shop-selector > .shop > .ui.ribbon.label{
+    position: absolute;
+    top:10px;
+    left:-7px;
+    margin-left:0;
+    padding: 4px 8px;
+    opacity: 0.9;
+}
+
+.shop-selector > .shop > .ui.ribbon.label:after{
+    border-width: 0em 0.6em 0.6em 0em
 }
 
 /** iphone 5 5s se**/

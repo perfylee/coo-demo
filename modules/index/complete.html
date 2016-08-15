@@ -1,0 +1,31 @@
+<div class="complete page-with-title">
+    <div class="page-header">
+        <div class="tools">
+            <a href="#!/index">
+                <i class="icon angle arrow left"></i>
+            </a>
+        </div>
+        <div class="title">
+            预约完成
+        </div>
+        <div class="sub">
+            您已成功预约服务
+        </div>
+    </div>
+
+    <div class="message">
+        <i class="icon check circle outline"></i>
+        <div>恭喜，您已经成功预约{{appointment.service.name}}服务！</div>
+    </div>
+
+    <div class="store">
+        <img ng-src="{{appointment.store.StoreImage}}">
+        <div class="name">{{appointment.store.StoreName}}</div>
+        <div class="address">{{appointment.store.StoreAddress}}</div>
+        <div class="time">{{appointment.time.AccurateStartTime}}</div>
+    </div>
+
+    <div class="buttons">
+        <a class="ui button fluid basic" href="#!/index">我知道了</a>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+.complete{}
+
+.complete > .message{
+    text-align: center;
+    padding:  0 0 16px 0;
+    color: #1aa586;
+
+    margin-bottom: 32px;
+}
+
+.complete > .message > .icon{
+    font-size:128px;
+    line-height: 128px;
+}
+
+.complete > .message > div{
+    font-size: 16px;
+    line-height: 32px;
+}
+
+.complete > .store{
+    position: relative;
+    display: block;
+    padding:6px 6px 6px 110px ;
+}
+
+.complete > .store > img{
+    position: absolute;
+    left: 0;
+    top:6px;
+    height: 70px;
+    width: 100px;
+    border-radius: 4px;
+}
+
+.complete > .store > .name{
+    line-height: 14px;
+    font-size:14px;
+    padding-bottom: 12px;
+    color: #333;
+}
+
+.complete > .store > .address{
+    line-height: 14px;
+    font-size:13px;
+    padding-bottom: 14px;
+    color: #666;
+
+    height:30px;
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
+}
+
+.complete > .store > .time{
+    line-height: 14px;
+    font-size:14px;
+    color: #f2711c;
+}
+
+.complete > .buttons{
+    position: absolute;
+    left: 16px;
+    bottom: 12px;
+    right: 16px;
+}

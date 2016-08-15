@@ -21,194 +21,183 @@
     },
     "StoreItem": {
       "StoreID": "0d02e05b-22fa-4dbe-ac14-4356c91bdaad",
-      "StoreName": "商城小小花园店",
-      "StoreAddress": "安徽省合肥市蜀山区黄山路601号",
+      "StoreName": "商城小小花园店轮胎1",
+      "StoreAddress": "安徽省合肥市蜀山区黄山路601号1",
       "StorePhoneNum": "13665600645",
       "StoreImage": "http://file.cheoo.net/Store/Logo/商城花园店/2016/6/20160615024235.jpg",
       "Longitude_B": 117.217446,
       "Latitude_B": 31.845962,
       "Distance": 0.01,
+      "Tag":"最常去",
       "TypeWorkPlaces": {
-        "普洗,精洗": [
+        "更换轮胎": [
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 13:00:00"
+            "AccurateStartTime": "2016-08-15 13:24:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 13:12:00"
+            "AccurateStartTime": "2016-08-15 13:36:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 13:24:00"
+            "AccurateStartTime": "2016-08-15 13:48:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 13:36:00"
+            "AccurateStartTime": "2016-08-15 14:00:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 13:48:00"
+            "AccurateStartTime": "2016-08-15 14:12:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 14:00:00"
+            "AccurateStartTime": "2016-08-15 14:24:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 14:12:00"
+            "AccurateStartTime": "2016-08-15 14:36:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 14:24:00"
+            "AccurateStartTime": "2016-08-15 14:48:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 14:36:00"
+            "AccurateStartTime": "2016-08-15 15:00:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 14:48:00"
+            "AccurateStartTime": "2016-08-15 15:12:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 15:00:00"
+            "AccurateStartTime": "2016-08-15 15:24:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 15:12:00"
+            "AccurateStartTime": "2016-08-15 15:36:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 15:24:00"
+            "AccurateStartTime": "2016-08-15 15:48:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 15:36:00"
+            "AccurateStartTime": "2016-08-15 16:00:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 15:48:00"
+            "AccurateStartTime": "2016-08-15 16:12:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 16:00:00"
+            "AccurateStartTime": "2016-08-15 16:24:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 16:12:00"
+            "AccurateStartTime": "2016-08-15 16:36:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 16:24:00"
+            "AccurateStartTime": "2016-08-15 16:48:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 16:36:00"
+            "AccurateStartTime": "2016-08-15 17:00:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 16:48:00"
+            "AccurateStartTime": "2016-08-15 17:12:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 17:00:00"
+            "AccurateStartTime": "2016-08-15 17:24:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 17:12:00"
+            "AccurateStartTime": "2016-08-15 17:36:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 17:24:00"
+            "AccurateStartTime": "2016-08-15 17:48:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 17:36:00"
+            "AccurateStartTime": "2016-08-15 18:00:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 17:48:00"
+            "AccurateStartTime": "2016-08-15 18:12:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 18:00:00"
+            "AccurateStartTime": "2016-08-15 18:24:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 18:12:00"
+            "AccurateStartTime": "2016-08-15 18:36:00"
           },
           {
             "IsUsed": 0,
             "AppointmentID": null,
             "CarNum": null,
-            "AccurateStartTime": "2016-08-14 18:24:00"
-          },
-          {
-            "IsUsed": 0,
-            "AppointmentID": null,
-            "CarNum": null,
-            "AccurateStartTime": "2016-08-14 18:36:00"
-          },
-          {
-            "IsUsed": 0,
-            "AppointmentID": null,
-            "CarNum": null,
-            "AccurateStartTime": "2016-08-14 18:48:00"
+            "AccurateStartTime": "2016-08-15 18:48:00"
           }
         ]
       }
