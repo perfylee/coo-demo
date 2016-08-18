@@ -1,0 +1,184 @@
+.store{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background: #fcfcfc;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding:256px 16px 32px 16px;
+}
+
+.store > .header{
+    position: fixed;
+    top: 0;
+    left:0;
+    right:0;
+    width: 100%;
+    height:240px;
+
+    z-index: 1000;
+}
+
+.store > .header > i.icon{
+    position: fixed;
+    top:16px;
+    left:0px;
+    margin-left: 0;
+    font-size: 48px;
+    line-height: 48px;
+    color: #fff;
+}
+
+.store > .header > img{
+    width:100%;
+    height:240px;
+}
+
+.store > .header > .info{
+    position: absolute;
+    bottom: 0;
+    left:0;
+    right: 0;
+    height: 80px;
+    background: rgba(0,0,0,.5);
+    padding: 8px 108px 8px 8px;
+}
+
+.store > .header > .info > .name{
+    color: #fff;
+    line-height: 24px;
+    font-size: 18px;
+}
+
+.store > .header > .info > .address{
+    color: #f0f0f0;
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.store > .header > .info > .stars{
+    color: #fff;
+    line-height: 16px;
+}
+
+.store > .header > .info > .tools {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+}
+
+.store > .header > .info > .tools > a > .icon{
+    line-height: 80px;
+    font-size: 42px;
+    background: #000;
+    color: #fff;
+    display: inline-block;
+    height: 80px;
+    width:54px;
+    margin:0;
+    float: left;
+}
+
+.store > .header > .info > .tools > a > .icon.phone{
+    background: #fe7373;
+}
+
+.store > .header > .info > .tools > a > .icon.marker{
+    background: #1aa586;
+}
+
+.store > .services > .time{
+    display: block;
+    padding-bottom: 12px;
+    color: #999;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.store > .services > .time .icon{
+    font-size: 16px;
+}
+
+
+.store > .services > .service{
+    display: block;
+    position: relative;
+    margin:16px 0 0 0;
+
+    padding: 12px 46px 12px 36px;
+    border-radius: 4px;
+
+    background: #1bb190;
+
+}
+
+.store > .services > .service > .ooo,
+.store > .services > .service > .ooo:after,
+.store > .services > .service > .ooo:before{
+    display: block;
+    position: absolute;
+    left:8px;
+    top:11px;
+
+    height: 14px;
+    width: 14px;
+    border-radius: 7px;
+    background: #fff;
+    border:1px solid #f0f0f0;
+
+    box-shadow: inset -1px -1px 2px -1px rgba(0,0,0,.1);
+}
+
+.store > .services > .service > .ooo:before,
+.store > .services > .service > .ooo:after{
+    top:20px;
+    left:-1px;
+    content:''
+}
+.store > .services > .service > .ooo:after{
+    top:42px;
+}
+
+.store > .services > .service > .name{
+    font-size: 18px;
+    line-height: 24px;
+    display: block;
+    margin-bottom: 8px;
+    color:#fff;
+}
+
+.store > .services > .service > .prices{
+    line-height: 24px;
+    color: #fcfcfc;
+}
+
+.store > .services > .service > .icon{
+    position: absolute;
+    display: inline-block;
+    right:0px;
+    top:0px;
+    line-height: 68px;
+    font-size: 32px;
+    height: 68px;
+    width:46px;
+    color: #f0f0f0;
+    margin-right:0px;
+
+}
+
+
+@media screen and (max-width: 320px){
+    .store{
+        padding:216px 16px 16px 16px;
+    }
+    .store > .header,
+    .store > .header > img{
+        height:200px;
+    }
+}
+

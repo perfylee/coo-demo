@@ -161,6 +161,20 @@ a{
     overflow-x: hidden;
 }
 
+.page-with-title-and-tabs {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    padding: 174px 16px 32px 16px;
+    background: #fcfcfc;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
 .page-header {
     position:fixed;
     top:0;
@@ -170,6 +184,9 @@ a{
     padding: 24px 12px;
     text-align: right;
     margin-bottom: 16px;
+
+    z-index: 999;
+
 }
 
 .page-header > .tools {
@@ -184,8 +201,6 @@ a{
     line-height: 48px;
     color: #fff;
 }
-
-
 .page-header > .title{
     display: block;
     padding-bottom: 8px;
@@ -193,9 +208,42 @@ a{
     line-height: 32px;
     color: #fff;
 }
-
 .page-header > .sub{
     font-size: 14px;
     color: #fff;
+}
+
+
+.page-tabs{
+    position: fixed;
+    top: 107px;
+    left:0px;
+    right: 0px;
+    width:100%;
+    padding: 12px 12px;
+    background: #fcfcfc;
+    z-index: 999;
+}
+
+
+.prices{
+    display:inline-block;
+    color:#f2711c;
+}
+.prices > .price{
+    display: inline-block;
+    margin-right:12px;
+}
+.prices > .price:last-child{
+    margin-right:0;
+}
+.prices > .price > .delete {
+    color: #ccc;
+    margin-right: 2px;
+}
+
+.ratings > i.icon{
+    color:#f2711c;
+    margin-right:0;
 }
 

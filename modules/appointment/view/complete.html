@@ -1,7 +1,7 @@
 <div class="complete page-with-title">
     <div class="page-header">
         <div class="tools">
-            <a href="#!/index">
+            <a ng-click="path('/appointment')">
                 <i class="icon angle arrow left"></i>
             </a>
         </div>
@@ -15,17 +15,17 @@
 
     <div class="message">
         <i class="icon check circle outline"></i>
-        <div>恭喜，您已经成功预约{{appointment.service.name}}服务！</div>
+        <div>恭喜，您已经成功预约{{service.name}}服务！</div>
     </div>
 
     <div class="store">
-        <img ng-src="{{appointment.store.StoreImage}}">
-        <div class="name">{{appointment.store.StoreName}}</div>
-        <div class="address">{{appointment.store.StoreAddress}}</div>
-        <div class="time">{{appointment.time.AccurateStartTime}}</div>
+        <img ng-src="{{store.StoreImage}}">
+        <div class="name">{{store.StoreName}}</div>
+        <div class="address">{{store.StoreAddress}}</div>
+        <div class="time">{{time.AccurateStartTime}}</div>
     </div>
 
     <div class="buttons">
-        <a class="ui button fluid basic" href="#!/index">我知道了</a>
+        <a class="ui button fluid basic" ng-click="path('/appointment')">我知道了</a>
     </div>
 </div>

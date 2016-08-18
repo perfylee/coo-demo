@@ -41,16 +41,17 @@
         <div class="item" ng-click="store.modalVisible = true">
             <div class="name">
                 <i class="icon building"></i>
-                <span>
+                <span ng-click="store.open(appointment.store.StoreID,$event)">
                     {{appointment.store.StoreName || '-'}}
-                    <div class="floating ui label small {{appointment.store.Tag == '最常去'?'orange':'green'}}" ng-if="appointment.store!=null && appointment.store.Tag!=null && appointment.store.Tag!=''">{{appointment.store.Tag}}</div>
+                    <div class="floating ui label small {{{'最近':'green','常去':'orange'}[appointment.store.Tag]}}" ng-if="appointment.store!=null && appointment.store.Tag!=null && appointment.store.Tag!=''">{{appointment.store.Tag}}</div>
                 </span>
             </div>
             <div class="sub">
                 <span>{{appointment.store.StoreAddress || '-'}}</span>
             </div>
             <div class="sub orange">
-                <span>{{appointment.service.name || '-'}} 费用 {{appointment.service.price || '-'}}</span>
+                <span>{{appointment.service.ServiceType || '-'}} </span>
+                <coo-price value="{{appointment.service.Price}}"></coo-price>
             </div>
         </div>
 
@@ -77,18 +78,18 @@
 
     <div class="index-footer">
 
-        <div class="item" ng-click="appointment.test()">
-            <i class="icon empty heart"></i>
-            <span class="name">优惠活动</span>
-            <div class="floating ui red label small">2</div>
-        </div>
+        <!--<div class="item" ng-click="">-->
+            <!--<i class="icon empty heart"></i>-->
+            <!--<span class="name">优惠活动</span>-->
+            <!--<div class="floating ui red label small">2</div>-->
+        <!--</div>-->
 
-        <a class="item" href="#!/index/setting">
+        <div class="item" ng-click="path('/appointment/preference/')">
             <i class="icon setting"></i>
             <span class="name">默认设置</span>
-        </a>
+        </div>
 
-        <div class="item">
+        <div class="item"  ng-click="path('/appointment/orders/')">
             <i class="icon file text outline"></i>
             <span class="name">我的订单</span>
         </div>
@@ -121,7 +122,7 @@
             <div class="item">
                 <i class="icon user"></i>
                 <div class="content">
-                    {{appointment.service.name}} 服务，预计费用 {{appointment.service.price || '-'}} 元
+                    {{appointment.service.ServiceType}} 服务<br/>费用 <coo-price value="{{appointment.service.Price}}"></coo-price>  元
                 </div>
             </div>
         </div>
@@ -186,23 +187,19 @@
             <a class="item {{store.tabIndex == 'mapView'?'active':''}}" ng-click="store.tabIndex = 'mapView'">地图模式</a>
         </div>
 
-        <div  class="shop-selector" ng-show="store.tabIndex == 'listView'">
+        <div class="shop-selector" ng-show="store.tabIndex == 'listView'">
             <div class="shop {{item.StoreID == appointment.store.StoreID ?'selected':''}}" ng-click="store.select(item)" ng-repeat="item in store.items">
-                <img ng-src="{{item.StoreImage}}">
+                <img ng-src="{{item.StoreImage}}" title="门店照片">
 
-                <a class="ui left ribbon label {{item.Tag == '最常去'?'orange':'green'}}"  ng-if="item.Tag != null && item.Tag != ''">{{item.Tag}}</a>
+                <a class="ui left ribbon label {{{'最近':'green','常去':'orange'}[item.Tag]}}"  ng-if="item.Tag != null && item.Tag != ''">{{item.Tag}}</a>
 
                 <div class="name">{{item.StoreName}}</div>
                 <div class="address">{{item.StoreAddress}}</div>
-                <div class="stars">
-                    <i class="icon star orange"></i>
-                    <i class="icon star orange"></i>
-                    <i class="icon star orange"></i>
-                </div>
+                <coo-rating value="{{item.Rating}}"></coo-rating>
                 <div class="addition">
                     <div>
                         <i class="icon marker"></i>
-                        {{item.Distance}}
+                        {{item.Distance < 1 ? (item.Distance * 1000 +'m') : (item.Distance +'km')}}
                     </div>
                     <div>
                         <i class="icon comment"></i>
@@ -216,9 +213,43 @@
             </div>
         </div>
 
+        <div class="map-selector" ng-show="store.tabIndex == 'mapView'">
+            <div class="map" id="map">
 
-        <div ng-show="store.tabIndex == 'mapView'">
-            地图
+            </div>
+            <div class="shops">
+                <div class="shop" ng-click="store.select(store.mapStore)">
+                    <img ng-src="{{store.mapStore.StoreImage}}" title="门店照片">
+                    <div class="name">{{store.mapStore.StoreName}}</div>
+                    <div class="address">{{store.mapStore.StoreAddress}}</div>
+                    <coo-rating value="{{store.mapStore.Rating}}"></coo-rating>
+                    <div class="addition">
+                        <div>
+                            <i class="icon marker"></i>
+                            {{store.mapStore.Distance < 1 ? (store.mapStore.Distance * 1000 +'m') : (store.mapStore.Distance +'km')}}
+                        </div>
+                        <div>
+                            <i class="icon comment"></i>
+                            {{store.mapStore.TotalComments}}
+                        </div>
+                        <div>
+                            <i class="icon marker"></i>
+                            {{store.mapStore.StoreScale}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shop-change" ng-click="store.mapStoreChange(-1,$event)" ng-if="store.mapStoreIndex >0">
+                    <i class="icon angle arrow left"></i>
+                </div>
+                <div class="shop-change right" ng-click="store.mapStoreChange(1,$event)"  ng-if="store.mapStoreIndex < store.items.length -1">
+                    <i class="icon angle arrow right"></i>
+                </div>
+
+                <div class="shop-index">
+                    {{store.mapStoreIndex + 1}}/{{store.items.length}}
+                </div>
+            </div>
         </div>
 
     </div>

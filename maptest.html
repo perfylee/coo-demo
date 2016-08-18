@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="http://api.map.baidu.com/api?v=2.0&ak=TLebOUAMLbNgLCz0HZMuVfNA"></script>
+</head>
+<body>
+    <div style="height:400px;width:800px;" id="map"></div>
+    <script>
+        var map = new BMap.Map("map", { enableMapClick: false });
+        var point = new BMap.Point(116.404, 39.915);  // 创建点坐标
+        map.centerAndZoom(point, 15);
+    </script>
+</body>
+</html>

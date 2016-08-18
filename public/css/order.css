@@ -1,0 +1,81 @@
+.orders {
+
+}
+
+.orders .noOrders{
+    text-align: center;
+    padding: 30px;
+}
+
+.orders .order-list {
+    padding: 8px 0;
+    margin-left:20px;
+    border-left: 1px dotted #ccc;
+}
+
+.orders  .orderDetail{
+    position: relative;
+    padding:28px 6px 6px 6px ;
+    border:1px solid #f0f0f0;
+    background: #fff;
+
+    margin:32px 0px 12px -20px;
+}
+
+.orders  .orderDetail:first-child{
+    margin-top:22px;
+}
+
+.orders  .orderDetail > img{
+    position: absolute;
+    right: 6px;
+    top:6px;
+    width:110px;
+    height: 74px;
+}
+
+.orders  .orderDetail > .appointment {
+    line-height: 14px;
+    font-size: 14px;
+    padding-bottom: 4px;
+    color: #333;
+
+}
+
+.orders  .orderDetail > .carNum{
+    line-height: 12px;
+    font-size:12px;
+    padding-bottom: 8px;
+    color: #999;
+}
+
+.orders  .orderDetail > .storeName{
+
+    line-height: 12px;
+    font-size:12px;
+    padding-bottom: 2px;
+    color: #f2711c;
+    height:14px;
+}
+
+.orders  .orderDetail > .date {
+    position: absolute;
+    left: 0px;
+    top: -23px;
+    font-size:12px;
+
+    background: #fcfcfc;
+}
+
+.orders  .orderDetail > .status{
+    position: absolute;
+    top:4px;
+    left:-7px;
+    margin-left:0;
+    padding: 4px 8px;
+    opacity: 0.9;
+}
+
+.orders  .orderDetail > .status:after{
+    border-width: 0em 0.6em 0.6em 0em
+}

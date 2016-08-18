@@ -9,17 +9,27 @@ angular.module('coo.global',[
     api: {
         dev: {
             path: '/testData/',
-            defaultAppointment: 'defaultAppointment_:AppointmentType.json',
-            customerAndCarsInfo: 'customerAndCarsInfo.json',
-            stores: 'stores_:AppointmentType.json',
-            appointment: 'appointment.json'
+            appointment_save: 'appointment_save.json',
+            appointment_default: 'appointment_default_:AppointmentType.json',
+            preference_query:'preference.json',
+            preference_save:'preference_save.json',
+            user_query: 'user.json',
+            stores_query: 'stores_:AppointmentType.json',
+            store_query:'store.json',
+            orders_query:'orders.json',
+            order_query:'order.json'
         },
         pub: {
             path: 'http://localhost:3000/',
-            defaultAppointment: 'wx/GetDefaultAppointment',
-            customerAndCarsInfo: 'Customer/GetCustomerAndCarsInfo',
-            stores: 'Customer/GetStoreListByToken/GetDefaultAppointment',
-            appointment: 'Appointment/Appointment'
+            appointment_save: 'appointment_save.json',
+            appointment_default: 'appointment_default_:AppointmentType.json',
+            preference_query:'preference.json',
+            preference_save:'preference_save.json',
+            user_query: 'user.json',
+            stores_query: 'stores_:AppointmentType.json',
+            store_query:'store.json',
+            orders_query:'orders.json',
+            order_query:'order.json'
         }
     },
     enMonth: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

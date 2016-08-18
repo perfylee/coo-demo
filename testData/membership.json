@@ -1,0 +1,21 @@
+{
+  "ResCode": 0,
+  "ResDesc": null,
+  "ResData": {
+    "MembershipNo":"15905514115",
+    "MembershipType":"贵宾卡",
+    "RegisterDate":"2015-01-01",
+    "ServiceList":[
+      {
+        "ServiceName":"洗车",
+        "Times":5,
+        "ExpireDate":"2018-01-01"
+      },
+      {
+        "ServiceName":"打蜡",
+        "Times":1,
+        "ExpireDate":"2018-01-01"
+      }
+    ]
+  }
+}

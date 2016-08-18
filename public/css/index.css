@@ -1,3 +1,7 @@
+.ui.page.dimmer{
+    position: absolute;
+}
+
 .index{
     position: absolute;
     top:0;
@@ -159,7 +163,7 @@
 .index-main > .item > .name > span > .ui.floating.label {
     padding: 0.3em 0.4em;
     top: -12px;
-    width: 48px;
+    width: 42px;
     text-align: center;
     opacity: 0.8;
 }
@@ -214,7 +218,8 @@
     position: relative;
     display: block;
     float: left;
-    width:33.33%;
+    /*width:33.33%;*/
+    width:50%;
     line-height: 36px;
 
     text-align: center;
@@ -293,6 +298,7 @@
     margin:0 6px 8px 0;
     font-size: 16px;
     color:#1aa486;
+    width:56px;
 }
 
 
@@ -351,16 +357,9 @@
     color: #f2711c;
 }
 
-
-.shop-selector > .shop > .stars{
+.shop-selector > .shop > .ratings{
     height: 12px;
-    margin-bottom: 8px;
-}
-
-.shop-selector > .shop > .stars > .icon{
-    font-size: 12px;
-    line-height: 12px;
-    margin-right: 0;
+    margin: 4px 0 6px 0;
 }
 
 .shop-selector > .shop > .addition{
@@ -393,17 +392,120 @@
     border-width: 0em 0.6em 0.6em 0em
 }
 
+
+.map-selector{
+    position: relative;
+}
+.map-selector > .shops{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 90px;
+
+    background: rgba(0,0,0,.6);
+    border:1px solid #f0f0f0;
+}
+
+.map-selector > .map {
+    height: 360px;
+    width: 100%;
+    background: #fff;
+}
+
+
+.map-selector > .shops > .shop{
+    position: relative;
+    display: block;
+    padding:12px 0px 6px 106px;
+}
+
+.map-selector > .shops > .shop > img{
+    position: absolute;
+    left: 6px;
+    top:12px;
+    height: 68px;
+    width: 94px;
+    border-radius: 4px;
+}
+
+.map-selector > .shops > .shop > .name{
+    line-height: 14px;
+    font-size:13px;
+    padding-bottom: 4px;
+    color: #fff;
+}
+.map-selector > .shops > .shop > .address{
+    line-height: 12px;
+    font-size:12px;
+    padding-bottom: 2px;
+    color: #fcfcfc;
+    height:14px;
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
+}
+
+.map-selector > .shops > .shop > .ratings{
+    height: 12px;
+    margin: 4px 0 6px 0;
+}
+
+.map-selector > .shops > .shop > .addition{
+    height: 16px;
+}
+
+.map-selector > .shops > .shop > .addition > div{
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    color:#f0f0f0;
+    font-size: 12px;
+}
+
+.map-selector > .shops > .shop > .addition > div > .icon{
+    margin-right: 0;
+    font-size: 12px;
+}
+
+.map-selector .shop-change {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    font-size: 36px;
+    width: 60px;
+    line-height: 90px;
+}
+
+.map-selector .shop-change.right{
+    right:0;
+    left:auto;
+    text-align: right;
+}
+
+.map-selector .shop-index{
+    position: absolute;
+    right: 4px;
+    top:4px;
+    color: #fff;
+}
+
 /** iphone 5 5s se**/
 @media screen and (max-width: 320px) {
     .index-service{
-        padding: 28px 0 10px 0;
+        padding: 16px 0 10px 0;
 
         /**46 12 **/
-        height:100px;
+        height:88px;
     }
 
     .index-main {
-        top: 176px;
+        top: 156px;
         /*padding: 20px 32px 90px 32px;*/
     }
 
@@ -424,5 +526,9 @@
     .index-main > .item > .sub {
         font-size: 13px;
         padding-left: 36px;
+    }
+
+    .map-selector > .map{
+        height: 300px;
     }
 }

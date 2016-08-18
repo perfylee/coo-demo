@@ -1,0 +1,38 @@
+<div class="store">
+
+    <div class="header">
+        <i class="icon angle arrow left" ng-click="back()"></i>
+        <img ng-src="{{store.StoreImage}}" title="门店照片">
+
+        <div class="info">
+            <div class="name">{{store.StoreName || '-'}}</div>
+            <div class="address">{{store.StoreAddress  || '-'}}</div>
+            <coo-rating value="{{store.Rating}}"></coo-rating>
+            <div class="tools">
+                <a href="tel:{{store.StorePhoneNum}}" ng-if="store.StorePhoneNum != ''"><i class="icon phone"></i></a>
+                <a><i class="icon marker"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="services">
+
+        <div class="time">
+            <i class="icon time"></i>
+            服务时间: {{store.WorkTime  || '-'}}
+        </div>
+
+
+        <div class="service" ng-repeat="service in store.StoreWorkPlace" ng-click="select(service)">
+            <div class="ooo"></div>
+            <div class="name">{{service.ServiceType  || '-'}}</div>
+
+            <coo-price value="{{service.Price}}" prefix="费用:"></coo-price>
+
+            <i class="icon angle right arrow"></i>
+        </div>
+
+    </div>
+
+</div>
+
+<coo-loader show="loaderVisible"></coo-loader>

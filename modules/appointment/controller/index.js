@@ -1,12 +1,14 @@
 'use strict'
 
-angular.module('coo.modules.index',[
+angular.module('coo.modules.appointment',[
     'coo.global',
     'coo.components.modal',
     'coo.components.loader'
 ])
 
-.controller('indexCtrl',['$rootScope','$scope','$location','cooGlobal',function ($rootScope,$scope,$location,cooGlobal) {
+.controller('appointmentCtrl',['$rootScope','$scope','$location','cooGlobal',function ($rootScope,$scope,$location,cooGlobal) {
+
+    $scope.title = '预约洗车'
 
     /*wx params*/
     $scope.wxParams = {
@@ -16,21 +18,19 @@ angular.module('coo.modules.index',[
         lat: '31.845957'
     }
 
+    /*path*/
+    $scope.path = function (path) {
+        $location.path(path)
+    }
+
 
     /*loader*/
     $scope.loaderVisible = false
     $scope.updateLoading = function () {
-        if($scope.car.loading == false && $scope.store.loading == false && $scope.appointment.loading == false) {
+        if($scope.user.loading == false && $scope.store.loading == false && $scope.appointment.loading == false) {
             $scope.loaderVisible = false
         }
     }
-
-
-    /*user*/
-    $scope.user = null
-
-
-
 
     /*top*/
     $scope.top = {}
@@ -83,27 +83,12 @@ angular.module('coo.modules.index',[
 
 
 
-    /*car*/
+    /*user && car*/
+    $scope.user = {}
+    $scope.user.loading = false
+
     $scope.car = {}
-    $scope.car.loading = false
-    $scope.car.items = [
-        // {
-        //     "CarGuid": "312d34cb-b880-4db3-baf9-15afb0e0c12e",
-        //     "CustomerGuid": "0b24f435-bd77-4ba2-afaf-90a856f169f0",
-        //     "CarNum": "皖G55555",
-        //     "CarBrand": "五菱汽车",
-        //     "CarModel": "五菱宏光",
-        //     "BrandImage": "http://file.cheoo.net/CarBrand/WuLingQiChe.jpg"
-        // },
-        // {
-        //     "CarGuid": "22106a86-f101-4e82-bbb3-5f367f4d4f97",
-        //     "CustomerGuid": "0b24f435-bd77-4ba2-afaf-90a856f169f0",
-        //     "CarNum": "皖A23333",
-        //     "CarBrand": "本田",
-        //     "CarModel": "思域(海外)",
-        //     "BrandImage": "http://file.cheoo.net/CarBrand/BenTian.jpg"
-        // }
-    ]
+    $scope.car.items = []
     $scope.car.modalVisible = false
     $scope.car.select = function (item) {
         if(item.CarGuid != $rootScope.appointment.car.CarGuid) {
@@ -111,25 +96,25 @@ angular.module('coo.modules.index',[
             $scope.car.modalVisible = false
         }
     }
-    $scope.car.init = function () {
+
+    $scope.user.init = function () {
 
         $scope.loaderVisible = true
-        $scope.car.loading = true
+        $scope.user.loading = true
 
         //customer cars
-        cooGlobal.resource(cooGlobal.api.customerAndCarsInfo).query(
+        cooGlobal.resource(cooGlobal.api.user_query).query(
             $scope.wxParams,
             function (res) {
                 $scope.car.items = res.ResData.Cars
                 $scope.user = res.ResData.Customer
 
-                $scope.car.loading = false
+                $scope.user.loading = false
                 $scope.updateLoading()
             },
             function () {
                 console.log('error')
-
-                $scope.car.loading = false
+                $scope.user.loading = false
                 $scope.updateLoading()
             }
         )
@@ -138,23 +123,27 @@ angular.module('coo.modules.index',[
 
 
     /*store*/
+
     $scope.store = {}
     $scope.store.loading = false
     $scope.store.items = []
     $scope.store.modalVisible = false
-    $scope.store.tabIndex = 'listView'
+    $scope.store.tabIndex = 'listView' //listView mapView
     $scope.store.init = function () {
         $scope.loaderVisible = true
         $scope.store.loading = true
 
         //customer cars
-        cooGlobal.resource(cooGlobal.api.stores).query(
+        cooGlobal.resource(cooGlobal.api.stores_query).query(
             angular.extend($scope.wxParams, {AppointmentType: $rootScope.appointment.category.value}),
             function (res) {
                 $scope.store.items = res.ResData
+                $scope.store.mapStore = res.ResData[0]
+                $scope.store.mapStoreIndex = 0
 
                 $scope.store.loading = false
                 $scope.updateLoading()
+
             },
             function () {
                 console.log('error')
@@ -178,6 +167,66 @@ angular.module('coo.modules.index',[
 
         }
     }
+    $scope.store.open = function (storeId,$event) {
+        $event.stopPropagation()
+        $location.path('/store/' + storeId)
+    }
+
+    $scope.store.mapStoreIndex = -1
+    $scope.store.mapStore = null
+
+    $scope.store.mapStoreChange = function (d,$event) {
+        $event.stopPropagation()
+        $scope.store.mapStoreIndex += d
+        $scope.store.mapStoreIndex = Math.max($scope.store.mapStoreIndex, 0)
+        $scope.store.mapStoreIndex = Math.min($scope.store.mapStoreIndex, $scope.store.items.length)
+        $scope.store.mapStore = $scope.store.items[$scope.store.mapStoreIndex]
+
+        var point = new BMap.Point($scope.store.mapStore.Longitude_B, $scope.store.mapStore.Latitude_B)
+        map.panTo(point)
+    }
+
+    var map = null
+    var mapBuild = function () {
+        var t = setInterval(function () {
+            if (map == null)
+                map = new BMap.Map('map')
+
+            map.clearOverlays()
+
+            angular.forEach($scope.store.items,function (store) {
+                var point = new BMap.Point(store.Longitude_B, store.Latitude_B)
+                var marker = new BMap.Marker(point)
+                map.addOverlay(marker)
+            })
+
+            if($scope.store.mapStore!=null) {
+                var point = new BMap.Point($scope.store.mapStore.Longitude_B, $scope.store.mapStore.Latitude_B)
+                map.centerAndZoom(point, 16)
+            }else{
+                var point = new BMap.Point($scope.wxParams.lng, $scope.wxParams.lat)
+                map.centerAndZoom(point, 16)
+            }
+
+            clearInterval(t)
+        }, 500)
+    }
+
+
+    $scope.$watch('store.modalVisible',function () {
+        if($scope.store.tabIndex == 'mapView' ) {
+            mapBuild()
+        }
+    })
+
+    $scope.$watch('store.tabIndex',function () {
+        if($scope.store.tabIndex == 'mapView' ) {
+            mapBuild()
+        }
+    })
+
+
+
 
 
 
@@ -219,7 +268,7 @@ angular.module('coo.modules.index',[
         $scope.appointment.loading = true
 
         //default appointment
-        cooGlobal.resource(cooGlobal.api.defaultAppointment).query(
+        cooGlobal.resource(cooGlobal.api.appointment_default).query(
             angular.extend($scope.wxParams, {AppointmentType: $rootScope.appointment.category.value}),
             function (res) {
 
@@ -243,32 +292,27 @@ angular.module('coo.modules.index',[
     }
     $scope.appointment.update = function (store) {
 
-        var service, times
-        angular.forEach(store.TypeWorkPlaces, function (value, name) {
-            service = {name: name, price: null}
-            times = value
-        })
-
         $rootScope.appointment.store = $rootScope.appointment.store || store
-        $rootScope.appointment.service = service
+        $rootScope.appointment.service = $rootScope.appointment.service || store.StoreWorkPlace[0]
 
         $scope.time.quickItems = []
 
-        for (var i = 0; i < times.length; i++) {
-            if (times[i].IsUsed == 0)
-                $scope.time.quickItems.push(times[i])
+        for (var i = 0; i < $rootScope.appointment.service.TypeWorkPlaces.length; i++) {
+            var time = $rootScope.appointment.service.TypeWorkPlaces[i]
+            if (time.IsUsed == 0)
+                $scope.time.quickItems.push(time)
 
             if ($scope.time.quickItems.length == 4)
                 break;
-
         }
 
         $rootScope.appointment.time =  $rootScope.appointment.time || $scope.time.quickItems[0]
 
         $scope.time.items = [[], [], []]
-        angular.forEach(times, function (value) {
+        angular.forEach(store.StoreWorkPlace[0].TypeWorkPlaces, function (value) {
             var index = new Date(value.AccurateStartTime.replace(/-/g, "/")).dateDiff(new Date(), 'd')
-            $scope.time.items[index].push(value)
+            if (index >= 0 && index <= 2)
+                $scope.time.items[index].push(value)
         })
     }
     $scope.appointment.submit = function () {
@@ -286,11 +330,11 @@ angular.module('coo.modules.index',[
 
 
         $scope.loaderVisible = true
-        cooGlobal.resource(cooGlobal.api.appointment).save(
+        cooGlobal.resource(cooGlobal.api.appointment_save).save(
             params,
             function (res) {
                 if(res.ResCode == 0){
-                    $location.path('/index/complete')
+                    $location.path('/appointment/complete')
                 }else{
 
                 }
@@ -313,10 +357,9 @@ angular.module('coo.modules.index',[
 
 
     //init
-    $scope.car.init()
+    $scope.user.init()
     $scope.store.init()
     $scope.appointment.init()
-
 
 
 }])

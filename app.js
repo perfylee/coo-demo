@@ -5,10 +5,15 @@ angular.module('coo',[
     'coo.global',
     'coo.components.modal',
     'coo.components.loader',
+    'coo.components.price',
+    'coo.components.rating',
 
-    'coo.modules.index',
-    'coo.modules.index.complete',
-    'coo.modules.default-setting'
+    'coo.modules.appointment',
+    'coo.modules.appointment.complete',
+    'coo.modules.appointment.preference',
+    'coo.modules.appointment.orders',
+    'coo.modules.store',
+    'coo.modules.membership'
 ])
 
 .config(['$locationProvider','$routeProvider',function ($locationProvider,$routeProvider) {
@@ -16,18 +21,30 @@ angular.module('coo',[
 
 
     $routeProvider
-        .when('/index', {
-            templateUrl: 'modules/index/index.html',
-            controller: 'indexCtrl'
+        .when('/appointment', {
+            templateUrl: 'modules/appointment/view/index.html',
+            controller: 'appointmentCtrl' //index.js
         })
-        .when('/index/setting', {
-            templateUrl: 'modules/default-setting/index.html',
-            controller: 'defaultSettingCtrl'
+        .when('/appointment/preference', {
+            templateUrl: 'modules/appointment/view/preference.html',
+            controller: 'appointmentPreferenceCtrl'
         })
-        .when('/index/complete', {
-            templateUrl: 'modules/index/complete.html',
-            controller: 'completeCtrl'
+        .when('/appointment/complete', {
+            templateUrl: 'modules/appointment/view/complete.html',
+            controller: 'appointmentCompleteCtrl'
         })
-        .otherwise({redirectTo: '/index'})
+        .when('/appointment/orders', {
+            templateUrl: 'modules/appointment/view/orders.html',
+            controller: 'appointmentOrdersCtrl'
+        })
+        .when('/store/:id', {
+            templateUrl: 'modules/store/view/index.html',
+            controller: 'storeCtrl' //index.js
+        })
+        .when('/membership', {
+            templateUrl: 'modules/membership/view/index.html',
+            controller: 'membershipCtrl' //index.js
+        })
+        .otherwise({redirectTo: '/appointment'})
 
 }])

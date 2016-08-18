@@ -1,0 +1,83 @@
+<div class="membership page-with-title">
+    <div class="page-header">
+        <img src="public/images/card.png">
+        <div class="title">
+            会员卡
+        </div>
+        <div class="sub">
+            No.15905514115
+        </div>
+    </div>
+
+    <div class="message">
+        <span>卡内可用服务和次数</span>
+        <a>所有套餐</a>
+    </div>
+
+    <div class="services">
+        <div class="service">
+            <div class="ooo"></div>
+            <div class="ooo"></div>
+
+            <div class="name">洗车</div>
+            <div class="expire">有效期至：2018-01-01</div>
+            <div class="times">5<span>次</span></div>
+        </div>
+
+        <div class="service">
+            <div class="ooo"></div>
+            <div class="ooo"></div>
+            <div class="name">打蜡</div>
+            <div class="expire">有效期至：2018-01-01</div>
+            <div class="times">1<span>次</span></div>
+        </div>
+    </div>
+
+    <div class="pay">
+        <div class="package" ng-click = "packageModalVisible = true">
+            <span class="name">洗车套餐</span>
+
+            <div class="price">
+                <s class="priceOld">200元</s>
+                100元/洗车20次 打蜡1次
+            </div>
+            <i class="icon angle arrow up"></i>
+        </div>
+        <div class="btn-pay">
+            快速充值
+        </div>
+    </div>
+
+
+</div>
+
+<coo-modal show="packageModalVisible" size="large">
+    <i class="icon close"></i>
+    <div class="title">
+        <i class="icon add top cart outline"></i> 推荐套餐
+    </div>
+
+    <div class="description package-selector" >
+        <div class="package">
+            <div class="name">洗车套餐1</div>
+            <div class="services">
+                <div class="service">洗车 5 次</div>
+                <div class="service">打蜡 1 次 (赠送)</div>
+            </div>
+            <div class="price">优惠价：100 元</div>
+            <s class="oldPrice">原价：200元</s>
+        </div>
+        <div class="package">
+            <div class="name">洗车套餐1</div>
+            <div class="services">
+                <div class="service">洗车 5 次</div>
+                <div class="service">打蜡 1 次 (赠送)</div>
+            </div>
+            <div class="price">优惠价：100 元</div>
+            <s class="oldPrice">原价：200元</s>
+        </div>
+        <div class="allpackages">
+            <a>去看看所有套餐</a>
+        </div>
+    </div>
+</coo-modal>

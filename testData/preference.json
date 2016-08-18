@@ -1,0 +1,52 @@
+{
+  "ResCode": 0,
+  "ResDesc": null,
+  "ResData": {
+    "PreferenceCar": [
+      {
+        "Type": 0,
+        "Name": "皖APF630",
+        "Description": "大众迈腾",
+        "Tag": "22106a86-f101-4e82-bbb3-5f367f4d4f97",
+        "IsDefault": true
+      },
+      {
+        "Type": 0,
+        "Name": "皖APF631",
+        "Description": "布加迪威龙",
+        "Tag": "22106a86-f101-4e82-bbb3-5f367f4d4f98",
+        "IsDefault": false
+      },
+      {
+        "Type": 3,
+        "Name": "上次选择的车辆",
+        "Description": "皖APF630",
+        "Tag": "",
+        "IsDefault": false
+      }
+    ],
+    "PreferenceStore": [
+      {
+        "Type": "1",
+        "Name": "最常去门店",
+        "Description": "速途驰加中铁国际城店",
+        "Tag": "",
+        "IsDefault": true
+      },
+      {
+        "Type": "2",
+        "Name": "距离最近门店",
+        "Description": "合肥徽派汽修服务中心",
+        "Tag": "",
+        "IsDefault": false
+      },
+      {
+        "Type": "3",
+        "Name": "上次选择的门店",
+        "Description": "速途驰加中铁国际城店",
+        "Tag": "",
+        "IsDefault": false
+      }
+    ]
+  }
+}

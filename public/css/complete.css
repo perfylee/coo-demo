@@ -43,15 +43,10 @@
 .complete > .store > .address{
     line-height: 14px;
     font-size:13px;
-    padding-bottom: 14px;
+    padding-bottom: 4px;
     color: #666;
 
     height:30px;
-    display: block;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    -webkit-text-overflow:ellipsis;
 }
 
 .complete > .store > .time{

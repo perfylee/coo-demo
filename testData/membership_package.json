@@ -1,0 +1,87 @@
+{
+  "ResCode": 0,
+  "ResDesc": null,
+  "ResData": [
+    {
+      "PackageGuid":"PACKAGE-2016-001",
+      "PackageName": "洗车套餐1",
+      "Price": 100,
+      "OldPrice": 200,
+      "Description": "洗车优惠套餐，赠送打蜡1次",
+      "ExpireTime": 365,
+      "Services": [
+        {
+          "ServiceName": "洗车",
+          "ServiceTimes": 5,
+          "Type": 0
+        },
+        {
+          "ServiceName": "打蜡",
+          "ServiceTimes": 1,
+          "Type": 1
+        }
+      ]
+    },
+    {
+      "PackageGuid":"PACKAGE-2016-002",
+      "PackageName": "洗车套餐2",
+      "Price": 200,
+      "OldPrice": 400,
+      "Description": "洗车优惠套餐，赠送打蜡2次",
+      "ExpireTime": 365,
+      "Services": [
+        {
+          "ServiceName": "洗车",
+          "ServiceTimes": 10,
+          "Type": 0
+        },
+        {
+          "ServiceName": "打蜡",
+          "ServiceTimes": 2,
+          "Type": 1
+        }
+      ]
+    },
+    {
+      "PackageGuid":"PACKAGE-2016-003",
+      "PackageName": "洗车套餐3",
+      "Price": 300,
+      "OldPrice": 600,
+      "Description": "洗车优惠套餐，赠送打蜡3次",
+      "ExpireTime": 365,
+      "Services": [
+        {
+          "ServiceName": "洗车",
+          "ServiceTimes": 16,
+          "Type": 0
+        },
+        {
+          "ServiceName": "打蜡",
+          "ServiceTimes": 3,
+          "Type": 1
+        }
+      ]
+    },
+    {
+      "PackageGuid":"PACKAGE-2016-004",
+      "PackageName": "洗车套餐4",
+      "Price": 400,
+      "OldPrice": 800,
+      "Description": "洗车优惠套餐，洗车打蜡一次到位",
+      "ExpireTime": 365,
+      "Services": [
+        {
+          "ServiceName": "洗车",
+          "ServiceTimes": 10,
+          "Type": 0
+        },
+        {
+          "ServiceName": "打蜡",
+          "ServiceTimes": 5,
+          "Type": 0
+        }
+      ]
+    }
+
+  ]
+}

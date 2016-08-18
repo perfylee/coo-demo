@@ -1,7 +1,7 @@
 <div class="default-setting page-with-title">
     <div class="page-header">
         <div class="tools">
-            <a href="#!/index">
+            <a ng-click="path('/appointment')">
                 <i class="icon angle arrow left"></i>
             </a>
         </div>
@@ -18,9 +18,9 @@
     </div>
 
     <div class="ui list selector">
-        <div class="item {{car.default?'selected':''}}" ng-repeat="car in cars">
-            <div class="name">{{car.name}}</div>
-            <div class="sub">{{car.sub}}</div>
+        <div class="item {{car.IsDefault?'selected':''}}" ng-repeat="car in cars" ng-click="save('PreferenceCar',car)">
+            <div class="name">{{car.Name}}</div>
+            <div class="sub">{{car.Description}}</div>
             <i class="icon check mark"></i>
         </div>
     </div>
@@ -30,13 +30,13 @@
     </div>
 
     <div class="ui list selector">
-        <div class="item {{shop.default?'selected':''}}" ng-repeat="shop in shops">
-            <div class="name">{{shop.name}}</div>
-            <div class="sub">{{shop.sub}}</div>
+        <div class="item {{store.IsDefault?'selected':''}}" ng-repeat="store in stores"  ng-click="save('PreferenceStore',store)">
+            <div class="name">{{store.Name}}</div>
+            <div class="sub">{{store.Description}}</div>
             <i class="icon check mark"></i>
         </div>
     </div>
 
-
+    <coo-loader show="loaderVisible"></coo-loader>
 </div>
 
