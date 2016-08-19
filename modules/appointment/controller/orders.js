@@ -51,7 +51,20 @@ angular.module('coo.modules.appointment.orders',[
     $scope.init = function () {
         $scope.loaderVisible = true
         cooGlobal.resource(cooGlobal.api.orders_query).query(
-            {r:Math.random()},
+            //预约纪录
+            //{
+            //  "Token":"5354bcf5-1351-47b8-be4b-7df254474c58",
+            //  "PageNum":"1",
+            //  "PageSize":"10",
+            //  "Condition":"0"
+            //}
+            //Condition
+            //0 - 全部
+            //1 - 未完成
+            //2 - 已完成
+            //3 - 已取消
+            //4 - 已失约
+            {r: Math.random()},
             function (res) {
                 $scope.orders = res.ResData
                 $scope.loaderVisible = false
@@ -62,9 +75,6 @@ angular.module('coo.modules.appointment.orders',[
         )
     }
 
-    $scope.goBack = function () {
-        $location.path('/appointment')
-    }
 
     $scope.init()
 

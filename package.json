@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "dependencies": {
     "bower": "^1.7.9",
-    "lite-server": "^2.2.2"
+    "lite-server": "^2.2.2",
+
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1"
   },
   "scripts": {
     "start": "lite-server"

@@ -13,7 +13,8 @@ angular.module('coo',[
     'coo.modules.appointment.preference',
     'coo.modules.appointment.orders',
     'coo.modules.store',
-    'coo.modules.membership'
+    'coo.modules.membership',
+    'coo.modules.membership.package'
 ])
 
 .config(['$locationProvider','$routeProvider',function ($locationProvider,$routeProvider) {
@@ -44,6 +45,10 @@ angular.module('coo',[
         .when('/membership', {
             templateUrl: 'modules/membership/view/index.html',
             controller: 'membershipCtrl' //index.js
+        })
+        .when('/membership/package', {
+            templateUrl: 'modules/membership/view/package.html',
+            controller: 'membershipPackageCtrl'
         })
         .otherwise({redirectTo: '/appointment'})
 

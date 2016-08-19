@@ -18,7 +18,12 @@ angular.module('coo.modules.appointment.preference',[
     $scope.init = function () {
         $scope.loaderVisible = true
         cooGlobal.resource(cooGlobal.api.preference_query).query(
-            {test: '123'},
+            //用户习惯
+            //{
+            //  'Token': '5354bcf5-1351-47b8-be4b-7df254474c58'
+            //  'StoreWXID':''
+            //}
+            {r: Math.random()},
             function (res) {
                 $scope.cars = res.ResData.PreferenceCar
                 $scope.stores = res.ResData.PreferenceStore
@@ -37,7 +42,16 @@ angular.module('coo.modules.appointment.preference',[
     $scope.save = function (category,info) {
         $scope.loaderVisible = true
         cooGlobal.resource(cooGlobal.api.preference_save).save(
+            //用户习惯提交
+            //{
+            //  'Token': '5354bcf5-1351-47b8-be4b-7df254474c58'
+            //  'StoreWXID':'',
+            //  'Category':'',// Car Store
+            //  'Type':'' // ID , 'Last' ,'Nearest','Constantly'
+            //}
             {
+                'Token': '5354bcf5-1351-47b8-be4b-7df254474c58',
+                'StoreWXID':'',
                 "Category": category,
                 "Type": info.Type,
                 "Tag": info.Tag

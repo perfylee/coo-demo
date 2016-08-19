@@ -21,7 +21,17 @@ angular.module('coo.modules.store',[
     $scope.init = function () {
         $scope.loaderVisible = true
         cooGlobal.resource(cooGlobal.api.store_query).query(
-            {StoreID: params.id},
+            //门店详情
+            //{
+            //  'Token': '5354bcf5-1351-47b8-be4b-7df254474c58'
+            //  'StoreWXID':'',
+            //  "StoreID": "23b21f20-1cd3-4ac3-adae-8119ebdeeead"
+            //}
+            {
+                'Token': '5354bcf5-1351-47b8-be4b-7df254474c58',
+                'StoreWXID':'',
+                "StoreID": "23b21f20-1cd3-4ac3-adae-8119ebdeeead"
+            },
             function (res) {
                 $scope.store = res.ResData
                 $scope.loaderVisible = false

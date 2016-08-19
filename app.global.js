@@ -17,7 +17,10 @@ angular.module('coo.global',[
             stores_query: 'stores_:AppointmentType.json',
             store_query:'store.json',
             orders_query:'orders.json',
-            order_query:'order.json'
+            order_query:'order.json',
+            membership_query:'membership.json',
+            membership_package_query:'membership_package.json',
+            membership_package_quick_query:'membership_package_quick.json'
         },
         pub: {
             path: 'http://localhost:3000/',
@@ -29,7 +32,10 @@ angular.module('coo.global',[
             stores_query: 'stores_:AppointmentType.json',
             store_query:'store.json',
             orders_query:'orders.json',
-            order_query:'order.json'
+            order_query:'order.json',
+            membership_query:'membership.json',
+            membership_package_query:'membership_package.json',
+            membership_package_quick_query:'membership_package_quick.json'
         }
     },
     enMonth: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

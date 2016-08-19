@@ -10,7 +10,9 @@ angular.module('coo.modules.membership',[
 
 
 .controller('membershipCtrl',['$rootScope','$scope','$location','cooGlobal',function ($rootScope,$scope,$location,cooGlobal) {
-
+    $scope.path = function (url) {
+        $location.path(url)
+    }
     $scope.packageModalVisible = false
 
 }])

@@ -187,3 +187,88 @@
     line-height: 36px;
     text-align: right;
 }
+
+
+
+
+.packages{
+
+}
+
+.packages > .package-list > .package{
+    border:1px solid #f0f0f0;
+    padding: 46px 12px 4px 12px;
+
+    position: relative;
+    background: #fff;
+}
+
+.packages > .package-list > .package > .price {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    color: #ff761d;
+    font-size: 14px;
+}
+
+.packages > .package-list > .package > .oldPrice {
+    position: absolute;
+    top:32px;
+    right:10px;
+    color: #ccc;
+    font-size: 12px;
+}
+
+.packages > .package-list > .package > .name{
+    position: absolute;
+    top:10px;
+    left:-8px;
+    margin-left:0;
+    padding: 8px 12px;
+    opacity: 0.9;
+    font-size: 14px;
+    border-radius: 0;
+}
+
+.packages > .package-list > .package > .name:after {
+    border-width: 0em 0.6em 0.6em 0em
+}
+
+.packages > .package-list > .package > .services{
+    padding: 12px 0;
+}
+
+.packages > .package-list > .package > .services > span{
+    display: block;
+    margin-bottom: 4px;
+    font-size: 12px;
+    line-height: 20px;
+    color:#ccc;
+}
+
+.packages > .package-list > .package > .services > .service{
+    color: #1aa586;
+    line-height: 18px;
+}
+
+.packages > .package-list > .package > .description {
+     color: #999;
+     line-height: 18px;
+     padding: 6px 0;
+ }
+
+.packages > .package-list > .package > .expire {
+    text-align: right;
+    color: #999;
+    line-height: 18px;
+    font-size: 12px;
+}
+
+.packages > .package-list > .package > .btn-pay {
+    display: block;
+    padding: 10px 0 6px 0;
+    margin-top: 6px;
+    text-align: center;
+    color: #999;
+    border-top: 1px solid #f0f0f0;
+}
