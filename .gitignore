@@ -1,3 +1,4 @@
 .idea/
 public/lib/
 node_modules/
+dist/
