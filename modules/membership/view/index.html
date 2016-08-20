@@ -5,7 +5,7 @@
             会员卡
         </div>
         <div class="sub">
-            No.15905514115
+            {{membership.obj.VIPNo || '-'}}
         </div>
     </div>
 
@@ -15,33 +15,32 @@
     </div>
 
     <div class="services">
-        <div class="service">
+        <div class="service" ng-repeat="item in membership.obj.VIPCardItems" ng-click="path('/appointment')">
             <div class="ooo"></div>
             <div class="ooo"></div>
 
-            <div class="name">洗车</div>
-            <div class="expire">有效期至：2018-01-01</div>
-            <div class="times">5<span>次</span></div>
+            <div class="name">{{item.ItemName}}</div>
+            <div class="expire">有效期至：{{item.ExpireTime == '2099-01-01 00:00:00'?'永久':item.ExprireTime}}</div>
+            <div class="times">{{item.SurplusValue}}<span>次</span></div>
         </div>
 
-        <div class="service">
-            <div class="ooo"></div>
-            <div class="ooo"></div>
-            <div class="name">打蜡</div>
-            <div class="expire">有效期至：2018-01-01</div>
-            <div class="times">1<span>次</span></div>
-        </div>
     </div>
 
     <div class="pay">
-        <div class="package" ng-click = "packageModalVisible = true">
-            <span class="name">洗车套餐</span>
+        <div class="package" ng-click="packageModalVisible = true" ng-show="packageToPay!=null">
+            <span class="name">{{packageToPay.TemplateName}}</span>
 
             <div class="price">
-                <s class="priceOld">200元</s>
-                100元/洗车20次 打蜡1次
+                <s class="priceOld" ng-if="false">100元</s>
+                {{packageToPay.Price}}元/
+                <span ng-repeat="item in packageToPay.VipCardTemplateItems">
+                    {{item.ItemName}} {{item.Amount}}次
+                </span>
             </div>
             <i class="icon angle arrow up"></i>
+        </div>
+        <div class="empty" ng-if="packageToPay == null">
+            暂无可充值套餐
         </div>
         <div class="btn-pay">
             快速充值
@@ -58,26 +57,18 @@
     </div>
 
     <div class="description package-selector" >
-        <div class="package">
-            <div class="name">洗车套餐1</div>
+        <div class="package" ng-repeat="item in package.items | limitTo:2" ng-click="package.select(item)">
+            <div class="name">{{item.TemplateName}}</div>
             <div class="services">
-                <div class="service">洗车 5 次</div>
-                <div class="service">打蜡 1 次 (赠送)</div>
+                <div class="service" ng-repeat="service in item.VipCardTemplateItems">{{service.ItemName}} {{service.Amount}} 次</div>
             </div>
-            <div class="price">优惠价：100 元</div>
-            <s class="oldPrice">原价：200元</s>
-        </div>
-        <div class="package">
-            <div class="name">洗车套餐1</div>
-            <div class="services">
-                <div class="service">洗车 5 次</div>
-                <div class="service">打蜡 1 次 (赠送)</div>
-            </div>
-            <div class="price">优惠价：100 元</div>
-            <s class="oldPrice">原价：200元</s>
+            <div class="price">优惠价：{{item.Price}} 元</div>
+            <s class="oldPrice" ng-if="false">原价：200元</s>
         </div>
         <div class="allpackages">
-            <a>去看看所有套餐</a>
+            <a ng-click="path('/membership/package')">去看看所有套餐</a>
         </div>
     </div>
 </coo-modal>
+
+<coo-loader show="loaderVisible"></coo-loader>

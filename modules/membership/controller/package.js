@@ -19,7 +19,6 @@ angular.module('coo.modules.membership.package',[
     $scope.packages = []
     $scope.init = function () {
         $scope.loaderVisible = true
-
         cooGlobal.resource(cooGlobal.api.membership_package_query).query(
             {},
             function (res) {
@@ -31,5 +30,7 @@ angular.module('coo.modules.membership.package',[
             }
         )
     }
+
+    $scope.init()
 
 }])

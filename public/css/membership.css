@@ -145,11 +145,16 @@
     color: #ccc;
 }
 
+.membership > .pay > .empty{
+    line-height: 40px;
+    font-size:18px;
+    color: #ccc;
+}
+
 
 .package-selector > .package{
     position: relative;
     padding: 12px 0px;
-    border-bottom: 1px dotted #f0f0f0;
 }
 
 
@@ -157,8 +162,8 @@
     display: block;
     font-size: 16px;
     color: #666;
-    line-height: 16px;
-    margin-bottom: 10px;
+    line-height: 18px;
+    margin-bottom: 4px;
 }
 .package-selector > .package > .services > .service{
     display: block;
@@ -172,7 +177,7 @@
     line-height: 16px;
     position: absolute;
     right:10px;
-    top:12px;
+    top:16px;
 }
 .package-selector > .package > .oldPrice{
     color: #ccc;
@@ -198,17 +203,17 @@
 .packages > .package-list > .package{
     border:1px solid #f0f0f0;
     padding: 46px 12px 4px 12px;
-
+    margin-bottom: 12px;
     position: relative;
     background: #fff;
 }
 
 .packages > .package-list > .package > .price {
     position: absolute;
-    top: 12px;
-    right: 10px;
+    top: 24px;
+    right: 16px;
     color: #ff761d;
-    font-size: 14px;
+    font-size: 26px;
 }
 
 .packages > .package-list > .package > .oldPrice {

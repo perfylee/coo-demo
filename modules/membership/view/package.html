@@ -1,0 +1,39 @@
+<div class="packages page-with-title">
+    <div class="page-header">
+        <div class="tools">
+            <a ng-click="path('/membership')">
+                <i class="icon angle arrow left"></i>
+            </a>
+        </div>
+        <div class="title">
+            会员套餐
+        </div>
+        <div class="sub">
+            会员优惠套餐，优惠多多欢迎购买
+        </div>
+    </div>
+
+    <div class="package-list">
+        <div class="package" ng-repeat="item in packages">
+            <div class="ui label ribbon orange name">{{item.TemplateName}}</div>
+            <div class="services">
+                <div class="service" ng-repeat="service in item.VipCardTemplateItems">{{service.ItemName}} {{service.Amount}}次</div>
+            </div>
+            <div class="description" ng-if="false">
+                123qwewq
+            </div>
+            <div class="expire"  ng-if="false">
+                有效期:365天
+            </div>
+
+            <div class="price">{{item.Price}}元</div>
+            <s class="oldPrice" ng-if="false">原价:200元</s>
+
+            <div class="btn-pay">
+                购买
+            </div>
+        </div>
+    </div>
+</div>
+
+<coo-loader show="loaderVisible"></coo-loader>
