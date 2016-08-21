@@ -5,7 +5,7 @@ angular.module('coo.global',[
 ])
 
 .constant('globalConfig', {
-    mode: 'dev', // dev,pub
+    mode: 'pub', // dev,pub
     api: {
         dev: {
             path: '/testData/',
@@ -23,19 +23,18 @@ angular.module('coo.global',[
             membership_package_quick_query:'membership_package_quick.json'
         },
         pub: {
-            path: 'http://localhost:3000/',
-            appointment_save: 'appointment_save.json',
-            appointment_default: 'appointment_default_:AppointmentType.json',
-            preference_query:'preference.json',
-            preference_save:'preference_save.json',
-            user_query: 'user.json',
-            stores_query: 'stores_:AppointmentType.json',
-            store_query:'store.json',
-            orders_query:'orders.json',
-            order_query:'order.json',
-            membership_query:'membership.json',
-            membership_package_query:'membership_package.json',
-            membership_package_quick_query:'membership_package_quick.json'
+            path: 'http://localhost/wxapi/',
+            appointment_save: 'Appointment/Appointment',
+            appointment_default: 'wx/GetDefaultAppointment',
+            preference_query:'wx/UpdatePreference',
+            preference_save:'wx/UpdatePreference',
+            user_query: 'Customer/GetCustomerAndCarsInfo',
+            stores_query: 'wx/GetStoreList',
+            store_query:'',
+            orders_query:'Appointment/GetAppointmentList',
+            order_query:'Appointment/GetAppointmentDetail',
+            membership_query:'wx/GetVIPCards',
+            membership_package_query:'wx/GetStoreVIPPackageList'
         }
     },
     enMonth: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

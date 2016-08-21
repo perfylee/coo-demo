@@ -42,7 +42,7 @@
             <div class="name">
                 <i class="icon building"></i>
                 <span ng-click="store.open(appointment.store.StoreID,$event)">
-                    {{appointment.store.StoreName || '-'}}
+                    {{appointment.store.StoreName || '暂无提供相关服务的门店'}}
                     <div class="floating ui label small {{{'最近':'green','常去':'orange'}[appointment.store.Tag]}}" ng-if="appointment.store!=null && appointment.store.Tag!=null && appointment.store.Tag!=''">{{appointment.store.Tag}}</div>
                 </span>
             </div>
@@ -70,7 +70,7 @@
 
     </div>
 
-    <div class="index-start" ng-click="appointment.submitVisible = true">
+    <div class="index-start" ng-click="appointment.toSubmit()">
         <button class="ui green button big fluid">
             一键预约
         </button>
@@ -135,7 +135,6 @@
             确认
         </button>
     </div>
-
 </coo-modal>
 
 <coo-modal size="large" show="car.modalVisible">
@@ -254,6 +253,22 @@
 
     </div>
 
+</coo-modal>
+
+
+<coo-modal size="small" show="error.modalVisible">
+    <i class="icon close" ng-show="error.closable"></i>
+    <div class="title">
+        <i class="icon warning sign"></i> 提示
+    </div>
+    <div class="description">
+        <p style="color:red;">{{error.message}}</p>
+    </div>
+    <div class="buttons">
+        <button class="ui button fluid orange"  ng-click="error.retry()">
+            重试
+        </button>
+    </div>
 </coo-modal>
 
 

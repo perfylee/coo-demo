@@ -17,8 +17,8 @@ angular.module('coo',[
     'coo.modules.membership.package'
 ])
 
-.config(['$locationProvider','$routeProvider',function ($locationProvider,$routeProvider) {
-    $locationProvider.hashPrefix('!')
+.config(['$locationProvider','$routeProvider',function ($location,$routeProvider) {
+    $location.hashPrefix('!')
 
 
     $routeProvider
@@ -50,6 +50,19 @@ angular.module('coo',[
             templateUrl: 'modules/membership/view/package.html',
             controller: 'membershipPackageCtrl'
         })
-        .otherwise({redirectTo: '/appointment'})
+        .when('/index', {
+            template:'',
+            controller: 'indexCtrl'
+        })
+        .otherwise('/index')
 
+}])
+.controller('indexCtrl',['$location',function ($location) {
+    $location.path('/appointment').search({
+        "Token":"40917313-2112-492a-ae5a-560328a26670",
+        "lng":"117.217307",
+        "lat":"31.845957",
+        "StoreWXID":"test_shangchenghuayuan",
+        "WXID":""
+    })
 }])

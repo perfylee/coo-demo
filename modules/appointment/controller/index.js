@@ -1,28 +1,40 @@
 'use strict'
 
 angular.module('coo.modules.appointment',[
+    'ngRoute',
     'coo.global',
     'coo.components.modal',
     'coo.components.loader'
 ])
 
-.controller('appointmentCtrl',['$rootScope','$scope','$location','cooGlobal',function ($rootScope,$scope,$location,cooGlobal) {
+.controller('appointmentCtrl',['$rootScope','$scope','$location','$route','cooGlobal',function ($rootScope,$scope,$location,$route,cooGlobal) {
 
-    $scope.title = '预约洗车'
+    /*url params*/
+    var params = $route.current.params
 
-    /*wx params*/
-    $scope.wxParams = {
-        Token: '60781269-278c-40ba-9554-fcde75bc2707',
-        WXID: '123456',
-        lng: '117.217307',
-        lat: '31.845957'
-    }
 
     /*path*/
     $scope.path = function (path) {
         $location.path(path)
     }
 
+    /*error*/
+    $scope.error = {}
+    $scope.error.closable = false
+    $scope.error.message = ''
+    $scope.error.modalVisible = false
+    $scope.error.retry = angular.noop()
+    
+    var execError = function (message,retry,closable) {
+        closable = closable || false
+        $scope.error.modalVisible = true
+        $scope.error.closable = closable
+        $scope.error.message = message
+        $scope.error.retry = function () {
+            $scope.error.modalVisible = false
+            retry()
+        }
+    }
 
     /*loader*/
     $scope.loaderVisible = false
@@ -98,34 +110,30 @@ angular.module('coo.modules.appointment',[
     }
 
     $scope.user.init = function () {
-
-        $scope.loaderVisible = true
         $scope.user.loading = true
-
         //customer cars
         cooGlobal.resource(cooGlobal.api.user_query).query(
-            //QUERY PARAMS
-            //{
-            //  'Token': '5354bcf5-1351-47b8-be4b-7df254474c58',
-            //  'StoreWXID':''
-            //}
-            $scope.wxParams,
+            {'Token': params.Token},
             function (res) {
-                $scope.car.items = res.ResData.Cars
-                $scope.user = res.ResData.Customer
-
                 $scope.user.loading = false
-                $scope.updateLoading()
+                if(res.ResCode == 0) {
+                    $scope.car.items = res.ResData.Cars
+                    $scope.user = res.ResData.Customer
+                }else {
+                    execError('查询用户和车辆信息失败', $scope.user.init)
+                }
             },
             function () {
-                console.log('error')
                 $scope.user.loading = false
-                $scope.updateLoading()
+                execError('查询用户和车辆信息失败', $scope.user.init)
+
             }
         )
     }
 
-
+    $scope.$watch('user.loading',function () {
+        $scope.loaderVisible = $scope.user.loading || $scope.store.loading ||  $scope.appointment.loading
+    })
 
     /*store*/
 
@@ -135,34 +143,32 @@ angular.module('coo.modules.appointment',[
     $scope.store.modalVisible = false
     $scope.store.tabIndex = 'listView' //listView mapView
     $scope.store.init = function () {
-        $scope.loaderVisible = true
         $scope.store.loading = true
 
         //customer cars
         cooGlobal.resource(cooGlobal.api.stores_query).query(
-            //根据服务类型获取门店列表含服务
-            //{
-            //  "Token":"40917313-2112-492a-ae5a-560328a26670",
-            //  "lng":"117.217307",
-            //  "lat":"31.845957",
-            //  "StoreWXID":"test_shangchenghuayuan",
-            //  "AppointmentType","洗车"
-            //}
-            angular.extend($scope.wxParams, {AppointmentType: $rootScope.appointment.category.value}),
+            {
+                'Token': params.Token,
+                'lng': params.lng,
+                'lat': params.lat,
+                'StoreWXID': params.StoreID,
+                'AppointmentType': $rootScope.appointment.category.value
+            },
             function (res) {
-                $scope.store.items = res.ResData
-                $scope.store.mapStore = res.ResData[0]
-                $scope.store.mapStoreIndex = 0
-
                 $scope.store.loading = false
-                $scope.updateLoading()
-
+                if(res.ResCode == 0) {
+                    $scope.store.items = res.ResData
+                    $scope.store.mapStore = res.ResData[0]
+                    $scope.store.mapStoreIndex = 0
+                }else {
+                    execError('查询门店信息失败', $scope.store.init)
+                }
             },
             function () {
                 console.log('error')
-
                 $scope.store.loading = false
-                $scope.updateLoading()
+
+                execError('查询门店信息失败', $scope.store.init)
             }
         )
     }
@@ -231,17 +237,14 @@ angular.module('coo.modules.appointment',[
             mapBuild()
         }
     })
-
     $scope.$watch('store.tabIndex',function () {
         if($scope.store.tabIndex == 'mapView' ) {
             mapBuild()
         }
     })
-
-
-
-
-
+    $scope.$watch('store.loading',function () {
+        $scope.loaderVisible = $scope.user.loading || $scope.store.loading ||  $scope.appointment.loading
+    })
 
     /*time*/
     $scope.time = {}
@@ -277,33 +280,29 @@ angular.module('coo.modules.appointment',[
     $scope.appointment.loading = false
     $scope.appointment.submitVisible = false
     $scope.appointment.init = function () {
-        $scope.loaderVisible = true
         $scope.appointment.loading = true
-
         //default appointment
         cooGlobal.resource(cooGlobal.api.appointment_default).query(
-            // QUERY PARAMS
-            // {
-            //     'Token': '5354bcf5-1351-47b8-be4b-7df254474c58',
-            //     'StoreWXID':'',
-            //     'lng': '117.217307',
-            //     'lat': '31.845957',
-            //     'AppointmentType': '洗车'
-            // }
-            angular.extend($scope.wxParams, {AppointmentType: $rootScope.appointment.category.value}),
+            {
+                'Token': params.Token,
+                'lng': params.lng,
+                'lat': params.lat,
+                'StoreWXID': params.StoreID,
+                'AppointmentType': $rootScope.appointment.category.value
+            },
             function (res) {
-                $rootScope.appointment.car = $rootScope.appointment.car || res.ResData.DefaultCar
-                $scope.appointment.update(res.ResData.StoreItem)
                 $scope.appointment.loading = false
-                $scope.updateLoading()
+                if(res.ResCode == 0){
+                    $rootScope.appointment.car = $rootScope.appointment.car || res.ResData.DefaultCar
+                    $scope.appointment.update(res.ResData.StoreItem)
+                }else {
+                    execError('查询预约信息失败', $scope.appointment.init, true)
+                }
             },
             function () {
                 console.log('error')
-                // var reRequest = setTimeout(function () {
-                //     clearTimeout(reRequest)
-                //     $scope.appointment.init()
-                // },5000)
-
+                $scope.appointment.loading = false
+                execError('查询预约信息失败', $scope.appointment.init, true)
             }
         )
     }
@@ -332,23 +331,30 @@ angular.module('coo.modules.appointment',[
                 $scope.time.items[index].push(value)
         })
     }
+
+    $scope.appointment.toSubmit = function () {
+
+        if( $rootScope.appointment.car == null) {
+            execError('尚未添加预约车辆', angular.noop, true)
+            return
+        }
+
+        if( $rootScope.appointment.store == null) {
+            execError('暂时没有提供 '+$rootScope.appointment.category.value +' 服务的门店', angular.noop, true)
+            return
+        }
+
+
+        $scope.appointment.submitVisible = true
+
+
+
+    }
     $scope.appointment.submit = function () {
 
-        //POST PARAMS
-        //{
-        //  "Source": "wechat",
-        //  "Token": "5354bcf5-1351-47b8-be4b-7df254474c58",
-        //  "StoreID": "23b21f20-1cd3-4ac3-adae-8119ebdeeead",
-        //  "CarNum": "皖A23333",
-        //  "CarGuid": "4b563df8-c4f1-4312-a898-04eed474618d",
-        //  "AppointmentType": "普洗",//服务小类
-        //  "AccurateStartTime": "2016-08-15 21:20:00",
-        //  "AppointmentSource": "wechat(iphone)"
-        //}
-
-        var params = {
+        var saveParams = {
             "Source": "wechat",
-            "Token": $scope.wxParams.Token,
+            "Token": params.Token,
             "StoreID": $rootScope.appointment.store.StoreID,
             "CarNum": $rootScope.appointment.car.CarNum,
             "CarGuid": $rootScope.appointment.car.CarGuid,
@@ -357,15 +363,16 @@ angular.module('coo.modules.appointment',[
             "AppointmentSource": "wechat(iphone)"
         }
 
-
         $scope.loaderVisible = true
+
+
         cooGlobal.resource(cooGlobal.api.appointment_save).save(
-            params,
+            saveParams,
             function (res) {
                 if(res.ResCode == 0){
                     $location.path('/appointment/complete')
                 }else{
-
+                    execError('预约失败', $scope.appointment.submit,true)
                 }
 
                 $scope.loaderVisible = false
@@ -373,6 +380,7 @@ angular.module('coo.modules.appointment',[
             function () {
                 $scope.loaderVisible = false
                 console.log('error')
+                execError('预约失败', $scope.appointment.submit, true)
             }
         )
 
@@ -382,8 +390,9 @@ angular.module('coo.modules.appointment',[
         $scope.loaderVisible = true
 
     }
-
-
+    $scope.$watch('appointment.loading',function () {
+        $scope.loaderVisible = $scope.user.loading || $scope.store.loading || $scope.appointment.loading
+    })
 
     //init
     $scope.user.init()
