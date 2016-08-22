@@ -13,6 +13,7 @@ angular.module('coo',[
     'coo.modules.appointment.preference',
     'coo.modules.appointment.orders',
     'coo.modules.store',
+    'coo.modules.store.map',
     'coo.modules.membership',
     'coo.modules.membership.package'
 ])
@@ -42,6 +43,10 @@ angular.module('coo',[
             templateUrl: 'modules/store/view/index.html',
             controller: 'storeCtrl' //index.js
         })
+        .when('/storeMap', {
+            templateUrl: 'modules/store/view/map.html',
+            controller: 'storeMapCtrl'
+        })
         .when('/membership', {
             templateUrl: 'modules/membership/view/index.html',
             controller: 'membershipCtrl' //index.js
@@ -59,8 +64,8 @@ angular.module('coo',[
 }])
 .controller('indexCtrl',['$location',function ($location) {
     $location.path('/appointment').search({
-        "Token":"40917313-2112-492a-ae5a-560328a26670",
-        "lng":"117.217307",
+        "token":"49cba881-8550-4605-85e5-746bbed01d84",
+        "lnt":"117.217307",
         "lat":"31.845957",
         "StoreWXID":"test_shangchenghuayuan",
         "WXID":""

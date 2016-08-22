@@ -24,8 +24,9 @@ angular.module('coo.modules.appointment.preference',[
         $scope.loaderVisible = true
         cooGlobal.resource(cooGlobal.api.preference_query).query(
             {
-                'Token': params.Token,
-                'lng': params.lng,
+                'Token': params.token,
+                'StoreWXID': params.StoreWXID,
+                'lng': params.lnt,
                 'lat': params.lat
             },
             function (res) {
@@ -60,7 +61,7 @@ angular.module('coo.modules.appointment.preference',[
             //  'Type':'' // ID , 'Last' ,'Nearest','Constantly'
             //}
             {
-                'Token': params.Token,
+                'Token': params.token,
                 'StoreWXID': params.StoreWXID,
                 "Category": category,
                 "Type": types[category][info.Type]
@@ -78,6 +79,8 @@ angular.module('coo.modules.appointment.preference',[
                             store.IsDefault = store.Type == info.Type && store.Tag == info.Tag
                         })
                     }
+
+                    $scope.init()
                 }else{
 
                 }

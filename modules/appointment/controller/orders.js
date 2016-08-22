@@ -61,7 +61,7 @@ angular.module('coo.modules.appointment.orders',[
             //3 - 已取消
             //4 - 已失约
             {
-                "Token":params.Token,
+                "Token":params.token,
                 "PageNum":"1",
                 "PageSize":"100",
                 "Condition":$scope.category

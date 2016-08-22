@@ -11,41 +11,65 @@ angular.module('coo.global',[
             path: 'testData/',
             appointment_save: 'appointment_save.json',
             appointment_default: 'appointment_default_:AppointmentType.json',
-            preference_query:'preference.json',
-            preference_save:'preference_save.json',
+            preference_query: 'preference.json',
+            preference_save: 'preference_save.json',
             user_query: 'user.json',
             stores_query: 'stores_:AppointmentType.json',
-            store_query:'store.json',
-            orders_query:'orders.json',
-            order_query:'order.json',
-            membership_query:'membership.json',
-            membership_package_query:'membership_package.json',
-            membership_package_quick_query:'membership_package_quick.json'
+            store_query: 'store.json',
+            orders_query: 'orders.json',
+            order_query: 'order.json',
+            membership_query: 'membership.json',
+            membership_package_query: 'membership_package.json',
+            membership_package_quick_query: 'membership_package_quick.json'
         },
         pub: {
             path: 'wxapi/',
             appointment_save: 'Appointment/Appointment',
             appointment_default: 'wx/GetDefaultAppointment',
-            preference_query:'wx/GetPreference',
-            preference_save:'wx/UpdatePreference',
+            preference_query: 'wx/GetPreference',
+            preference_save: 'wx/UpdatePreference',
             user_query: 'Customer/GetCustomerAndCarsInfo',
             stores_query: 'wx/GetStoreList',
-            store_query:'',
-            orders_query:'Appointment/GetAppointmentList',
-            order_query:'Appointment/GetAppointmentDetail',
-            membership_query:'wx/GetVIPCards',
-            membership_package_query:'wx/GetStoreVIPPackageList'
+            store_query: 'wx/GetSingleStore',
+            orders_query: 'Appointment/GetAppointmentList',
+            order_query: 'Appointment/GetAppointmentDetail',
+            membership_query: 'wx/GetVIPCards',
+            membership_package_query: 'wx/GetStoreVIPPackageList'
         }
     },
-    enMonth: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-})
+    wx: {
+        dev: {
+            secret: 'a34a865ad54f78c59d060fdc5c0b93c0',
+            appId: 'wxe6cfa3fe641f170e',
+            token: 'HF_CheOO_Token_CS',
+            fromUserName: 'gh_c4d372ec0899',
+            signatureTemp:'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}',
+            jsapiTicket:'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
+        },
+        pub: {
+            secret: '901d4c7f6f65e870f6cff3551b88d0f1',
+            appId: 'wx72ac7733a5a5ed1c',
+            token: 'HF_CheOO_Token',
+            fromUserName: 'gh_3c6b16d565a2',
+            signatureTemp:'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}',
+            jsapiTicket:'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
+        }
+    },
 
+    enMonth: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    modules: {
+        car: '/car/addcar.htm',
+        wxToken: '/weixin/Active.aspx',
+    }
+
+
+})
 
 .factory('cooGlobal',['globalConfig','$resource',function (globalConfig,$resource) {
 
     var config = {}
 
-    //config
+    /*** config ***/
     angular.forEach(globalConfig,function (value,key) {
         config[key] = value[globalConfig.mode] || value
 
@@ -58,13 +82,40 @@ angular.module('coo.global',[
 
     })
     
-    //methods
+    /*** methods ***/
+    //api request
     config.resource = function (api,params) {
         var method = globalConfig.mode == 'dev' ? 'get' : 'post'
         return $resource(api, params || {}, {
             query: {method: method, isArray: false},
             save: {method: method, isArray: false}
         })
+    }
+
+    //random string gen
+    config.randomString = function () {
+        var length = 16
+        var chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
+        var str = ''
+        for (var i = 0; i < length; i++) {
+            str += chars[Math.round(Math.random() * chars.length)]
+        }
+        return str
+    }
+
+    //sha1 hex
+    config.sha1hex = function (input) {
+        return CryptoJS.SHA1(input).toString(CryptoJS.enc.Hex)
+    }
+
+    //wx signature
+    config.wxSignature = function (jsApiTickect,noncestr,timestamp,url) {
+        var signature = config.wx.signatureTemp
+        signature = signature.replace('{0}', jsApiTickect)
+        signature = signature.replace('{1}', noncestr)
+        signature = signature.replace('{3}', timestamp)
+        signature = signature.replace('{4}', url)
+        return config.sha1hex(signature)
     }
 
     return config

@@ -7,11 +7,10 @@ angular.module('coo.modules.appointment',[
     'coo.components.loader'
 ])
 
-.controller('appointmentCtrl',['$rootScope','$scope','$location','$route','cooGlobal',function ($rootScope,$scope,$location,$route,cooGlobal) {
+.controller('appointmentCtrl',['$rootScope','$scope','$location','$route','$window','cooGlobal',function ($rootScope,$scope,$location,$route,$window,cooGlobal) {
 
     /*url params*/
     var params = $route.current.params
-
 
     /*path*/
     $scope.path = function (path) {
@@ -68,9 +67,9 @@ angular.module('coo.modules.appointment',[
     /*category*/
     $scope.category = {}
     $scope.category.items = [
-        {name:'保养',value:'保养',en:'Maintenance',sort:0},
-        {name:'洗车',value:'美容',en:'Vehicle Cleaning',sort:1},
-        {name:'轮胎',value:'轮胎',en:'TireService',sort:2}
+        {name:'保养',value:'维修保养',en:'Maintenance',sort:0},
+        {name:'洗车',value:'美容清洁',en:'Vehicle Cleaning',sort:1},
+        {name:'轮胎',value:'轮胎相关服务',en:'TireService',sort:2}
     ]
     $scope.category.order = function (category) {
         var currIndex = 0
@@ -126,7 +125,7 @@ angular.module('coo.modules.appointment',[
         $scope.user.loading = true
         //customer cars
         cooGlobal.resource(cooGlobal.api.user_query).query(
-            {'Token': params.Token},
+            {'Token': params.token},
             function (res) {
                 $scope.user.loading = false
                 if(res.ResCode == 0) {
@@ -160,8 +159,8 @@ angular.module('coo.modules.appointment',[
         //customer cars
         cooGlobal.resource(cooGlobal.api.stores_query).query(
             {
-                'Token': params.Token,
-                'lng': params.lng,
+                'Token': params.token,
+                'lng': params.lnt,
                 'lat': params.lat,
                 'StoreWXID': params.StoreID,
                 'AppointmentType': $rootScope.appointment.category.value
@@ -173,13 +172,13 @@ angular.module('coo.modules.appointment',[
                     $scope.store.mapStore = res.ResData[0]
                     $scope.store.mapStoreIndex = 0
                 }else {
-                    execError({message: '查询门店信息失败', retry: $scope.store.init})
+                   //execError({message: '查询门店信息失败', retry: $scope.store.init})
                 }
             },
             function () {
                 console.log('error')
                 $scope.store.loading = false
-                execError({message: '查询门店信息失败', retry: $scope.store.init})
+                //execError({message: '查询门店信息失败', retry: $scope.store.init})
             }
         )
     }
@@ -296,8 +295,8 @@ angular.module('coo.modules.appointment',[
         //default appointment
         cooGlobal.resource(cooGlobal.api.appointment_default).query(
             {
-                'Token': params.Token,
-                'lng': params.lng,
+                'Token': params.token,
+                'lng': params.lnt,
                 'lat': params.lat,
                 'StoreWXID': params.StoreID,
                 'AppointmentType': $rootScope.appointment.category.value
@@ -305,10 +304,20 @@ angular.module('coo.modules.appointment',[
             function (res) {
                 $scope.appointment.loading = false
                 if(res.ResCode == 0){
+                    if(res.ResData.DefaultCar == null){
+                        execError({
+                            message: '尚未添加爱车，前往添加',
+                            btnText:'确定',
+                            retry: function () {
+                                $window.location.href = cooGlobal.modules.car+'?token='+params.token+'&WXID='+params.WXID+'&StoreWXID='+params.StoreWXID
+                            },
+                            closable: false})
+                        return
+                    }
                     $rootScope.appointment.car = $rootScope.appointment.car || res.ResData.DefaultCar
                     $scope.appointment.update(res.ResData.StoreItem)
                 }else {
-                    execError({message: '加载预约信息失败', retry: $scope.appointment.init, closable: true})
+                    //execError({message: '加载预约信息失败', retry: $scope.appointment.init, closable: true})
                 }
 
                 $scope.loaded = true
@@ -323,6 +332,13 @@ angular.module('coo.modules.appointment',[
         )
     }
     $scope.appointment.update = function (store) {
+        if(store == null){
+            $rootScope.appointment.store = null
+            $rootScope.appointment.service = null
+            $rootScope.appointment.time = null
+            $scope.time.quickItems = []
+            return
+        }
 
         $rootScope.appointment.store = $rootScope.appointment.store || store
         $rootScope.appointment.service = $rootScope.appointment.service || store.StoreWorkPlace[0]
@@ -375,7 +391,7 @@ angular.module('coo.modules.appointment',[
 
         var saveParams = {
             "Source": "wechat",
-            "Token": params.Token,
+            "Token": params.token,
             "StoreID": $rootScope.appointment.store.StoreID,
             "CarNum": $rootScope.appointment.car.CarNum,
             "CarGuid": $rootScope.appointment.car.CarGuid,
@@ -401,7 +417,7 @@ angular.module('coo.modules.appointment',[
                     })
                 }else if (res.ResCode == 2){
                     execError({
-                        message: '您在今天还有未完成的预约',
+                        message: '您还有未完成的预约，不能重复预约',
                         btnText:'知道了',
                         closable: true
                     })
@@ -438,11 +454,13 @@ angular.module('coo.modules.appointment',[
         $scope.loaderVisible = true
 
     }
+
     $scope.$watch('appointment.loading',function () {
         $scope.loaderVisible = $scope.user.loading || $scope.store.loading || $scope.appointment.loading
     })
 
     //init
+
     $scope.user.init()
     $scope.store.init()
     $scope.appointment.init()

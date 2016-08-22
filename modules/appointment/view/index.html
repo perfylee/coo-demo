@@ -28,7 +28,9 @@
 
     <div class="index-main">
 
-        <div class="item" ng-click="car.modalVisible = true">
+        <div class="noStore" ng-show="loaded && appointment.store  == null"> 暂无提供相关服务的门店 </div>
+
+        <div class="item" ng-click="car.modalVisible = true"  ng-show="appointment.store !=null">
             <div class="name">
                 <i class="icon car"></i>
                 <span> {{appointment.car.CarNum || '-'}}</span>
@@ -37,8 +39,6 @@
                 <span>{{appointment.car.CarBrand || '-'}} {{appointment.car.CarModel }}</span>
             </span>
         </div>
-
-        <div class="noStore" ng-show="loaded && appointment.store  == null"> 暂无提供相关服务的门店 </div>
 
         <div class="item" ng-click="store.modalVisible = true" ng-show="appointment.store !=null">
             <div class="name">
@@ -93,7 +93,7 @@
 
         <div class="item"  ng-click="path('/appointment/orders/')">
             <i class="icon file text outline"></i>
-            <span class="name">我的订单</span>
+            <span class="name">我的预约</span>
         </div>
 
     </div>

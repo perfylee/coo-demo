@@ -14,8 +14,17 @@ angular.module('coo.modules.store',[
 
     var params = $route.current.params
 
+
+
+
+    /*path*/
+    $scope.path = function (path) {
+        $location.path(path)
+    }
+
     $scope.store = null
     $scope.loaderVisible = false
+    $scope.isLoaded = false
 
 
     $scope.init = function () {
@@ -28,16 +37,22 @@ angular.module('coo.modules.store',[
             //  "StoreID": "23b21f20-1cd3-4ac3-adae-8119ebdeeead"
             //}
             {
-                'Token': '5354bcf5-1351-47b8-be4b-7df254474c58',
-                'StoreWXID':'',
-                "StoreID": "23b21f20-1cd3-4ac3-adae-8119ebdeeead"
+                'Token': params.token,
+                'StoreWXID':params.StoreWXID,
+                "StoreID": params.id
             },
             function (res) {
-                $scope.store = res.ResData
                 $scope.loaderVisible = false
+                if(res.ResCode == 0) {
+                    $scope.store = res.ResData
+                }
+
+                $scope.isLoaded = true
             },
             function () {
                 console.log('error')
+                $scope.loaderVisible = false
+                $scope.isLoaded = true
             }
         )
     }
@@ -50,10 +65,18 @@ angular.module('coo.modules.store',[
 
         $location.path('/appointment')
     }
-
-    $scope.back = function () {
-        $location.path('/appointment')
+    
+    $scope.shopMap = function () {
+        $location.path('/storeMap').search(
+            angular.extend({}, params, {
+                'StoreID': $scope.store.StoreID,
+                'StoreName':$scope.store.StoreName,
+                'Latitude_B': $scope.store.Latitude_B,
+                'Longitude_B': $scope.store.Longitude_B,
+            })
+        )
     }
+
     $scope.init()
 
 }])

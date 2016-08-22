@@ -13,6 +13,7 @@ module.exports = function (grunt) {
                     'public/lib/jquery/dist/jquery.js',
                     'public/lib/semantic/dist/semantic.js',
                     'public/lib/angular/angular.min.js',
+                    'public/lib/crypto-js/crypto-js.js',
                     'public/lib/angular-resource/angular-resource.min.js',
                     'public/lib/angular-route/angular-route.min.js',
                     'public/js/Date.js',

@@ -21,13 +21,14 @@ angular.module('coo.components.price',[function () {
                 if(scope.value == undefined){
                     element.append('<span class="empty"></span>')
                 }else if (
+                    scope.value.toString() == '-1' ||
                     scope.value.toString() == '-1.00' ||
                     scope.value.toString() =='-1.00,-1.00' ||
                     scope.value.toString() =='-1.00|-1.00' ||
                     scope.value.toString() =='-1.00|-1.00,-1.00|-1.00'){
                     element.append('-')
                 }else{
-                    var prices = scope.value.replace(/-1.00/g, '-').split(',')
+                    var prices = scope.value.replace(/-1.00/g, '-').replace(/-1/g, '-').split(',')
                     angular.forEach(prices,function (price) {
 
                         var priceEle = angular.element('<div class="price"></div>')
