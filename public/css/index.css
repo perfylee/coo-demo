@@ -134,6 +134,13 @@
     overflow-y: auto;;
 }
 
+.index-main .noStore{
+    padding-left:36px;
+    line-height: 100px;
+    font-size: 16px;
+    color:#ccc;
+}
+
 .index-main > .item{
     padding-bottom: 24px;
     display: block;

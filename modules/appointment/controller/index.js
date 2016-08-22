@@ -19,30 +19,43 @@ angular.module('coo.modules.appointment',[
     }
 
     /*error*/
-    $scope.error = {}
-    $scope.error.closable = false
-    $scope.error.message = ''
-    $scope.error.modalVisible = false
-    $scope.error.retry = angular.noop()
+
+    var defaultError = {
+        closable: false,
+        message: '未知错误',
+        retry: angular.noop,
+        btnText: '重试'
+    }
+
+    $scope.error = angular.extend({},defaultError, {
+        modalVisible: false
+    })
+
     
-    var execError = function (message,retry,closable) {
-        closable = closable || false
+    var execError = function (error) {
+        error = angular.extend({}, defaultError, error)
+
         $scope.error.modalVisible = true
-        $scope.error.closable = closable
-        $scope.error.message = message
+
+        $scope.error.closable = error.closable
+        $scope.error.message = error.message
+        $scope.error.btnText = error.btnText
+
         $scope.error.retry = function () {
             $scope.error.modalVisible = false
-            retry()
+            error.retry()
         }
     }
 
     /*loader*/
     $scope.loaderVisible = false
+    $scope.loaded = false
     $scope.updateLoading = function () {
         if($scope.user.loading == false && $scope.store.loading == false && $scope.appointment.loading == false) {
             $scope.loaderVisible = false
         }
     }
+
 
     /*top*/
     $scope.top = {}
@@ -56,7 +69,7 @@ angular.module('coo.modules.appointment',[
     $scope.category = {}
     $scope.category.items = [
         {name:'保养',value:'保养',en:'Maintenance',sort:0},
-        {name:'洗车',value:'洗车',en:'Vehicle Cleaning',sort:1},
+        {name:'洗车',value:'美容',en:'Vehicle Cleaning',sort:1},
         {name:'轮胎',value:'轮胎',en:'TireService',sort:2}
     ]
     $scope.category.order = function (category) {
@@ -103,7 +116,7 @@ angular.module('coo.modules.appointment',[
     $scope.car.items = []
     $scope.car.modalVisible = false
     $scope.car.select = function (item) {
-        if(item.CarGuid != $rootScope.appointment.car.CarGuid) {
+        if($rootScope.appointment.car == null || item.CarGuid != $rootScope.appointment.car.CarGuid) {
             $rootScope.appointment.car = item
             $scope.car.modalVisible = false
         }
@@ -120,13 +133,12 @@ angular.module('coo.modules.appointment',[
                     $scope.car.items = res.ResData.Cars
                     $scope.user = res.ResData.Customer
                 }else {
-                    execError('查询用户和车辆信息失败', $scope.user.init)
+                    execError({message: '查询用户和车辆信息失败', retry: $scope.user.init})
                 }
             },
             function () {
                 $scope.user.loading = false
-                execError('查询用户和车辆信息失败', $scope.user.init)
-
+                execError({message: '查询用户和车辆信息失败', retry: $scope.user.init})
             }
         )
     }
@@ -161,14 +173,13 @@ angular.module('coo.modules.appointment',[
                     $scope.store.mapStore = res.ResData[0]
                     $scope.store.mapStoreIndex = 0
                 }else {
-                    execError('查询门店信息失败', $scope.store.init)
+                    execError({message: '查询门店信息失败', retry: $scope.store.init})
                 }
             },
             function () {
                 console.log('error')
                 $scope.store.loading = false
-
-                execError('查询门店信息失败', $scope.store.init)
+                execError({message: '查询门店信息失败', retry: $scope.store.init})
             }
         )
     }
@@ -280,6 +291,7 @@ angular.module('coo.modules.appointment',[
     $scope.appointment.loading = false
     $scope.appointment.submitVisible = false
     $scope.appointment.init = function () {
+        $scope.loaded = false
         $scope.appointment.loading = true
         //default appointment
         cooGlobal.resource(cooGlobal.api.appointment_default).query(
@@ -296,13 +308,17 @@ angular.module('coo.modules.appointment',[
                     $rootScope.appointment.car = $rootScope.appointment.car || res.ResData.DefaultCar
                     $scope.appointment.update(res.ResData.StoreItem)
                 }else {
-                    execError('查询预约信息失败', $scope.appointment.init, true)
+                    execError({message: '加载预约信息失败', retry: $scope.appointment.init, closable: true})
                 }
+
+                $scope.loaded = true
             },
             function () {
                 console.log('error')
                 $scope.appointment.loading = false
-                execError('查询预约信息失败', $scope.appointment.init, true)
+                execError({message: '加载预约信息失败', retry: $scope.appointment.init, closable: true})
+
+                $scope.loaded = true
             }
         )
     }
@@ -335,12 +351,17 @@ angular.module('coo.modules.appointment',[
     $scope.appointment.toSubmit = function () {
 
         if( $rootScope.appointment.car == null) {
-            execError('尚未添加预约车辆', angular.noop, true)
+            execError({message: '尚未添加预约车辆', retry: angular.noop, btnText: '确定', closable: true})
             return
         }
 
         if( $rootScope.appointment.store == null) {
-            execError('暂时没有提供 '+$rootScope.appointment.category.value +' 服务的门店', angular.noop, true)
+            execError({
+                message: '暂时没有提供 ' + $rootScope.appointment.category.name + ' 服务的门店',
+                retry: angular.noop,
+                btnText: '确定',
+                closable: true
+            })
             return
         }
 
@@ -358,21 +379,44 @@ angular.module('coo.modules.appointment',[
             "StoreID": $rootScope.appointment.store.StoreID,
             "CarNum": $rootScope.appointment.car.CarNum,
             "CarGuid": $rootScope.appointment.car.CarGuid,
-            "AppointmentType": $rootScope.appointment.service.name,
+            "AppointmentType": $rootScope.appointment.service.ServiceType,
             "AccurateStartTime": $rootScope.appointment.time.AccurateStartTime,
             "AppointmentSource": "wechat(iphone)"
         }
 
-        $scope.loaderVisible = true
+        console.log($rootScope.appointment.service)
 
+        $scope.loaderVisible = true
 
         cooGlobal.resource(cooGlobal.api.appointment_save).save(
             saveParams,
             function (res) {
                 if(res.ResCode == 0){
                     $location.path('/appointment/complete')
+                }else if (res.ResCode == 1){
+                    execError({
+                        message: '预约位被占用，请重新选择',
+                        btnText:'知道了',
+                        closable: true
+                    })
+                }else if (res.ResCode == 2){
+                    execError({
+                        message: '您在今天还有未完成的预约',
+                        btnText:'知道了',
+                        closable: true
+                    })
+                }else if (res.ResCode == 2){
+                    execError({
+                        message: '预约位已占用，请重新选择',
+                        btnText:'知道了',
+                        closable: true
+                    })
                 }else{
-                    execError('预约失败', $scope.appointment.submit,true)
+                    execError({
+                        message: '预约失败',
+                        retry: $scope.appointment.submit,
+                        closable: true
+                    })
                 }
 
                 $scope.loaderVisible = false
@@ -380,7 +424,11 @@ angular.module('coo.modules.appointment',[
             function () {
                 $scope.loaderVisible = false
                 console.log('error')
-                execError('预约失败', $scope.appointment.submit, true)
+                execError({
+                    message: '预约失败',
+                    retry: $scope.appointment.submit,
+                    closable: true
+                })
             }
         )
 

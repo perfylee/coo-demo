@@ -18,7 +18,7 @@
     </div>
 
     <div class="ui list selector">
-        <div class="item {{car.IsDefault?'selected':''}}" ng-repeat="car in cars" ng-click="save('PreferenceCar',car)">
+        <div class="item {{car.IsDefault?'selected':''}}" ng-repeat="car in cars" ng-click="save('Car',car)">
             <div class="name">{{car.Name}}</div>
             <div class="sub">{{car.Description}}</div>
             <i class="icon check mark"></i>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="ui list selector">
-        <div class="item {{store.IsDefault?'selected':''}}" ng-repeat="store in stores"  ng-click="save('PreferenceStore',store)">
+        <div class="item {{store.IsDefault?'selected':''}}" ng-repeat="store in stores"  ng-click="save('Store',store)">
             <div class="name">{{store.Name}}</div>
             <div class="sub">{{store.Description}}</div>
             <i class="icon check mark"></i>

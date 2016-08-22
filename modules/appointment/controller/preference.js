@@ -1,11 +1,16 @@
 'use strict'
 
 angular.module('coo.modules.appointment.preference',[
+    'ngRoute',
     'coo.global'
 
 ])
 
-.controller('appointmentPreferenceCtrl',['$scope','$location','cooGlobal',function ($scope,$location,cooGlobal) {
+.controller('appointmentPreferenceCtrl',['$scope','$location','$route','cooGlobal',function ($scope,$location,$route,cooGlobal) {
+
+
+    var params = $route.current.params
+
     /*path*/
     $scope.path = function (path) {
         $location.path(path)
@@ -18,12 +23,11 @@ angular.module('coo.modules.appointment.preference',[
     $scope.init = function () {
         $scope.loaderVisible = true
         cooGlobal.resource(cooGlobal.api.preference_query).query(
-            //用户习惯
-            //{
-            //  'Token': '5354bcf5-1351-47b8-be4b-7df254474c58'
-            //  'StoreWXID':''
-            //}
-            {r: Math.random()},
+            {
+                'Token': params.Token,
+                'lng': params.lng,
+                'lat': params.lat
+            },
             function (res) {
                 $scope.cars = res.ResData.PreferenceCar
                 $scope.stores = res.ResData.PreferenceStore
@@ -41,6 +45,12 @@ angular.module('coo.modules.appointment.preference',[
     //category   PreferenceCar,PreferenceStore
     $scope.save = function (category,info) {
         $scope.loaderVisible = true
+
+        var types = {
+            'Car': [info.Tag, '', '', 'Last'],
+            'Store': [info.Tag, 'Constantly', 'Nearest', 'Last']
+        }
+
         cooGlobal.resource(cooGlobal.api.preference_save).save(
             //用户习惯提交
             //{
@@ -50,11 +60,10 @@ angular.module('coo.modules.appointment.preference',[
             //  'Type':'' // ID , 'Last' ,'Nearest','Constantly'
             //}
             {
-                'Token': '5354bcf5-1351-47b8-be4b-7df254474c58',
-                'StoreWXID':'',
+                'Token': params.Token,
+                'StoreWXID': params.StoreWXID,
                 "Category": category,
-                "Type": info.Type,
-                "Tag": info.Tag
+                "Type": types[category][info.Type]
             },
             function (res) {
                 $scope.loaderVisible = false

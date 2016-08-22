@@ -38,11 +38,13 @@
             </span>
         </div>
 
-        <div class="item" ng-click="store.modalVisible = true">
+        <div class="noStore" ng-show="loaded && appointment.store  == null"> 暂无提供相关服务的门店 </div>
+
+        <div class="item" ng-click="store.modalVisible = true" ng-show="appointment.store !=null">
             <div class="name">
                 <i class="icon building"></i>
                 <span ng-click="store.open(appointment.store.StoreID,$event)">
-                    {{appointment.store.StoreName || '暂无提供相关服务的门店'}}
+                    {{appointment.store.StoreName || '-'}}
                     <div class="floating ui label small {{{'最近':'green','常去':'orange'}[appointment.store.Tag]}}" ng-if="appointment.store!=null && appointment.store.Tag!=null && appointment.store.Tag!=''">{{appointment.store.Tag}}</div>
                 </span>
             </div>
@@ -55,7 +57,7 @@
             </div>
         </div>
 
-        <div class="item" ng-click="time.modalVisible = true">
+        <div class="item" ng-click="time.modalVisible = true"  ng-show="appointment.store !=null">
             <div class="name">
                 <i class="icon time"></i>
                 <span>  {{appointment.time.AccurateStartTime | shortTime}}</span>
@@ -71,7 +73,7 @@
     </div>
 
     <div class="index-start" ng-click="appointment.toSubmit()">
-        <button class="ui green button big fluid">
+        <button class="ui button big fluid {{(appointment.car && appointment.store && appointment.service && appointment.time)?'green':'disbled'}}">
             一键预约
         </button>
     </div>
@@ -266,7 +268,7 @@
     </div>
     <div class="buttons">
         <button class="ui button fluid orange"  ng-click="error.retry()">
-            重试
+            {{error.btnText}}
         </button>
     </div>
 </coo-modal>

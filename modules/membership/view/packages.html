@@ -14,24 +14,24 @@
     </div>
     <div class="page-tabs">
         <div class="ui green secondary pointing menu five item ">
-            <a class="item {{$index == category?'active':''}}" ng-repeat="(key,value) in categories" ng-click="categorySelect($index)">{{value.label}}</a>
+            <a class="item {{key == category?'active':''}}" ng-repeat="(key,value) in categories" ng-click="categorySelect(key)">{{value.label}}</a>
         </div>
     </div>
 
 
-    <div class="noOrders" ng-if="orders.length == 0 && isLoaded">
+    <div class="noOrders" ng-if="hasOrders() == false">
         没有相关预约
     </div>
 
-    <div ng-repeat="item in orders" ng-if="orders.length > 0">
+    <div ng-repeat="item in orders" ng-if="hasOrders()">
         <div class="order-list">
-            <div class="orderDetail" ng-repeat="appointment in item.Appointments">
+            <div class="orderDetail" ng-repeat="appointment in item.Appointments | filter:{Status:category}">
                 <img ng-src="{{appointment.StoreImage}}">
                 <div class="appointment">{{appointment.AppointmentType}}</div>
                 <div class="carNum">{{appointment.CarNum}}</div>
                 <div class="storeName">{{appointment.StoreName}}</div>
                 <div class="date">{{appointment.TimeOfWeek}} ({{appointment.AccurateStartTime}})</div>
-                <span class="status ui left ribbon label  {{categories[categoryLabels.indexOf(appointment.Status)].color}}">{{appointment.Status}}</span>
+                <span class="status ui left ribbon label  {{categories[appointment.Status].color}}">{{categories[appointment.Status].label}}</span>
             </div>
         </div>
 
@@ -40,19 +40,3 @@
 </div>
 
 <coo-loader show="loaderVisible"></coo-loader>
-
-
-<coo-modal size="small" show="errorModalVisible">
-    <i class="icon close"></i>
-    <div class="title">
-        <i class="icon warning sign"></i> 提示
-    </div>
-    <div class="description">
-        <p style="color:red;">查询失败，请重试</p>
-    </div>
-    <div class="buttons">
-        <button class="ui button fluid orange"  ng-click="init()">
-            重试
-        </button>
-    </div>
-</coo-modal>

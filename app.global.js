@@ -8,7 +8,7 @@ angular.module('coo.global',[
     mode: 'pub', // dev,pub
     api: {
         dev: {
-            path: '/testData/',
+            path: 'testData/',
             appointment_save: 'appointment_save.json',
             appointment_default: 'appointment_default_:AppointmentType.json',
             preference_query:'preference.json',
@@ -23,10 +23,10 @@ angular.module('coo.global',[
             membership_package_quick_query:'membership_package_quick.json'
         },
         pub: {
-            path: 'http://localhost/wxapi/',
+            path: 'wxapi/',
             appointment_save: 'Appointment/Appointment',
             appointment_default: 'wx/GetDefaultAppointment',
-            preference_query:'wx/UpdatePreference',
+            preference_query:'wx/GetPreference',
             preference_save:'wx/UpdatePreference',
             user_query: 'Customer/GetCustomerAndCarsInfo',
             stores_query: 'wx/GetStoreList',

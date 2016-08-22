@@ -18,6 +18,7 @@ a{
 
 .ui.button{
     border-radius: 0;
+    font-family: 'Microsoft YaHei UI Light';
 }
 .ui.green.button,
 .ui.green.button:visited{
