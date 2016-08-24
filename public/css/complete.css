@@ -5,12 +5,12 @@
     padding:  0 0 16px 0;
     color: #1aa586;
 
-    margin-bottom: 32px;
+    margin-bottom: 18px;
 }
 
 .complete > .message > .icon{
-    font-size:128px;
-    line-height: 128px;
+    font-size:100px;
+    line-height: 100px;
 }
 
 .complete > .message > div{
@@ -60,4 +60,8 @@
     left: 16px;
     bottom: 12px;
     right: 16px;
+}
+
+.complete > .buttons > a{
+    margin-top: 8px;
 }

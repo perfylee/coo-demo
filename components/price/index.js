@@ -26,9 +26,9 @@ angular.module('coo.components.price',[function () {
                     scope.value.toString() =='-1.00,-1.00' ||
                     scope.value.toString() =='-1.00|-1.00' ||
                     scope.value.toString() =='-1.00|-1.00,-1.00|-1.00'){
-                    element.append('-')
+                    element.append('')
                 }else{
-                    var prices = scope.value.replace(/-1.00/g, '-').replace(/-1/g, '-').split(',')
+                    var prices = scope.value.replace(/-1.00/g, '').replace(/-1/g, '').split(',')
                     angular.forEach(prices,function (price) {
 
                         var priceEle = angular.element('<div class="price"></div>')

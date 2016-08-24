@@ -315,7 +315,7 @@ angular.module('coo.modules.appointment',[
                         return
                     }
                     $rootScope.appointment.car = $rootScope.appointment.car || res.ResData.DefaultCar
-                    $scope.appointment.update(res.ResData.StoreItem)
+                    $scope.appointment.update($rootScope.appointment.store || res.ResData.StoreItem)
                 }else {
                     //execError({message: '加载预约信息失败', retry: $scope.appointment.init, closable: true})
                 }
@@ -332,7 +332,8 @@ angular.module('coo.modules.appointment',[
         )
     }
     $scope.appointment.update = function (store) {
-        if(store == null){
+
+        if(store == null) {
             $rootScope.appointment.store = null
             $rootScope.appointment.service = null
             $rootScope.appointment.time = null
@@ -344,6 +345,10 @@ angular.module('coo.modules.appointment',[
         $rootScope.appointment.service = $rootScope.appointment.service || store.StoreWorkPlace[0]
 
         $scope.time.quickItems = []
+        $scope.time.items = [[], [], []]
+
+        if($rootScope.appointment.service.TypeWorkPlaces == 0)
+            return
 
         for (var i = 0; i < $rootScope.appointment.service.TypeWorkPlaces.length; i++) {
             var time = $rootScope.appointment.service.TypeWorkPlaces[i]
@@ -356,7 +361,6 @@ angular.module('coo.modules.appointment',[
 
         $rootScope.appointment.time =  $rootScope.appointment.time || $scope.time.quickItems[0]
 
-        $scope.time.items = [[], [], []]
         angular.forEach(store.StoreWorkPlace[0].TypeWorkPlaces, function (value) {
             var index = new Date(value.AccurateStartTime.replace(/-/g, "/")).dateDiff(new Date(), 'd')
             if (index >= 0 && index <= 2)
@@ -464,6 +468,7 @@ angular.module('coo.modules.appointment',[
     $scope.user.init()
     $scope.store.init()
     $scope.appointment.init()
+
 
 
 }])

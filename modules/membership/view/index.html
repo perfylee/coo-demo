@@ -10,7 +10,7 @@
     </div>
 
     <div class="message">
-        <span>卡内可用服务和次数</span>
+        <span ng-show="membership.obj != null && membership.obj.VIPCardItems != null && membership.obj.VIPCardItems.length > 0">卡内可用服务和次数</span>
         <a ng-click="path('/membership/package')">所有套餐</a>
     </div>
 
@@ -20,11 +20,16 @@
             <div class="ooo"></div>
 
             <div class="name">{{item.ItemName}}</div>
-            <div class="expire">有效期至：{{item.ExpireTime == '2099-01-01 00:00:00'?'永久':item.ExprireTime}}</div>
+            <div class="expire">有效期至：{{(item.ExpireTime == null || item.ExpireTime == '2099-01-01 00:00:00' || item.ExpireTime == '')?'永久':item.ExprireTime}}</div>
             <div class="times">{{item.SurplusValue}}<span>次</span></div>
         </div>
-
     </div>
+    <div class="noService" ng-click="path('/membership/package')" ng-if="membership.obj == null || membership.obj.VIPCardItems == null || membership.obj.VIPCardItems.length == 0">
+        卡内暂无可使用的服务次数
+        <br>
+        点此选择优惠套餐充值
+    </div>
+
 
     <div class="pay">
         <div class="package" ng-click="packageModalVisible = true" ng-show="packageToPay!=null">
@@ -42,7 +47,7 @@
         <div class="empty" ng-if="packageToPay == null">
             暂无可充值套餐
         </div>
-        <div class="btn-pay">
+        <div class="btn-pay {{packageToPay == null ?'gray':''}}" ng-click="toPay()">
             快速充值
         </div>
     </div>
@@ -72,3 +77,18 @@
 </coo-modal>
 
 <coo-loader show="loaderVisible"></coo-loader>
+
+<coo-modal size="small" show="confirm.modalVisible">
+    <i class="icon close" ng-if="confirm.closable" ng-click="confirm.modalVisible = false"></i>
+    <div class="title">
+        <i class="icon warning sign"></i> {{confirm.title}}
+    </div>
+    <div class="description">
+        <p style="{{confirm.isError?'color:red':''}}" ng-bind-html="confirm.message"></p>
+    </div>
+    <div class="buttons">
+        <button class="ui button fluid {{confirm.isError ? 'orange':'green'}}"  ng-click="confirm.callback()">
+            {{confirm.btnText}}
+        </button>
+    </div>
+</coo-modal>

@@ -33,8 +33,10 @@ angular.module('coo.global',[
             store_query: 'wx/GetSingleStore',
             orders_query: 'Appointment/GetAppointmentList',
             order_query: 'Appointment/GetAppointmentDetail',
+            order_cancel: 'Appointment/CancleAppointment',
             membership_query: 'wx/GetVIPCards',
-            membership_package_query: 'wx/GetStoreVIPPackageList'
+            membership_package_query: 'wx/GetStoreVIPPackageList',
+            package_order_create:'wx/WeChatOrdering'
         }
     },
     wx: {
@@ -43,16 +45,17 @@ angular.module('coo.global',[
             appId: 'wxe6cfa3fe641f170e',
             token: 'HF_CheOO_Token_CS',
             fromUserName: 'gh_c4d372ec0899',
-            signatureTemp:'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}',
-            jsapiTicket:'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
+            signatureTemp: 'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}',
+            jsapiTicket: 'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
         },
         pub: {
+            key: 'MrCarTest12345678901234567890123',
             secret: '901d4c7f6f65e870f6cff3551b88d0f1',
-            appId: 'wx72ac7733a5a5ed1c',
+            appId: 'wxe6cfa3fe641f170e',
             token: 'HF_CheOO_Token',
             fromUserName: 'gh_3c6b16d565a2',
-            signatureTemp:'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}',
-            jsapiTicket:'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
+            signatureTemp: 'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}',
+            jsapiTicket: 'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
         }
     },
 
@@ -60,6 +63,7 @@ angular.module('coo.global',[
     modules: {
         car: '/car/addcar.htm',
         wxToken: '/weixin/Active.aspx',
+        appointmentDetail: '/my/MyReservationDetail.htm',
     }
 
 
@@ -88,7 +92,13 @@ angular.module('coo.global',[
         var method = globalConfig.mode == 'dev' ? 'get' : 'post'
         return $resource(api, params || {}, {
             query: {method: method, isArray: false},
-            save: {method: method, isArray: false}
+            save: {method: method, isArray: false},
+            form: {
+                method: 'POST',
+                isArray: false,
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            }
         })
     }
 
@@ -101,11 +111,6 @@ angular.module('coo.global',[
             str += chars[Math.round(Math.random() * chars.length)]
         }
         return str
-    }
-
-    //sha1 hex
-    config.sha1hex = function (input) {
-        return CryptoJS.SHA1(input).toString(CryptoJS.enc.Hex)
     }
 
     //wx signature

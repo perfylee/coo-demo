@@ -13,6 +13,13 @@
 }
 
 
+.index .poweredby{
+    position: absolute;
+    right: 12px;
+    top:8px;
+    height:17px;
+}
+
 
 .index-header{
     position: relative;
@@ -225,8 +232,8 @@
     position: relative;
     display: block;
     float: left;
-    /*width:33.33%;*/
-    width:50%;
+    width:33.33%;
+    /*width:50%;*/
     line-height: 36px;
 
     text-align: center;

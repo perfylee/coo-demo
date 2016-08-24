@@ -16,6 +16,7 @@
             <a href="#"><i class="icon ellipsis horizontal"></i></a>
         </div>
         -->
+
     </div>
 
     <div class="index-service">
@@ -73,18 +74,17 @@
     </div>
 
     <div class="index-start" ng-click="appointment.toSubmit()">
-        <button class="ui button big fluid {{(appointment.car && appointment.store && appointment.service && appointment.time)?'green':'disbled'}}">
+        <button class="ui button big fluid green" ng-show="appointment.car && appointment.store && appointment.service && appointment.time">
             一键预约
         </button>
     </div>
 
     <div class="index-footer">
 
-        <!--<div class="item" ng-click="">-->
-            <!--<i class="icon empty heart"></i>-->
-            <!--<span class="name">优惠活动</span>-->
-            <!--<div class="floating ui red label small">2</div>-->
-        <!--</div>-->
+        <div class="item" ng-click="path('/stores/')">
+            <i class="icon building outline"></i>
+            <span class="name">所有门店</span>
+        </div>
 
         <div class="item" ng-click="path('/appointment/preference/')">
             <i class="icon setting"></i>
@@ -100,6 +100,8 @@
 
     <coo-loader show="loaderVisible"></coo-loader>
 
+
+    <img class="poweredby" src="public/images/poweredby.png">
 </div>
 
 
@@ -170,6 +172,9 @@
                         {{ item.AccurateStartTime | shortTime:2}}
                     </span>
                 </div>
+            </div>
+            <div style="padding: 10px;text-align: center;" ng-if="time.items[0].length == 0 && time.items[1].length == 0 && time.items[2].length == 0">
+                没有可选时间，可能该服务已暂停
             </div>
         </div>
     </div>

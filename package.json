@@ -14,6 +14,6 @@
   },
   "scripts": {
     "start": "lite-server",
-    "build":"grunt"
+    "build": "grunt"
   }
 }

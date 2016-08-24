@@ -16,7 +16,7 @@
 
 .membership > .services > .service {
     position: relative;
-    padding: 12px 12px 12px 24px;
+    padding: 12px 42px 12px 24px;
     background: #ffc82c;
     margin-top:16px;
 
@@ -59,6 +59,13 @@
     font-size: 24px;
     line-height: 24px;
     margin-bottom: 12px;
+
+    height:24px;
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
 }
 
 .membership > .services > .service > .expire{
@@ -108,6 +115,11 @@
     width: 110px;
 }
 
+.membership > .pay > .btn-pay.gray{
+    background: #ccc;
+    color: #999;
+}
+
 .membership > .pay > .package{
     position: relative;
 
@@ -148,6 +160,13 @@
 .membership > .pay > .empty{
     line-height: 40px;
     font-size:18px;
+    color: #ccc;
+}
+
+.membership > .noService{
+    text-align: center;
+    font-size: 16px;
+    padding: 50px 0;
     color: #ccc;
 }
 
@@ -201,11 +220,12 @@
 }
 
 .packages > .package-list > .package{
-    border:1px solid #f0f0f0;
+    border:1px solid #eee;
     padding: 46px 12px 4px 12px;
     margin-bottom: 12px;
     position: relative;
     background: #fff;
+    box-shadow: 0px 2px 4px -2px rgba(0,0,0,.2);
 }
 
 .packages > .package-list > .package > .price {
@@ -277,3 +297,12 @@
     color: #999;
     border-top: 1px solid #f0f0f0;
 }
+
+
+.packages > .noPackage{
+    text-align: center;
+    font-size: 16px;
+    padding: 50px 0;
+    color: #ccc;
+}
+

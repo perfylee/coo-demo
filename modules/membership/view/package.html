@@ -14,7 +14,7 @@
     </div>
 
     <div class="package-list">
-        <div class="package" ng-repeat="item in packages">
+        <div class="package" ng-repeat="item in packages" ng-click="toPay(item)">
             <div class="ui label ribbon orange name">{{item.TemplateName}}</div>
             <div class="services">
                 <div class="service" ng-repeat="service in item.VipCardTemplateItems">{{service.ItemName}} {{service.Amount}}次</div>
@@ -34,6 +34,26 @@
             </div>
         </div>
     </div>
+
+    <div class="noPackage" ng-if="packages == null || packages.length == 0">
+        暂无可选购套餐，敬请期待
+    </div>
+
 </div>
 
 <coo-loader show="loaderVisible"></coo-loader>
+
+<coo-modal size="small" show="confirm.modalVisible">
+    <i class="icon close" ng-if="confirm.closable" ng-click="confirm.modalVisible = false"></i>
+    <div class="title">
+        <i class="icon warning sign"></i> {{confirm.title}}
+    </div>
+    <div class="description">
+        <p style="{{confirm.isError?'color:red':''}}" ng-bind-html="confirm.message"></p>
+    </div>
+    <div class="buttons">
+        <button class="ui button fluid {{confirm.isError ? 'orange':'green'}}"  ng-click="confirm.callback()">
+            {{confirm.btnText}}
+        </button>
+    </div>
+</coo-modal>

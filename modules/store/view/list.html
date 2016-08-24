@@ -1,0 +1,65 @@
+<div class="stores page-with-title">
+    <div class="page-header">
+        <div class="tools">
+            <a ng-click="path('/appointment')">
+                <i class="icon angle arrow left"></i>
+            </a>
+        </div>
+        <div class="title">
+            所有门店
+        </div>
+        <div class="sub">
+            所有提供服务的门店，总有一款适合你
+        </div>
+    </div>
+
+    <div class="noStores" ng-if="stores.length == 0 && isLoaded">
+        暂无可提供服务的门店
+    </div>
+
+    <div class="store-list" ng-if="stores.length > 0">
+        <div class="store {{item.StoreID == appointment.store.StoreID ?'selected':''}}" ng-click="select(item)" ng-repeat="item in stores">
+            <img ng-src="{{item.StoreImage}}" title="门店照片">
+
+            <a class="ui left ribbon label {{{'最近':'green','常去':'orange'}[item.Tag]}}"  ng-if="item.Tag != null && (item.Tag == '常去' || item.Tag == '最近')">{{item.Tag}}</a>
+
+            <div class="name">{{item.StoreName}}</div>
+            <div class="address">{{item.StoreAddress}}</div>
+            <coo-rating value="{{item.Rating}}"></coo-rating>
+            <div class="addition">
+                <div>
+                    <i class="icon marker"></i>
+                    {{item.Distance < 1 ? (item.Distance * 1000 +'m') : (item.Distance +'km')}}
+                </div>
+                <div>
+                    <i class="icon comment"></i>
+                    {{item.TotalComments}}
+                </div>
+                <div>
+                    <i class="icon marker"></i>
+                    {{item.StoreScale}}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<coo-loader show="loaderVisible"></coo-loader>
+
+
+<coo-modal size="small" show="errorModalVisible">
+    <i class="icon close"></i>
+    <div class="title">
+        <i class="icon warning sign"></i> 提示
+    </div>
+    <div class="description">
+        <p style="color:red;">查询失败，请重试</p>
+    </div>
+    <div class="buttons">
+        <button class="ui button fluid orange"  ng-click="init()">
+            重试
+        </button>
+    </div>
+</coo-modal>

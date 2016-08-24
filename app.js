@@ -13,14 +13,13 @@ angular.module('coo',[
     'coo.modules.appointment.preference',
     'coo.modules.appointment.orders',
     'coo.modules.store',
-    'coo.modules.store.map',
+    'coo.modules.store.list',
     'coo.modules.membership',
     'coo.modules.membership.package'
 ])
 
 .config(['$locationProvider','$routeProvider',function ($location,$routeProvider) {
     $location.hashPrefix('!')
-
 
     $routeProvider
         .when('/appointment', {
@@ -39,13 +38,17 @@ angular.module('coo',[
             templateUrl: 'modules/appointment/view/orders.html',
             controller: 'appointmentOrdersCtrl'
         })
+        .when('/appointment/order/:id/:storeId', {
+            templateUrl: 'modules/appointment/view/order.html',
+            controller: 'appointmentOrderCtrl'
+        })
         .when('/store/:id', {
             templateUrl: 'modules/store/view/index.html',
             controller: 'storeCtrl' //index.js
         })
-        .when('/storeMap', {
-            templateUrl: 'modules/store/view/map.html',
-            controller: 'storeMapCtrl'
+        .when('/stores', {
+            templateUrl: 'modules/store/view/list.html',
+            controller: 'storesCtrl' //list.js
         })
         .when('/membership', {
             templateUrl: 'modules/membership/view/index.html',

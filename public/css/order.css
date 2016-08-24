@@ -79,3 +79,10 @@
 .orders  .orderDetail > .status:after{
     border-width: 0em 0.6em 0.6em 0em
 }
+
+.orders .orderDetail > .cancel{
+    border-top:1px solid #f0f0f0;
+    padding: 8px 0 4px 0;
+    margin-top: 6px;
+    text-align: center;
+}

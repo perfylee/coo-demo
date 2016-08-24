@@ -1,7 +1,7 @@
 <div class="store">
 
     <div class="header"  ng-show="store!=null">
-        <i class="icon angle arrow left" ng-click="path('/appointment')"></i>
+        <i class="icon angle arrow left" ng-click="back()"></i>
         <img ng-src="{{store.StoreImage}}" title="门店照片">
 
         <div class="info">
@@ -10,7 +10,7 @@
             <coo-rating value="{{store.Rating}}"></coo-rating>
             <div class="tools">
                 <a href="tel:{{store.StorePhoneNum}}" ng-if="store.StorePhoneNum != ''"><i class="icon phone"></i></a>
-                <a ng-click="shopMap()"><i class="icon marker"></i></a>
+                <a ng-click="shopMap()"  ng-if="store.Latitude_B!=null && store.Latitude_B!= ''"><i class="icon marker"></i></a>
             </div>
         </div>
     </div>
@@ -35,6 +35,10 @@
 
     <div class="noStore" ng-click="init()" ng-show="isLoaded && store == null">
         门店信息加载失败，点此重试
+    </div>
+
+    <div class="noStore" ng-show="isLoaded && store == null || store.StoreWorkPlace==null || store.StoreWorkPlace.length == 0">
+        暂时没有提供任何服务
     </div>
 
 </div>

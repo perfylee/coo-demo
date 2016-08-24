@@ -25,13 +25,15 @@
 
     <div ng-repeat="item in orders" ng-if="orders.length > 0">
         <div class="order-list">
-            <div class="orderDetail" ng-repeat="appointment in item.Appointments">
+            <div class="orderDetail" ng-repeat="appointment in item.Appointments" ng-click="detail(appointment)">
                 <img ng-src="{{appointment.StoreImage}}">
                 <div class="appointment">{{appointment.AppointmentType}}</div>
                 <div class="carNum">{{appointment.CarNum}}</div>
                 <div class="storeName">{{appointment.StoreName}}</div>
                 <div class="date">{{appointment.TimeOfWeek}} ({{appointment.AccurateStartTime}})</div>
                 <span class="status ui left ribbon label  {{categories[categoryLabels.indexOf(appointment.Status)].color}}">{{appointment.Status}}</span>
+
+                <div class="cancel" ng-if="appointment.Status == '未完成'" ng-click="toCancel(appointment)">取消预约</div>
             </div>
         </div>
 
@@ -53,6 +55,24 @@
     <div class="buttons">
         <button class="ui button fluid orange"  ng-click="init()">
             重试
+        </button>
+    </div>
+</coo-modal>
+
+
+<coo-modal size="small" show="cancelModalVisible">
+    <i class="icon close"></i>
+    <div class="title">
+        <i class="icon close"></i> 预约订单取消确认
+    </div>
+    <div class="description">
+        <div class="ui header">确认取消？</div>
+        <p>您在 <br/>{{cancelAppointment.StoreName}} <br/>{{cancelAppointment.AccurateStartTime}}<br/>预约的 {{cancelAppointment.RemarkOfCustomer}} 服务?</p>
+
+    </div>
+    <div class="buttons">
+        <button class="ui orange button fluid"  ng-click="cancel()">
+            确认取消
         </button>
     </div>
 </coo-modal>

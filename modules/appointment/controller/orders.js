@@ -9,7 +9,7 @@ angular.module('coo.modules.appointment.orders',[
 ])
 
 
-.controller('appointmentOrdersCtrl',['$rootScope','$scope','$location','$route','cooGlobal',function ($rootScope,$scope,$location,$route,cooGlobal) {
+.controller('appointmentOrdersCtrl',['$rootScope','$scope','$location','$route','$window','cooGlobal',function ($rootScope,$scope,$location,$route,$window,cooGlobal) {
 
     var params = $route.current.params
 
@@ -84,6 +84,40 @@ angular.module('coo.modules.appointment.orders',[
         )
     }
 
+    $scope.cancelAppointment = null
+    $scope.cancelModalVisible = false
+    $scope.toCancel = function (appointment) {
+        $scope.cancelAppointment = appointment
+        $scope.cancelModalVisible = true
+    }
+
+    $scope.cancel = function () {
+        $scope.cancelModalVisible = false
+        $scope.loaderVisible = true
+        cooGlobal.resource(cooGlobal.api.order_cancel).save(
+            {
+                "Source":"wechart",
+                "Token":params.token,
+                "StoreID":$scope.cancelAppointment.StoreID,
+                "AppointmentID":$scope.cancelAppointment.AppointmentID,
+            },
+            function (res) {
+                $scope.loaderVisible = false
+                if(res.ResCode == 0)
+                    $scope.init()
+            },
+            function () {
+                $scope.loaderVisible = false
+            }
+        )
+    }
+
+    $scope.detail = function (appointment) {
+        if (appointment.Status == '未完成')
+            return
+
+        $window.location.href = cooGlobal.modules.appointmentDetail + '?token=' + params.token + '&StoreID=' + appointment.StoreID + '&ReservationID=' + appointment.AppointmentID
+    }
 
     $scope.init()
 

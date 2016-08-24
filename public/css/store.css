@@ -205,6 +205,89 @@
 
 
 
+.stores > .store-list > .store  {
+    position: relative;
+    display: block;
+    padding:6px 6px 6px 110px ;
+}
+
+.stores > .store-list > .store  > img{
+    position: absolute;
+    left: 0;
+    top:6px;
+    height: 72px;
+    width: 100px;
+    border-radius: 4px;
+}
+
+.stores > .store-list > .store  > .name{
+    line-height: 14px;
+    font-size:14px;
+    padding-bottom: 4px;
+    color: #333;
+}
+.stores > .store-list > .store  > .address{
+    line-height: 12px;
+    font-size:12px;
+    padding-bottom: 2px;
+    color: #999;
+    height:14px;
+    display: block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
+}
+
+
+.stores > .store-list > .store .selected > .name{
+    font-weight:bold;
+    color: #f2711c;
+}
+
+.stores > .store-list > .store  > .ratings{
+    height: 12px;
+    margin: 4px 0 6px 0;
+}
+
+.stores > .store-list > .store  > .addition{
+    height: 16px;
+}
+
+.stores > .store-list > .store  > .addition > div{
+    display: inline-block;
+    float: left;
+    margin-right: 10px;
+    color:#999;
+    font-size: 12px;
+}
+
+.stores > .store-list > .store  > .addition > div > .icon{
+    margin-right: 0;
+    font-size: 12px;
+}
+
+.stores > .store-list > .store  > .ui.ribbon.label{
+    position: absolute;
+    top:10px;
+    left:-7px;
+    margin-left:0;
+    padding: 4px 8px;
+    opacity: 0.9;
+}
+
+.stores > .store-list > .store  > .ui.ribbon.label:after{
+    border-width: 0em 0.6em 0.6em 0em
+}
+
+.stores > .noStores{
+    text-align: center;
+    line-height: 60px;
+    font-size: 16px;
+    color:#ccc;
+}
+
+
 @media screen and (max-width: 320px){
     .store{
         padding:216px 16px 16px 16px;
