@@ -324,15 +324,10 @@ angular.module('coo.modules.appointment',[
                     $rootScope.appointment.car = $rootScope.appointment.car || res.ResData.DefaultCar
                     $scope.appointment.update($rootScope.appointment.store || res.ResData.StoreItem)
 
-                    if($rootScope.appointment.store != null && $cookies.get('introed') == null) {
-                        introJs().setOptions({
-                            'prevLabel': '&larr; 上一步',
-                            'nextLabel': '下一步 &rarr;',
-                            'skipLabel': '跳过',
-                            'doneLabel': '完成'
-                        }).start()
+                    if($cookies.get('introed') == null) {
 
-                        $cookies.put('introed',true,{expires :new Date().dateAdd(365)})
+                        $scope.intro()
+                        $cookies.put('introed', true, {expires: new Date().dateAdd(365)})
                     }
 
 
@@ -350,6 +345,16 @@ angular.module('coo.modules.appointment',[
                 $scope.loaded = true
             }
         )
+    }
+    $scope.intro = function () {
+        if ($rootScope.appointment.store != null && $rootScope.appointment.service != null && $rootScope.appointment.time != null) {
+            introJs().setOptions({
+                'prevLabel': '&larr; 上一步',
+                'nextLabel': '下一步 &rarr;',
+                'skipLabel': '跳过',
+                'doneLabel': '完成'
+            }).start()
+        }
     }
     $scope.appointment.update = function (store) {
 
