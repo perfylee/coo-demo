@@ -2,18 +2,26 @@
 
 
 angular.module('coo.modules.appointment.complete',[
+    'ngRoute',
     'coo.global',
     'coo.components.modal',
     'coo.components.loader'
 ])
 
 
-.controller('appointmentCompleteCtrl',['$rootScope','$scope','$location','cooGlobal',function ($rootScope,$scope,$location,cooGlobal) {
+.controller('appointmentCompleteCtrl',['$rootScope','$scope','$location','$route','cooGlobal',function ($rootScope,$scope,$location,$route,cooGlobal) {
 
+    $scope.params = $route.current.params
     $scope.loaderVisible = false
 
     $scope.path = function (path) {
-        $location.path(path)
+        $location.path(path).search({
+            'token': $scope.params.token,
+            'lnt': $scope.params.lnt,
+            'lat': $scope.params.lat,
+            'StoreWXID': $scope.params.StoreWXID,
+            'WXID': $scope.params.WXID
+        })
     }
 
     if($rootScope.appointment == null || $rootScope.appointment.store == null){

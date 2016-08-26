@@ -9,11 +9,18 @@ angular.module('coo.modules.appointment.preference',[
 .controller('appointmentPreferenceCtrl',['$scope','$location','$route','cooGlobal',function ($scope,$location,$route,cooGlobal) {
 
 
-    var params = $route.current.params
+    $scope.params = $route.current.params
+
 
     /*path*/
     $scope.path = function (path) {
-        $location.path(path)
+        $location.path(path).search({
+            'token': $scope.params.token,
+            'lnt': $scope.params.lnt,
+            'lat': $scope.params.lat,
+            'StoreWXID': $scope.params.StoreWXID,
+            'WXID': $scope.params.WXID
+        })
     }
 
     $scope.loaderVisible = false
@@ -24,10 +31,10 @@ angular.module('coo.modules.appointment.preference',[
         $scope.loaderVisible = true
         cooGlobal.resource(cooGlobal.api.preference_query).query(
             {
-                'Token': params.token,
-                'StoreWXID': params.StoreWXID,
-                'lng': params.lnt,
-                'lat': params.lat
+                'Token': $scope.params.token,
+                'StoreWXID': $scope.params.StoreWXID,
+                'lng': $scope.params.lnt,
+                'lat': $scope.params.lat
             },
             function (res) {
                 $scope.cars = res.ResData.PreferenceCar
@@ -61,8 +68,8 @@ angular.module('coo.modules.appointment.preference',[
             //  'Type':'' // ID , 'Last' ,'Nearest','Constantly'
             //}
             {
-                'Token': params.token,
-                'StoreWXID': params.StoreWXID,
+                'Token': $scope.params.token,
+                'StoreWXID': $scope.params.StoreWXID,
                 "Category": category,
                 "Type": types[category][info.Type]
             },

@@ -11,12 +11,18 @@ angular.module('coo.modules.store.list',[
 
 
 .controller('storesCtrl',['$rootScope','$scope','$location','$route','cooGlobal',function ($rootScope,$scope,$location,$route,cooGlobal) {
-
-    var params = $route.current.params
-
+    $scope.params = $route.current.params
     $scope.path = function (path) {
-        $location.path(path)
+        $location.path(path).search({
+            'token': $scope.params.token,
+            'lnt': $scope.params.lnt,
+            'lat': $scope.params.lat,
+            'StoreWXID': $scope.params.StoreWXID,
+            'WXID': $scope.params.WXID
+        })
     }
+
+    $scope.isRoot = $scope.params.isRoot || 0
 
     $scope.loaderVisible = false
     $scope.isLoaded = false
@@ -29,10 +35,10 @@ angular.module('coo.modules.store.list',[
         $scope.errorModalVisible = false
         cooGlobal.resource(cooGlobal.api.stores_query).query(
             {
-                "Token": params.token,
-                "lng": params.lnt,
-                "lat": params.lat,
-                "StoreWXID": params.StoreWXID
+                "Token": $scope.params.token,
+                "lng": $scope.params.lnt,
+                "lat": $scope.params.lat,
+                "StoreWXID": $scope.params.StoreWXID
             },
             function (res) {
                 $scope.loaderVisible = false

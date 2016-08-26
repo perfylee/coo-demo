@@ -9,10 +9,23 @@
         </div>
     </div>
 
-    <div class="message">
-        <span ng-show="membership.obj != null && membership.obj.VIPCardItems != null && membership.obj.VIPCardItems.length > 0">卡内可用服务和次数</span>
-        <a ng-click="path('/membership/package')">所有套餐</a>
+    <div class="tools">
+        <div class="ui buttons two fluid " style="padding: 0 0 12px 0;">
+        <button class="ui button basic green one" ng-click="createPayCode()">
+            <i class="icon barcode"></i>
+            支付码
+        </button>
+        <button class="ui button basic green one"  ng-click="path('/membership/package')">
+            <i class="icon add to cart"></i>
+            所有套餐
+        </button>
     </div>
+
+        <div class="message">
+            <span ng-show="membership.obj != null && membership.obj.VIPCardItems != null && membership.obj.VIPCardItems.length > 0">卡内可用服务和次数</span>
+        </div>
+    </div>
+
 
     <div class="services">
         <div class="service" ng-repeat="item in membership.obj.VIPCardItems" ng-click="path('/appointment')">

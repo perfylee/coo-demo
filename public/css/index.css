@@ -176,10 +176,13 @@
 
 .index-main > .item > .name > span > .ui.floating.label {
     padding: 0.3em 0.4em;
-    top: -12px;
+    top: -6px;
+    left:auto;
+    right: -45px;
     width: 42px;
     text-align: center;
     opacity: 0.8;
+    margin:0 0 0 0;
 }
 
 .index-main > .item > .sub{

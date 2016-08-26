@@ -36,7 +36,8 @@ angular.module('coo.global',[
             order_cancel: 'Appointment/CancleAppointment',
             membership_query: 'wx/GetVIPCards',
             membership_package_query: 'wx/GetStoreVIPPackageList',
-            package_order_create:'wx/WeChatOrdering'
+            package_order_create: 'wx/WeChatOrdering',
+            membership_pay_code: 'wx/GetVipCardCheckCode'
         }
     },
     wx: {

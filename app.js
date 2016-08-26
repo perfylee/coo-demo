@@ -58,19 +58,25 @@ angular.module('coo',[
             templateUrl: 'modules/membership/view/package.html',
             controller: 'membershipPackageCtrl'
         })
-        .when('/index', {
-            template:'',
-            controller: 'indexCtrl'
+        .when('/membership/paycode', {
+            templateUrl: 'modules/membership/view/paycode.html',
+            controller: 'membershipPaycodeCtrl'
         })
-        .otherwise('/index')
+        // .when('/index', {
+        //     template: '',
+        //     controller: 'indexCtrl'
+        // })
+        // .otherwise('/index')
 
 }])
-.controller('indexCtrl',['$location',function ($location) {
-    $location.path('/appointment').search({
-        "token":"49cba881-8550-4605-85e5-746bbed01d84",
-        "lnt":"117.217307",
-        "lat":"31.845957",
-        "StoreWXID":"test_shangchenghuayuan",
-        "WXID":""
-    })
-}])
+// .controller('indexCtrl',['$location',function ($location) {
+//     $location.path('/appointment').search({
+//         "token":"49cba881-8550-4605-85e5-746bbed01d84",
+//         "lnt":"117.217307",
+//         "lat":"31.845957",
+//         "StoreWXID":"wxe6cfa3fe641f170e",
+//         "WXID":"o0-lIxIKeluec1TSogIRZB9FThiE"
+//     })
+// }])
+
+

@@ -19,7 +19,7 @@
 
     </div>
 
-    <div class="index-service">
+    <div class="index-service"  data-step="1" data-intro="点击可切换其他服务">
         <div class="item item{{item.sort}}" ng-repeat="item in category.items" ng-click="category.select(item)">
             <span class="name">{{item.name}}</span>
             <span class="sub">{{item.en}}</span>
@@ -28,10 +28,9 @@
     </div>
 
     <div class="index-main">
-
         <div class="noStore" ng-show="loaded && appointment.store  == null"> 暂无提供相关服务的门店 </div>
 
-        <div class="item" ng-click="car.modalVisible = true"  ng-show="appointment.store !=null">
+        <div class="item" ng-click="car.modalVisible = true"  ng-show="appointment.store !=null" data-step="2" data-intro="如有多辆车，点击这里切换车辆">
             <div class="name">
                 <i class="icon car"></i>
                 <span> {{appointment.car.CarNum || '-'}}</span>
@@ -41,10 +40,10 @@
             </span>
         </div>
 
-        <div class="item" ng-click="store.modalVisible = true" ng-show="appointment.store !=null">
+        <div class="item" ng-click="store.modalVisible = true" ng-show="appointment.store !=null" data-step="3" data-intro="点击可切换门店">
             <div class="name">
                 <i class="icon building"></i>
-                <span ng-click="store.open(appointment.store.StoreID,$event)">
+                <span ng-click="store.open(appointment.store.StoreID,$event)"  data-step="4" data-intro="点击可查看门店详情，选择该门店提供的其他服务">
                     {{appointment.store.StoreName || '-'}}
                     <div class="floating ui label small {{{'最近':'green','常去':'orange'}[appointment.store.Tag]}}" ng-if="appointment.store!=null && appointment.store.Tag!=null && appointment.store.Tag!=''">{{appointment.store.Tag}}</div>
                 </span>
@@ -58,14 +57,14 @@
             </div>
         </div>
 
-        <div class="item" ng-click="time.modalVisible = true"  ng-show="appointment.store !=null">
+        <div class="item" ng-click="time.modalVisible = true"  ng-show="appointment.store !=null"  data-step="6" data-intro="点击可查看更多可预约时间" data-position="top">
             <div class="name">
                 <i class="icon time"></i>
                 <span>  {{appointment.time.AccurateStartTime | shortTime}}</span>
             </div>
-            <div class="sub times">
+            <div class="sub times"  data-step="5" data-intro="修改预约时间" data-position="top">
 
-                <span  class="{{appointment.time.AccurateStartTime == item.AccurateStartTime ?'selected':''}}" ng-click="time.quickSelect(item,$event)" ng-repeat="item in time.quickItems ">
+                <span class="{{appointment.time.AccurateStartTime == item.AccurateStartTime ?'selected':''}}" ng-click="time.quickSelect(item,$event)" ng-repeat="item in time.quickItems ">
                     {{ item.AccurateStartTime | shortTime:1}}
                 </span>
             </div>
@@ -73,7 +72,7 @@
 
     </div>
 
-    <div class="index-start" ng-click="appointment.toSubmit()">
+    <div class="index-start" ng-click="appointment.toSubmit()" data-step="7" data-intro="约吧，亲！"  data-position="top">
         <button class="ui button big fluid green" ng-show="appointment.car && appointment.store && appointment.service && appointment.time">
             一键预约
         </button>
@@ -205,14 +204,14 @@
                 <div class="addition">
                     <div>
                         <i class="icon marker"></i>
-                        {{item.Distance < 1 ? (item.Distance * 1000 +'m') : (item.Distance +'km')}}
+                        {{item.Distance < 1000 ?(item.Distance +'m'): ((item.Distance / 1000).toFixed(1) +'km')  }}
                     </div>
                     <div>
                         <i class="icon comment"></i>
                         {{item.TotalComments}}
                     </div>
                     <div>
-                        <i class="icon marker"></i>
+                        <i class="icon add to cart"></i>
                         {{item.StoreScale}}
                     </div>
                 </div>

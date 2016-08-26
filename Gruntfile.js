@@ -13,10 +13,12 @@ module.exports = function (grunt) {
                     'public/lib/jquery/dist/jquery.js',
                     'public/lib/semantic/dist/semantic.js',
                     'public/lib/crypto-js/crypto-js.js',
+                    'public/lib/intro.js/intro.js',
                     'public/lib/angular/angular.min.js',
                     'public/lib/angular-resource/angular-resource.min.js',
                     'public/lib/angular-route/angular-route.min.js',
                     'public/lib/angular-sanitize/angular-sanitize.min.js',
+                    'public/lib/angular-cookies/angular-cookies.min.js',
                     'public/js/Date.js',
                     'components/*/*.js',
                     'modules/*/controller/*.js',
@@ -28,6 +30,7 @@ module.exports = function (grunt) {
             css: {
                 src: [
                     'public/lib/semantic/dist/semantic.css',
+                    'public/lib/intro.js/introjs.css',
                     'public/css/*.css'
                 ],
                 dest: 'dist/public/css/style.csstemp'

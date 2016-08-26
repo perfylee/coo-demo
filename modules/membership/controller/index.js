@@ -18,9 +18,22 @@ angular.module('coo.modules.membership',[
     $scope.path = function (path) {
 
         if(path == '/membership/package'){
-            $location.path(path).search(angular.extend({},$scope.params,{'vipNo':$scope.membership.obj.VIPNo}))
-        }else{
-            $location.path(path)
+            $location.path(path).search({
+                'token': $scope.params.token,
+                'lnt': $scope.params.lnt,
+                'lat': $scope.params.lat,
+                'StoreWXID': $scope.params.StoreWXID,
+                'WXID': $scope.params.WXID,
+                'vipNo':$scope.membership.obj.VIPNo
+            })
+        }else {
+            $location.path(path).search({
+                'token': $scope.params.token,
+                'lnt': $scope.params.lnt,
+                'lat': $scope.params.lat,
+                'StoreWXID': $scope.params.StoreWXID,
+                'WXID': $scope.params.WXID
+            })
         }
     }
 
@@ -213,6 +226,66 @@ angular.module('coo.modules.membership',[
         } else {
             onBridgeReady()
         }
+    }
+
+
+    $scope.createPayCode = function () {
+        $scope.loaderVisible = true
+        cooGlobal.resource(cooGlobal.api.membership_pay_code).query(
+            {
+                "Token":$scope.params.token,
+                "StoreWXID":$scope.params.StoreWXID,
+                "WXID":$scope.params.WXID,
+                "VIPNo":$scope.membership.obj.VIPNo
+            },
+            function (res) {
+                $scope.loaderVisible = false
+
+                if(res.ResCode == 0 ){
+                    $scope.confirm = {
+                        modalVisible: true,
+                        title: '提示',
+                        message: '<div class="paycodenum"><span>您的支付码是</span>' + res.ResData.Code + '<span>有效期至：' + res.ResData.ExpireTime+'</span></div>',
+                        btnText: '确认',
+                        isError: false,
+                        closable: true,
+                        callback: function () {
+                            $scope.confirm.modalVisible = false
+                        }
+                    }
+                }else {
+                    $scope.confirm = {
+                        modalVisible: true,
+                        title: '提示',
+                        message: '生成支付码失败',
+                        btnText: '重试',
+                        isError: true,
+                        closable: true,
+                        callback: function () {
+                            $scope.confirm.modalVisible = false
+                            $scope.createPayCode()
+                        }
+                    }
+                }
+
+            },
+            function () {
+                $scope.loaderVisible = false
+
+                $scope.confirm = {
+                    modalVisible: true,
+                    title: '提示',
+                    message: '生成支付码失败',
+                    btnText: '重试',
+                    isError: true,
+                    closable:true,
+                    callback: function () {
+                        $scope.confirm.modalVisible = false
+                        $scope.createPayCode()
+                    }
+                }
+            }
+        )
     }
 
 

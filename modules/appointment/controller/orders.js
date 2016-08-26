@@ -11,11 +11,20 @@ angular.module('coo.modules.appointment.orders',[
 
 .controller('appointmentOrdersCtrl',['$rootScope','$scope','$location','$route','$window','cooGlobal',function ($rootScope,$scope,$location,$route,$window,cooGlobal) {
 
-    var params = $route.current.params
+    $scope.params = $route.current.params
 
     $scope.path = function (path) {
-        $location.path(path)
+        $location.path(path).search({
+            'token': $scope.params.token,
+            'lnt': $scope.params.lnt,
+            'lat': $scope.params.lat,
+            'StoreWXID': $scope.params.StoreWXID,
+            'WXID': $scope.params.WXID
+        })
     }
+
+
+    $scope.isRoot = $scope.params.isRoot || 0
 
     $scope.loaderVisible = false
     $scope.isLoaded = false
@@ -61,7 +70,7 @@ angular.module('coo.modules.appointment.orders',[
             //3 - 已取消
             //4 - 已失约
             {
-                "Token":params.token,
+                "Token":$scope.params.token,
                 "PageNum":"1",
                 "PageSize":"100",
                 "Condition":$scope.category
@@ -97,7 +106,7 @@ angular.module('coo.modules.appointment.orders',[
         cooGlobal.resource(cooGlobal.api.order_cancel).save(
             {
                 "Source":"wechart",
-                "Token":params.token,
+                "Token":$scope.params.token,
                 "StoreID":$scope.cancelAppointment.StoreID,
                 "AppointmentID":$scope.cancelAppointment.AppointmentID,
             },
@@ -116,7 +125,7 @@ angular.module('coo.modules.appointment.orders',[
         if (appointment.Status == '未完成')
             return
 
-        $window.location.href = cooGlobal.modules.appointmentDetail + '?token=' + params.token + '&StoreID=' + appointment.StoreID + '&ReservationID=' + appointment.AppointmentID
+        $window.location.href = cooGlobal.modules.appointmentDetail + '?token=' + $scope.params.token + '&StoreID=' + appointment.StoreID + '&ReservationID=' + appointment.AppointmentID
     }
 
     $scope.init()

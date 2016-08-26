@@ -1,7 +1,7 @@
 <div class="stores page-with-title">
     <div class="page-header">
-        <div class="tools">
-            <a ng-click="path('/appointment')">
+        <div class="tools" >
+            <a ng-click="path('/appointment')" ng-if="isRoot==0">
                 <i class="icon angle arrow left"></i>
             </a>
         </div>
@@ -29,14 +29,14 @@
             <div class="addition">
                 <div>
                     <i class="icon marker"></i>
-                    {{item.Distance < 1 ? (item.Distance * 1000 +'m') : (item.Distance +'km')}}
+                    {{item.Distance < 1000 ?(item.Distance +'m'): ((item.Distance / 1000).toFixed(1) +'km')  }}
                 </div>
                 <div>
                     <i class="icon comment"></i>
                     {{item.TotalComments}}
                 </div>
                 <div>
-                    <i class="icon marker"></i>
+                    <i class="icon add to cart"></i>
                     {{item.StoreScale}}
                 </div>
             </div>

@@ -12,14 +12,17 @@ angular.module('coo.modules.store',[
 
 .controller('storeCtrl',['$rootScope','$scope','$location','$route','$window','cooGlobal',function ($rootScope,$scope,$location,$route,$window,cooGlobal) {
 
-    var params = $route.current.params
-
-
-
+    $scope.params = $route.current.params
 
     /*path*/
     $scope.path = function (path) {
-        $location.path(path)
+        $location.path(path).search({
+            'token': $scope.params.token,
+            'lnt': $scope.params.lnt,
+            'lat': $scope.params.lat,
+            'StoreWXID': $scope.params.StoreWXID,
+            'WXID': $scope.params.WXID
+        })
     }
     $scope.back = function () {
         $window.history.go(-1)
@@ -40,9 +43,9 @@ angular.module('coo.modules.store',[
             //  "StoreID": "23b21f20-1cd3-4ac3-adae-8119ebdeeead"
             //}
             {
-                'Token': params.token,
-                'StoreWXID':params.StoreWXID,
-                "StoreID": params.id
+                'Token': $scope.params.token,
+                'StoreWXID':$scope.params.StoreWXID,
+                "StoreID": $scope.params.id
             },
             function (res) {
                 $scope.loaderVisible = false
