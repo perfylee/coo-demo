@@ -38,6 +38,10 @@
             <span class="sub">
                 <span>{{appointment.car.CarBrand || '-'}} {{appointment.car.CarModel }}</span>
             </span>
+
+            <span class="more" ng-if="car.items.length > 1">
+                <i class="icon angle down"></i>
+            </span>
         </div>
 
         <div class="item" ng-click="store.modalVisible = true" ng-show="appointment.store !=null" data-step="3" data-intro="点击可切换门店">
@@ -55,6 +59,11 @@
                 <span>{{appointment.service.ServiceType || '-'}} </span>
                 <coo-price value="{{appointment.service.Price}}"></coo-price>
             </div>
+
+
+            <span class="more" ng-if="store.items.length > 1">
+                <i class="icon angle down"></i>
+            </span>
         </div>
 
         <div class="item" ng-click="time.modalVisible = true"  ng-show="appointment.store !=null"  data-step="6" data-intro="点击可查看更多可预约时间" data-position="top">
@@ -68,6 +77,11 @@
                     {{ item.AccurateStartTime | shortTime:1}}
                 </span>
             </div>
+
+
+            <span class="more" ng-if="time.items[0].length > 0 ||time.items[1].length > 0 || time.items[2].length > 0">
+                <i class="icon angle down"></i>
+            </span>
         </div>
 
     </div>
@@ -76,6 +90,8 @@
         <button class="ui button big fluid green" ng-show="appointment.car && appointment.store && appointment.service && appointment.time">
             一键预约
         </button>
+
+
     </div>
 
     <div class="index-footer">
@@ -163,16 +179,19 @@
         <i class="icon time"></i> 选择时间
     </div>
     <div class="description">
+        <div class="ui green secondary pointing menu three item ">
+            <a class="item {{time.tabIndex == index ?'active':''}}" ng-click="time.tabIndex = index" ng-repeat="(index,day) in ['今天','明天','后天']" >{{day}} </a>
+        </div>
+
         <div class="ui list time-selector">
-            <div class="item" ng-if="time.items[index].length > 0" ng-repeat="(index,dayItems) in time.items">
-                <div class="ui {{['green','blue','orange'][index]}} label title">{{['今天','明天','后天'][index]}}</div>
+            <div class="item">
                 <div class="times">
-                    <span ng-repeat="item in time.items[index]" class="{{item.IsUsed != 0?'used':(item.AccurateStartTime == appointment.time.AccurateStartTime?'selected':'')}}" ng-click="time.select(item)">
+                    <span ng-repeat="item in time.items[time.tabIndex]" class="{{item.IsUsed != 0?'used':(item.AccurateStartTime == appointment.time.AccurateStartTime?'selected':'')}}" ng-click="time.select(item)">
                         {{ item.AccurateStartTime | shortTime:2}}
                     </span>
                 </div>
             </div>
-            <div style="padding: 10px;text-align: center;" ng-if="time.items[0].length == 0 && time.items[1].length == 0 && time.items[2].length == 0">
+            <div style="padding: 10px;text-align: center;" ng-if="time.items[time.tabIndex].length == 0">
                 没有可选时间，可能该服务已暂停
             </div>
         </div>

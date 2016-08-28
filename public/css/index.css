@@ -205,6 +205,14 @@
     color:#f2711c;
 }
 
+.index-main > .item > .more{
+    position: absolute;
+    top:12px;
+    right: -6px;
+    font-size: 13px;
+    color:#ccc;
+}
+
 
 
 .index-start {
@@ -304,9 +312,10 @@
 }
 
 .time-selector > .item > .times {
-    margin: 12px 0 10px 12px;
-    padding: 0 0 0 12px;
-    border-left: 1px dotted #ccc;
+    /*margin: 12px 0 10px 12px;*/
+    /*padding: 0 0 0 12px;*/
+    /*border-left: 1px dotted #ccc;*/
+    padding: 12px;
 }
 
 .time-selector > .item > .times > span{

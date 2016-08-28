@@ -62,21 +62,21 @@ angular.module('coo',[
             templateUrl: 'modules/membership/view/paycode.html',
             controller: 'membershipPaycodeCtrl'
         })
-        // .when('/index', {
-        //     template: '',
-        //     controller: 'indexCtrl'
-        // })
-        // .otherwise('/index')
+        .when('/index', {
+            template: '',
+            controller: 'indexCtrl'
+        })
+        .otherwise('/index')
 
 }])
-// .controller('indexCtrl',['$location',function ($location) {
-//     $location.path('/appointment').search({
-//         "token":"49cba881-8550-4605-85e5-746bbed01d84",
-//         "lnt":"117.217307",
-//         "lat":"31.845957",
-//         "StoreWXID":"wxe6cfa3fe641f170e",
-//         "WXID":"o0-lIxIKeluec1TSogIRZB9FThiE"
-//     })
-// }])
+.controller('indexCtrl',['$location',function ($location) {
+    $location.path('/appointment').search({
+        "token":"49cba881-8550-4605-85e5-746bbed01d84",
+        "lnt":"117.217307",
+        "lat":"31.845957",
+        "StoreWXID":"wxe6cfa3fe641f170e",
+        "WXID":"o0-lIxIKeluec1TSogIRZB9FThiE"
+    })
+}])
 
 

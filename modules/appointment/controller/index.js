@@ -132,7 +132,10 @@ angular.module('coo.modules.appointment',[
         $scope.user.loading = true
         //customer cars
         cooGlobal.resource(cooGlobal.api.user_query).query(
-            {'Token': $scope.params.token},
+            {
+                'Token': $scope.params.token,
+                'StoreWXID':$scope.params.StoreWXID
+            },
             function (res) {
                 $scope.user.loading = false
                 if(res.ResCode == 0) {
@@ -266,6 +269,7 @@ angular.module('coo.modules.appointment',[
     /*time*/
     $scope.time = {}
     $scope.time.items = [[],[],[]] //今天,明天,后天
+    $scope.time.tabIndex = 0
     $scope.time.quickItems = []
     $scope.time.modalVisible = false
     $scope.time.quickSelect = function (time,$event) {
@@ -421,6 +425,7 @@ angular.module('coo.modules.appointment',[
         var saveParams = {
             "Source": "wechat",
             "Token": $scope.params.token,
+            "StoreWXID": $scope.params.StoreWXID,
             "StoreID": $rootScope.appointment.store.StoreID,
             "CarNum": $rootScope.appointment.car.CarNum,
             "CarGuid": $rootScope.appointment.car.CarGuid,

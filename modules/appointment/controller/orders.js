@@ -71,6 +71,7 @@ angular.module('coo.modules.appointment.orders',[
             //4 - 已失约
             {
                 "Token":$scope.params.token,
+                "StoreWXID": $scope.params.StoreWXID,
                 "PageNum":"1",
                 "PageSize":"100",
                 "Condition":$scope.category
@@ -107,6 +108,7 @@ angular.module('coo.modules.appointment.orders',[
             {
                 "Source":"wechart",
                 "Token":$scope.params.token,
+                "StoreWXID": $scope.params.StoreWXID,
                 "StoreID":$scope.cancelAppointment.StoreID,
                 "AppointmentID":$scope.cancelAppointment.AppointmentID,
             },
