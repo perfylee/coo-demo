@@ -13,6 +13,7 @@ angular.module('coo.modules.membership.package',[
 
 .controller('membershipPackageCtrl',['$rootScope','$scope','$location','$route','$window','cooGlobal',function ($rootScope,$scope,$location,$route,$window,cooGlobal) {
     $scope.params = $route.current.params
+
     $scope.path = function (path) {
         $location.path(path).search({
             'token': $scope.params.token,
@@ -24,6 +25,8 @@ angular.module('coo.modules.membership.package',[
     }
 
     $scope.loaderVisible = false
+    $scope.loaded = false
+
     $scope.confirm = {
         modalVisible: false,
         title: '提示',
@@ -61,7 +64,7 @@ angular.module('coo.modules.membership.package',[
                 "StoreWXID": $scope.params.StoreWXID,
                 "WXID": $scope.params.WXID,
                 "PackageID": packageToPay.TemplateNo,
-                "VIPNo": $scope.params.vipNo
+                "VIPNo": $scope.params.vipNo || ''
             },
             function (res) {
                 $scope.loaderVisible = false

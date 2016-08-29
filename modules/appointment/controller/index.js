@@ -353,6 +353,7 @@ angular.module('coo.modules.appointment',[
     $scope.intro = function () {
         if ($rootScope.appointment.store != null && $rootScope.appointment.service != null && $rootScope.appointment.time != null) {
             introJs().setOptions({
+                'disableInteraction':true,
                 'prevLabel': '&larr; 上一步',
                 'nextLabel': '下一步 &rarr;',
                 'skipLabel': '跳过',
@@ -399,20 +400,23 @@ angular.module('coo.modules.appointment',[
 
     $scope.appointment.toSubmit = function () {
 
-        if( $rootScope.appointment.car == null) {
-            execError({message: '尚未添加预约车辆', retry: angular.noop, btnText: '确定', closable: true})
+        if($rootScope.appointment.car == null || $rootScope.appointment.store == null || $rootScope.appointment.service == null || $rootScope.appointment.time == null) {
             return
         }
-
-        if( $rootScope.appointment.store == null) {
-            execError({
-                message: '暂时没有提供 ' + $rootScope.appointment.category.name + ' 服务的门店',
-                retry: angular.noop,
-                btnText: '确定',
-                closable: true
-            })
-            return
-        }
+        // if( $rootScope.appointment.car == null) {
+        //     execError({message: '尚未添加预约车辆', retry: angular.noop, btnText: '确定', closable: true})
+        //     return
+        // }
+        //
+        // if( $rootScope.appointment.store == null) {
+        //     execError({
+        //         message: '暂时没有提供 ' + $rootScope.appointment.category.name + ' 服务的门店',
+        //         retry: angular.noop,
+        //         btnText: '确定',
+        //         closable: true
+        //     })
+        //     return
+        // }
 
 
         $scope.appointment.submitVisible = true

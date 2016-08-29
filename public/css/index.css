@@ -134,9 +134,9 @@
 .index-main {
     position: absolute;
     top: 196px;
-    bottom: 106px;
+    bottom: 0;
     width: 100%;
-    padding: 26px 32px 0 32px;
+    padding: 26px 32px 60px 32px;
 
     overflow-y: auto;;
 }
@@ -149,7 +149,7 @@
 }
 
 .index-main > .item{
-    padding-bottom: 18px;
+    padding-bottom: 26px;
     display: block;
     position: relative;
 
@@ -214,14 +214,6 @@
 }
 
 
-
-.index-start {
-    position: absolute;
-    bottom: 50px;
-    right: 32px;
-    left: 32px;
-}
-
 .index-start > .ui.green.button{
     border-radius:0;
     font-family: "Microsoft YaHei UI";
@@ -263,6 +255,53 @@
     font-weight: normal;
 }
 
+
+
+.index-footer-new{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 61px;
+    border-top:1px solid #f0f0f0;
+    padding-right: 33.3%;
+    backgroud:#fff;
+    z-index:999;
+}
+
+.index-footer-new .tools{
+    line-height: 61px;
+}
+
+.index-footer-new .tools > .item {
+    display: inline-block;
+    text-align: center;
+    float: left;
+    width: 50%;
+    color: #999;
+}
+
+.index-footer-new .start{
+    position: absolute;
+    top:-1px;
+    right: 0px;
+    bottom:0px;
+
+    display: inline-block;
+    line-height: 61px;
+    height:61px;
+    font-size:18px;
+    color: #fff;
+    background: #1aa586;
+    text-align: center;
+    /*width: 120px;*/
+    width:33.3%
+}
+
+.index-footer-new .start.disabled{
+    background: #ccc;
+    color: #999;
+}
 
 
 .car-selector > .car{
@@ -531,12 +570,12 @@
     }
 
     .index-main {
-        top: 156px;
+        top: 166px;
         /*padding: 20px 32px 90px 32px;*/
     }
 
     .index-main > .item{
-        padding-bottom: 10px;
+        padding-bottom: 20px;
 
     }
 

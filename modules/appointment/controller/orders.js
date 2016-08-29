@@ -31,20 +31,20 @@ angular.module('coo.modules.appointment.orders',[
     $scope.errorModalVisible = false
 
     $scope.categories = [
-        {name:'',label: '全部', color: ''},
-        {name:'未完成',label: '待完成', color: 'blue'},
-        {name:'已完成',label: '已完成', color: 'green'},
-        {name:'已取消',label: '已取消', color: 'gray'},
-        {name:'已失约',label: '已失约', color: 'red'}
+        {name:'未完成',label: '待完成', color: 'blue',data:1},
+        {name:'已完成',label: '已完成', color: 'green',data:2},
+        {name:'已取消',label: '已取消', color: 'gray',data:3},
+        {name:'已失约',label: '已失约', color: 'red',data:4},
+        {name:'',label: '全部', color: '',data:0}
     ]
 
-    $scope.categoryLabels = []
+    $scope.categoryLabels = {}
     angular.forEach($scope.categories,function (value) {
-        $scope.categoryLabels.push(value.name)
+        $scope.categoryLabels[value.name] = value.color
     })
 
 
-    $scope.category = 0
+    $scope.category = 1
     $scope.orders = []
 
     $scope.categorySelect = function (category) {
@@ -106,7 +106,7 @@ angular.module('coo.modules.appointment.orders',[
         $scope.loaderVisible = true
         cooGlobal.resource(cooGlobal.api.order_cancel).save(
             {
-                "Source":"wechart",
+                "Source":"wechat",
                 "Token":$scope.params.token,
                 "StoreWXID": $scope.params.StoreWXID,
                 "StoreID":$scope.cancelAppointment.StoreID,

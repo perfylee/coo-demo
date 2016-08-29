@@ -24,7 +24,7 @@ angular.module('coo.modules.membership',[
                 'lat': $scope.params.lat,
                 'StoreWXID': $scope.params.StoreWXID,
                 'WXID': $scope.params.WXID,
-                'vipNo':$scope.membership.obj.VIPNo
+                'vipNo':($scope.membership.obj && $scope.membership.obj.VIPNo) ? $scope.membership.obj.VIPNo :''
             })
         }else {
             $location.path(path).search({
@@ -64,10 +64,14 @@ angular.module('coo.modules.membership',[
                 'WXID':$scope.params.WXID
             },
             function (res) {
+                $scope.loaded = true
+
                 $scope.membership.loading = false
                 $scope.membership.obj = res.ResData[0]
             },
             function () {
+                $scope.loaded = true
+
                 $scope.membership.loading = false
                 console.log('error')
             }
@@ -127,11 +131,11 @@ angular.module('coo.modules.membership',[
 
         cooGlobal.resource(cooGlobal.api.package_order_create).save(
             {
-                "Token":$scope.params.token,
-                "StoreWXID":$scope.params.StoreWXID,
-                "WXID":$scope.params.WXID,
-                "PackageID":$scope.packageToPay.TemplateNo,
-                "VIPNo":$scope.membership.obj.VIPNo
+                "Token": $scope.params.token,
+                "StoreWXID": $scope.params.StoreWXID,
+                "WXID": $scope.params.WXID,
+                "PackageID": $scope.packageToPay.TemplateNo,
+                "VIPNo": ($scope.membership.obj && $scope.membership.obj.VIPNo) ? $scope.membership.obj.VIPNo : ''
             },
             function (res) {
                 $scope.loaderVisible = false

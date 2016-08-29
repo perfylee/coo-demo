@@ -32,6 +32,25 @@
 
     height:80px;
 }
+
+.membership > .page-header > .noCard{
+    position: absolute;
+    left:12px;
+    top:14px;
+
+    height:80px;
+    width:135px;
+
+    background: rgba(255,255,255,.2);
+
+    border:1px dashed #ccc;
+    border-radius: 6px;
+    line-height: 80px;
+    text-align: center;
+
+    color: #f0f0f0;
+}
+
 .membership > .tools > .message{
     color: #999;
 }

@@ -1,6 +1,9 @@
 <div class="membership page-with-title">
     <div class="page-header">
-        <img src="public/images/card.png">
+        <img src="public/images/card.png" ng-if="membership.obj != null">
+        <div class="noCard"  ng-if="membership.obj == null">
+            还不是会员
+        </div>
         <div class="title">
             会员卡
         </div>
@@ -9,7 +12,7 @@
         </div>
     </div>
 
-    <div class="tools">
+    <div class="tools" ng-if="membership.obj != null">
         <div class="ui buttons two fluid " style="padding: 0 0 12px 0;">
         <button class="ui button basic green one" ng-click="createPayCode()">
             <i class="icon barcode"></i>
@@ -37,12 +40,18 @@
             <div class="times">{{item.SurplusValue}}<span>次</span></div>
         </div>
     </div>
-    <div class="noService" ng-click="path('/membership/package')" ng-if="membership.obj == null || membership.obj.VIPCardItems == null || membership.obj.VIPCardItems.length == 0">
+
+    <div class="noService" ng-click="path('/membership/package')" ng-if="loaded && membership.obj != null && (membership.obj.VIPCardItems == null || membership.obj.VIPCardItems.length == 0)">
         卡内暂无可使用的服务次数
         <br>
         点此选择优惠套餐充值
     </div>
 
+    <div class="noService" ng-click="path('/membership/package')" ng-if="loaded && membership.obj == null">
+        您还不是会员
+        <br>
+        点此购买优惠套餐可免费获赠会员卡
+    </div>
 
     <div class="pay">
         <div class="package" ng-click="packageModalVisible = true" ng-show="packageToPay!=null">

@@ -66,12 +66,12 @@
             </span>
         </div>
 
-        <div class="item" ng-click="time.modalVisible = true"  ng-show="appointment.store !=null"  data-step="6" data-intro="点击可查看更多可预约时间" data-position="top">
+        <div class="item" ng-click="time.modalVisible = true"  ng-show="appointment.store !=null"  data-step="5" data-intro="点击可查看更多可预约时间" data-position="top">
             <div class="name">
                 <i class="icon time"></i>
                 <span>  {{appointment.time.AccurateStartTime | shortTime}}</span>
             </div>
-            <div class="sub times"  data-step="5" data-intro="修改预约时间" data-position="top">
+            <div class="sub times"  data-step="6" data-intro="快速修改预约时间" data-position="top">
 
                 <span class="{{appointment.time.AccurateStartTime == item.AccurateStartTime ?'selected':''}}" ng-click="time.quickSelect(item,$event)" ng-repeat="item in time.quickItems ">
                     {{ item.AccurateStartTime | shortTime:1}}
@@ -86,32 +86,25 @@
 
     </div>
 
-    <div class="index-start" ng-click="appointment.toSubmit()" data-step="7" data-intro="约吧，亲！"  data-position="top">
-        <button class="ui button big fluid green" ng-show="appointment.car && appointment.store && appointment.service && appointment.time">
+
+
+    <div class="index-footer-new">
+        <div class="tools">
+            <div class="item" ng-click="path('/appointment/preference/')">
+                <i class="icon setting"></i>
+                <span class="name">默认设置</span>
+            </div>
+            <div class="item"  ng-click="path('/appointment/orders/')">
+                <i class="icon file text outline"></i>
+                <span class="name">我的预约</span>
+            </div>
+        </div>
+        <div class="start {{(appointment.store==null || appointment.car == null || appointment.service == null || appointment.time == null )?'disabled':''}}" ng-click="appointment.toSubmit()" data-step="7" data-intro="约吧，亲！"  data-position="top">
             一键预约
-        </button>
-
-
+        </div>
     </div>
 
-    <div class="index-footer">
 
-        <div class="item" ng-click="path('/stores/')">
-            <i class="icon building outline"></i>
-            <span class="name">所有门店</span>
-        </div>
-
-        <div class="item" ng-click="path('/appointment/preference/')">
-            <i class="icon setting"></i>
-            <span class="name">默认设置</span>
-        </div>
-
-        <div class="item"  ng-click="path('/appointment/orders/')">
-            <i class="icon file text outline"></i>
-            <span class="name">我的预约</span>
-        </div>
-
-    </div>
 
     <coo-loader show="loaderVisible"></coo-loader>
 
