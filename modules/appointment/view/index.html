@@ -19,13 +19,21 @@
 
     </div>
 
-    <div class="index-service"  data-step="1" data-intro="点击可切换其他服务">
-        <div class="item item{{item.sort}}" ng-repeat="item in category.items" ng-click="category.select(item)">
-            <span class="name">{{item.name}}</span>
-            <span class="sub">{{item.en}}</span>
+    <div class="index-service-new" data-step="1" data-intro="点击可切换其他服务">
+        <div class="active">
+            {{appointment.category.name || '-'}}
         </div>
-
+        <div class="items">
+            <div class="item" ng-repeat="item in category.items" ng-click="category.select(item)">
+                {{item.name}}
+            </div>
+            <div class="item" ng-click="category.more()">
+                更多服务
+                <i class="icon ellipsis vertical"></i>
+            </div>
+        </div>
     </div>
+
 
     <div class="index-main">
         <div class="noStore" ng-show="loaded && appointment.store  == null"> 暂无提供相关服务的门店 </div>
@@ -269,6 +277,31 @@
             </div>
         </div>
 
+    </div>
+
+</coo-modal>
+
+
+<coo-modal size="large" show="category.modalVisible">
+    <i class="icon close"></i>
+    <div class="title">
+        <i class="icon time"></i> 选择服务类型
+    </div>
+    <div class="description">
+
+        <div class="ui icon input fluid" ng-if="category.all.length > 6">
+            <input type="text" placeholder="筛选..." ng-model="category.filter">
+            <i class="search icon"></i>
+        </div>
+
+        <div class="ui list services-selector">
+            <span class="service" ng-repeat="item in category.all | filter:category.filter as filteredCategories" ng-click="category.select(item)">
+                {{ item }}
+            </span>
+            <div style="padding: 10px;text-align: center;" ng-if="filteredCategories.length == 0">
+                没有可选服务，可能门店尚未配置
+            </div>
+        </div>
     </div>
 
 </coo-modal>

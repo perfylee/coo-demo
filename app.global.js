@@ -26,6 +26,7 @@ angular.module('coo.global',[
             path: 'wxapi/',
             appointment_save: 'Appointment/Appointment',
             appointment_default: 'wx/GetDefaultAppointment',
+            appointment_categories_query:'wx/GetAppiontmentTypes',
             preference_query: 'wx/GetPreference',
             preference_save: 'wx/UpdatePreference',
             user_query: 'Customer/GetCustomerAndCarsInfo',

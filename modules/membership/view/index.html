@@ -26,12 +26,14 @@
 
         <div class="message">
             <span ng-show="membership.obj != null && membership.obj.VIPCardItems != null && membership.obj.VIPCardItems.length > 0">卡内可用服务和次数</span>
+
+            <span ng-show="membership.obj != null && membership.obj.Balance != null" style="float: right">余额 {{membership.obj.Balance || '0'}} 元</span>
         </div>
     </div>
 
 
     <div class="services">
-        <div class="service" ng-repeat="item in membership.obj.VIPCardItems" ng-click="path('/appointment')">
+        <div class="service" ng-repeat="item in membership.obj.VIPCardItems" ng-click="membership.toAppointment(item)">
             <div class="ooo"></div>
             <div class="ooo"></div>
 

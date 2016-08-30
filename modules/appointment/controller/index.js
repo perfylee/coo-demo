@@ -74,32 +74,23 @@ angular.module('coo.modules.appointment',[
     /*category*/
     $scope.category = {}
     $scope.category.items = [
-        {name:'保养',value:'维修保养',en:'Maintenance',sort:0},
-        {name:'洗车',value:'美容清洁',en:'Vehicle Cleaning',sort:1},
-        {name:'轮胎',value:'轮胎相关服务',en:'TireService',sort:2}
+        {name:'美容清洁',value:'美容清洁'},
+        {name:'维修保养',value:'维修保养'},
+        {name:'轮胎服务',value:'轮胎相关服务'}
     ]
-    $scope.category.order = function (category) {
-        var currIndex = 0
-        for(var i = 0;i< 3 ;i++) {
-            if($scope.category.items[i].name == category.name){
-                currIndex = i
-                break
-            }
-        }
-
-        var prevIndex = (currIndex - 1 < 0) ? 2 : (currIndex - 1)
-        var nextIndex = (currIndex + 1 > 2) ? 0 : (currIndex + 1)
-
-        $scope.category.items[prevIndex].sort = 0
-        $scope.category.items[currIndex].sort = 1
-        $scope.category.items[nextIndex].sort = 2
-    }
+    $scope.category.all = []
+    $scope.category.filter = ''
+    $scope.category.modalVisible = false
     $scope.category.select = function (item) {
 
-        if(item.sort == 1)
+        $scope.category.modalVisible = false
+
+        if (angular.isString(item))
+            item = {name: item, value: item}
+
+        if (item.value == $rootScope.appointment.category.value)
             return
 
-        $scope.category.order(item)
         $rootScope.appointment.category = item
 
         //重新加载门店和时间
@@ -110,6 +101,30 @@ angular.module('coo.modules.appointment',[
         $scope.appointment.init()
         $scope.store.init()
 
+    }
+    $scope.category.more = function () {
+        if ($scope.category.all.length == 0) {
+            $scope.loaderVisible = true
+            cooGlobal.resource(cooGlobal.api.appointment_categories_query).query(
+                {
+                    "StoreWXID":$scope.params.StoreWXID,
+                    "Token":$scope.params.token
+                },
+                function (res) {
+                    if(res.ResCode == 0)
+                        $scope.category.all = res.ResData
+
+                    $scope.loaderVisible = false
+                    $scope.category.modalVisible = true
+                },
+                function () {
+                    $scope.loaderVisible = false
+                    $scope.category.modalVisible = true
+                }
+            )
+        } else {
+            $scope.category.modalVisible = true
+        }
     }
 
 
@@ -122,9 +137,9 @@ angular.module('coo.modules.appointment',[
     $scope.car.items = []
     $scope.car.modalVisible = false
     $scope.car.select = function (item) {
+        $scope.car.modalVisible = false
         if($rootScope.appointment.car == null || item.CarGuid != $rootScope.appointment.car.CarGuid) {
             $rootScope.appointment.car = item
-            $scope.car.modalVisible = false
         }
     }
 
@@ -193,17 +208,13 @@ angular.module('coo.modules.appointment',[
         )
     }
     $scope.store.select = function (store) {
+        $scope.store.modalVisible = false
         if(store.StoreID != $rootScope.appointment.store.StoreID){
 
             $rootScope.appointment.store = null
             $rootScope.appointment.service = null
             $rootScope.appointment.time = null
-
             $scope.appointment.update(store)
-
-            $scope.store.modalVisible = false
-
-
         }
     }
     $scope.store.open = function (storeId,$event) {
@@ -294,8 +305,7 @@ angular.module('coo.modules.appointment',[
         service: null,
         time: null
     })
-    $rootScope.appointment.category || ($rootScope.appointment.category = $scope.category.items[1])
-    $scope.category.order($rootScope.appointment.category)
+    $rootScope.appointment.category || ($rootScope.appointment.category = $scope.category.items[0])
 
 
     $scope.appointment.loading = false

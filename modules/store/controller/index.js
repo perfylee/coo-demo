@@ -65,6 +65,7 @@ angular.module('coo.modules.store',[
 
     $scope.select = function (service) {
         $rootScope.appointment = $rootScope.appointment || {}
+        $rootScope.appointment.category = {name: service.ServiceType, value: service.ServiceType}
         $rootScope.appointment.store = $scope.store
         $rootScope.appointment.service = service
         $rootScope.appointment.time = null

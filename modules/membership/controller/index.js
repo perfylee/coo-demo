@@ -77,6 +77,15 @@ angular.module('coo.modules.membership',[
             }
         )
     }
+    $scope.membership.toAppointment = function (card) {
+        $rootScope.appointment = $rootScope.appointment || {}
+        $rootScope.appointment.category = {name: card.ItemName, value: card.ItemName}
+        $rootScope.appointment.store = null
+        $rootScope.appointment.service = null
+        $rootScope.appointment.time = null
+
+        $scope.path('/appointment')
+    }
 
     $scope.package = {}
     $scope.package.loading = false
