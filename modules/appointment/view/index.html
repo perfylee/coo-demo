@@ -10,12 +10,6 @@
             <span>{{top.slogan}}</span>
         </div>
 
-        <!--
-        <div class="tools">
-            <a href="#"><i class="icon alarm outline"></i></a>
-            <a href="#"><i class="icon ellipsis horizontal"></i></a>
-        </div>
-        -->
 
     </div>
 
@@ -28,7 +22,7 @@
                 {{item.name}}
             </div>
             <div class="item" ng-click="category.more()">
-                更多服务
+                更多
                 <i class="icon ellipsis vertical"></i>
             </div>
         </div>
@@ -94,8 +88,6 @@
 
     </div>
 
-
-
     <div class="index-footer-new">
         <div class="tools">
             <div class="item" ng-click="path('/appointment/preference/')">
@@ -112,12 +104,13 @@
         </div>
     </div>
 
-
-
     <coo-loader show="loaderVisible"></coo-loader>
 
-
-    <img class="poweredby" src="public/images/poweredby.png" ng-click="intro()">
+    <div class="poweredby"  ng-click="intro()">
+        <img src="public\images\logo.png">
+        <div class="p">powered by </div>
+        <div class="c">车先生</div>
+    </div>
 </div>
 
 

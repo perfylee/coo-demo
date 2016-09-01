@@ -10,6 +10,7 @@ angular.module('coo.modules.appointment',[
 
 .controller('appointmentCtrl',['$rootScope','$scope','$location','$route','$window','$cookies','cooGlobal',function ($rootScope,$scope,$location,$route,$window,$cookies,cooGlobal) {
 
+
     /*url params*/
     $scope.params = $route.current.params
 
@@ -65,7 +66,7 @@ angular.module('coo.modules.appointment',[
 
     /*top*/
     $scope.top = {}
-    $scope.top.day =  new Date().getDate() < 10 ?'0':''+ new Date().getDate()
+    $scope.top.day =  (new Date().getDate() < 10 ?'0':'') + new Date().getDate()
     $scope.top.month = cooGlobal.enMonth[new Date().getMonth()]
     $scope.top.slogan = '生活不是只有诗和远方，还有洗车'
 
@@ -445,7 +446,7 @@ angular.module('coo.modules.appointment',[
             "CarGuid": $rootScope.appointment.car.CarGuid,
             "AppointmentType": $rootScope.appointment.service.ServiceType,
             "AccurateStartTime": $rootScope.appointment.time.AccurateStartTime,
-            "AppointmentSource": "wechat(iphone)"
+            "AppointmentSource": "wechat(" + (['iPad', 'iPhone', 'iPod'].indexOf($window.navigator.platform) >= 0 ? 'iphone' : 'android') + ")"
         }
 
         console.log($rootScope.appointment.service)

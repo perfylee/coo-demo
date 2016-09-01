@@ -96,6 +96,13 @@ angular.module('coo.modules.appointment.complete',[
         )
 
     }
+    
+    $scope.close = function () {
+        if(WeixinJSBridge)
+            WeixinJSBridge.call('closeWindow');
+        else
+            $scope.path('/appointment')
+    }
 
     $scope.goBack = function () {
         $location.path('/appointment')
