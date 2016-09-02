@@ -43,6 +43,7 @@ angular.module('coo.global',[
     },
     wx: {
         dev: {
+            key: 'MrCarTest12345678901234567890123',
             secret: 'a34a865ad54f78c59d060fdc5c0b93c0',
             appId: 'wxe6cfa3fe641f170e',
             token: 'HF_CheOO_Token_CS',
@@ -51,7 +52,7 @@ angular.module('coo.global',[
             jsapiTicket: 'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
         },
         pub: {
-            key: 'MrCarTest12345678901234567890123',
+            key: 'SoToMrCarqaswedfrtghyujkioplkiju',
             secret: '901d4c7f6f65e870f6cff3551b88d0f1',
             appId: 'wxe6cfa3fe641f170e',
             token: 'HF_CheOO_Token',

@@ -147,6 +147,7 @@ angular.module('coo.modules.membership',[
                 "VIPNo": ($scope.membership.obj && $scope.membership.obj.VIPNo) ? $scope.membership.obj.VIPNo : ''
             },
             function (res) {
+                console.log(res)
                 $scope.loaderVisible = false
 
                 if(res.ResCode == 0 && res.ResData.PrePayID){
@@ -221,10 +222,11 @@ angular.module('coo.modules.membership',[
                 'getBrandWCPayRequest',
                 wxPayParams,
                 function (res) {
+                    $scope.membership.init()
                     if (res.err_msg == "get_brand_wcpay_request：ok") {
-                        $scope.membership.init()
                     }else{
                     }
+
                 }
             )
         }

@@ -96,7 +96,8 @@ angular.module('coo.modules.appointment.orders',[
 
     $scope.cancelAppointment = null
     $scope.cancelModalVisible = false
-    $scope.toCancel = function (appointment) {
+    $scope.toCancel = function (appointment,$event) {
+        $event.stopPropagation()
         $scope.cancelAppointment = appointment
         $scope.cancelModalVisible = true
     }
@@ -124,9 +125,6 @@ angular.module('coo.modules.appointment.orders',[
     }
 
     $scope.detail = function (appointment) {
-        if (appointment.Status == '未完成')
-            return
-
         $window.location.href = cooGlobal.modules.appointmentDetail + '?token=' + $scope.params.token + '&StoreID=' + appointment.StoreID + '&ReservationID=' + appointment.AppointmentID
     }
 

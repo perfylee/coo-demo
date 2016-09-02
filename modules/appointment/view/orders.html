@@ -33,7 +33,7 @@
                 <div class="date">{{appointment.TimeOfWeek}} ({{appointment.AccurateStartTime}})</div>
                 <span class="status ui left ribbon label {{categoryLabels[appointment.Status] || 'blue'}}">{{appointment.Status}}</span>
 
-                <div class="cancel" ng-if="appointment.Status == '未完成'" ng-click="toCancel(appointment)">取消预约</div>
+                <div class="cancel" ng-if="appointment.Status == '未完成'" ng-click="toCancel(appointment,$event)">取消预约</div>
             </div>
         </div>
 
