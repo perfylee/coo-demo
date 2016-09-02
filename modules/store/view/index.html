@@ -6,7 +6,7 @@
 
         <div class="info">
             <div class="name">{{store.StoreName || '-'}}</div>
-            <div class="address">{{store.StoreAddress  || '-'}}</div>
+            <div class="address">{{store.StoreAddress.replace('安徽省合肥市','')  || '-'}}</div>
             <coo-rating value="{{store.Rating}}"></coo-rating>
             <div class="tools">
                 <a href="tel:{{store.StorePhoneNum}}" ng-if="store.StorePhoneNum != ''"><i class="icon phone"></i></a>

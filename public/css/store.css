@@ -58,6 +58,11 @@
     color: #f0f0f0;
     font-size: 12px;
     line-height: 24px;
+    height:24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-text-overflow: ellipsis;
 }
 
 .store > .header > .info > .stars{

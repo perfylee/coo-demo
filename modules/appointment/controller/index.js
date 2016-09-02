@@ -515,7 +515,23 @@ angular.module('coo.modules.appointment',[
     $scope.appointment.init()
 
 
-
+    $scope.isPrice = function (price) {
+        if(
+            price == null ||
+            price == undefined ||
+            price.toString() == '' ||
+            price.toString() == '-1' ||
+            price.toString() == '-1,-1' ||
+            price.toString() == '-1.00' ||
+            price.toString() == '-1.00,-1.00' ||
+            price.toString() == '-1|-1'||
+            price.toString() == '-1|-1,-1|-1'||
+            price.toString() == '-1.00|-1.00'||
+            price.toString() == '-1.00|-1.00,-1.00|-1.00') {
+            return false
+        }
+        return true
+    }
 
 
 }])

@@ -55,11 +55,13 @@
                 </span>
             </div>
             <div class="sub">
-                <span>{{appointment.store.StoreAddress || '-'}}</span>
+                <span class="address">{{appointment.store.StoreAddress.replace('安徽省合肥市','') || '-'}}</span>
             </div>
             <div class="sub orange">
                 <span>{{appointment.service.ServiceType || '-'}} </span>
-                <coo-price value="{{appointment.service.Price}}"></coo-price>
+                <span ng-if="isPrice(appointment.service.Price)">
+                    <coo-price value="{{appointment.service.Price}}"></coo-price>
+                </span>
             </div>
 
 
@@ -135,7 +137,10 @@
             <div class="item">
                 <i class="icon user"></i>
                 <div class="content">
-                    {{appointment.service.ServiceType}} 服务<br/>费用 <coo-price value="{{appointment.service.Price}}"></coo-price>  元
+                    {{appointment.service.ServiceType}} 服务<br/>
+                    <span ng-if="isPrice(appointment.service.Price)">
+                        费用 <coo-price value="{{appointment.service.Price}}"></coo-price>  元
+                    </span>
                 </div>
             </div>
         </div>
@@ -212,7 +217,7 @@
                 <a class="ui left ribbon label {{{'最近':'green','常去':'orange'}[item.Tag]}}"  ng-if="item.Tag != null && item.Tag != ''">{{item.Tag}}</a>
 
                 <div class="name">{{item.StoreName}}</div>
-                <div class="address">{{item.StoreAddress}}</div>
+                <div class="address">{{item.StoreAddress.replace('安徽省合肥市','')}}</div>
                 <coo-rating value="{{item.Rating}}"></coo-rating>
                 <div class="addition">
                     <div>
@@ -239,20 +244,20 @@
                 <div class="shop" ng-click="store.select(store.mapStore)">
                     <img ng-src="{{store.mapStore.StoreImage}}" title="门店照片">
                     <div class="name">{{store.mapStore.StoreName}}</div>
-                    <div class="address">{{store.mapStore.StoreAddress}}</div>
+                    <div class="address">{{store.mapStore.StoreAddress.replace('安徽省合肥市','')}}</div>
                     <coo-rating value="{{store.mapStore.Rating}}"></coo-rating>
                     <div class="addition">
                         <div>
                             <i class="icon marker"></i>
-                            {{store.mapStore.Distance < 1 ? (store.mapStore.Distance * 1000 +'m') : (store.mapStore.Distance +'km')}}
+                            {{store.mapStore.Distance < 1000 ?(store.mapStore.Distance +'m'): ((store.mapStore.Distance / 1000).toFixed(1) +'km')  }}
                         </div>
                         <div>
                             <i class="icon comment"></i>
                             {{store.mapStore.TotalComments}}
                         </div>
                         <div>
-                            <i class="icon marker"></i>
-                            {{store.mapStore.StoreScale}}
+                            <i class="icon add to cart"></i>
+                            {{store.mapStore.AppointmentCount}}
                         </div>
                     </div>
                 </div>
