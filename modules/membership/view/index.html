@@ -38,7 +38,7 @@
             <div class="ooo"></div>
 
             <div class="name">{{item.ItemName}}</div>
-            <div class="expire">有效期至：{{(item.ExpireTime == null || item.ExpireTime == '2099-01-01 00:00:00' || item.ExpireTime == '')?'永久':item.ExprireTime}}</div>
+            <div class="expire">有效期至：{{(item.ExpireTime == null || item.ExpireTime == '2099-01-01 00:00:00' || item.ExpireTime == '')?'永不过期':item.ExpireTime}}</div>
             <div class="times">{{item.SurplusValue}}<span>次</span></div>
         </div>
     </div>

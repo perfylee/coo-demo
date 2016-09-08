@@ -294,6 +294,17 @@ angular.module('coo.modules.appointment',[
             $scope.time.modalVisible = false
         }
     }
+    $scope.time.updateTab = function () {
+        var current = new Date()
+        if($rootScope.appointment.time)
+            current = new Date($rootScope.appointment.time.AccurateStartTime.replace(/-/g, "/"))
+        $scope.time.tabIndex = Math.min(2, Math.abs(new Date().dateDiff(current, 'd')))
+    }
+
+    $scope.$watch('time.modalVisible',function () {
+        if($scope.time.modalVisible)
+            $scope.time.updateTab()
+    })
 
 
 
@@ -401,6 +412,7 @@ angular.module('coo.modules.appointment',[
         }
 
         $rootScope.appointment.time =  $rootScope.appointment.time || $scope.time.quickItems[0]
+
 
         angular.forEach(store.StoreWorkPlace[0].TypeWorkPlaces, function (value) {
             var index = new Date(value.AccurateStartTime.replace(/-/g, "/")).dateDiff(new Date(), 'd')

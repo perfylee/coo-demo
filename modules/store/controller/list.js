@@ -33,13 +33,29 @@ angular.module('coo.modules.store.list',[
     $scope.init = function () {
         $scope.loaderVisible = true
         $scope.errorModalVisible = false
-        cooGlobal.resource(cooGlobal.api.stores_query).query(
-            {
-                "Token": $scope.params.token,
-                "lng": $scope.params.lnt,
-                "lat": $scope.params.lat,
-                "StoreWXID": $scope.params.StoreWXID
-            },
+        var queryUrl = $scope.params.TickUseStoreTag ? cooGlobal.api.stores_query_fromcard: cooGlobal.api.stores_query
+        var queryParams = $scope.params.TickUseStoreTag?
+        {
+            "Token": $scope.params.token,
+            "ILongitude": $scope.params.lnt,
+            "ILatitude": $scope.params.lat,
+            "StoreWXID": $scope.params.StoreWXID,
+            "TickUseStoreTag": $scope.params.TickUseStoreTag,
+            "Source": "wechat",
+            "PageSize": 100,
+            "PageNum":1,
+            "Area": "",
+            "IsAll": 1,
+            "Order": null
+        }:
+        {
+            "Token": $scope.params.token,
+            "lng": $scope.params.lnt,
+            "lat": $scope.params.lat,
+            "StoreWXID": $scope.params.StoreWXID
+        }
+        cooGlobal.resource(queryUrl).query(
+            queryParams,
             function (res) {
                 $scope.loaderVisible = false
                 if (res.ResCode == 0) {
