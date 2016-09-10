@@ -18,7 +18,7 @@
             <div class="ui label ribbon orange name">{{item.TemplateName}}</div>
             <div class="services">
                 <div class="service" ng-if="item.Banalce>0">储值金额 {{item.Banalce}}元</div>
-                <div class="service" ng-repeat="service in item.VipCardTemplateItems">{{service.ItemName}} {{service.Amount == 9999?'不记':service.Amount.toString()}}次</div>
+                <div class="service" ng-repeat="service in item.VipCardTemplateItems">{{service.ItemName}} {{service.Amount == 9999?'不计':service.Amount.toString()}}次</div>
             </div>
 
             <div class="price">{{item.Price}}元</div>
