@@ -7,20 +7,39 @@ angular.module('coo.global',[
 .constant('globalConfig', {
     mode: 'pub', // dev,pub
     api: {
+        // dev: {
+        //     path: 'testData/',
+        //     appointment_save: 'appointment_save.json',
+        //     appointment_default: 'appointment_default_:AppointmentType.json',
+        //     preference_query: 'preference.json',
+        //     preference_save: 'preference_save.json',
+        //     user_query: 'user.json',
+        //     stores_query: 'stores_:AppointmentType.json',
+        //     store_query: 'store.json',
+        //     orders_query: 'orders.json',
+        //     order_query: 'order.json',
+        //     membership_query: 'membership.json',
+        //     membership_package_query: 'membership_package.json',
+        //     membership_package_quick_query: 'membership_package_quick.json'
+        // },
         dev: {
-            path: 'testData/',
-            appointment_save: 'appointment_save.json',
-            appointment_default: 'appointment_default_:AppointmentType.json',
-            preference_query: 'preference.json',
-            preference_save: 'preference_save.json',
-            user_query: 'user.json',
-            stores_query: 'stores_:AppointmentType.json',
-            store_query: 'store.json',
-            orders_query: 'orders.json',
-            order_query: 'order.json',
-            membership_query: 'membership.json',
-            membership_package_query: 'membership_package.json',
-            membership_package_quick_query: 'membership_package_quick.json'
+            path: 'cswxapi/',
+            appointment_save: 'Appointment/Appointment',
+            appointment_default: 'wx/GetDefaultAppointment',
+            appointment_categories_query: 'wx/GetAppiontmentTypes',
+            preference_query: 'wx/GetPreference',
+            preference_save: 'wx/UpdatePreference',
+            user_query: 'Customer/GetCustomerAndCarsInfo',
+            stores_query: 'wx/GetStoreList',
+            stores_query_fromcard: 'Customer/GetStoreListByStoreTag',
+            store_query: 'wx/GetSingleStore',
+            orders_query: 'Appointment/GetAppointmentList',
+            order_query: 'Appointment/GetAppointmentDetail',
+            order_cancel: 'Appointment/CancleAppointment',
+            membership_query: 'wx/GetVIPCards',
+            membership_package_query: 'wx/GetStoreVIPPackageList',
+            package_order_create: 'wx/WeChatOrdering',
+            membership_pay_code: 'wx/GetVipCardCheckCode'
         },
         pub: {
             path: 'wxapi/',
@@ -44,22 +63,10 @@ angular.module('coo.global',[
     },
     wx: {
         dev: {
-            key: 'MrCarTest12345678901234567890123',
-            secret: 'a34a865ad54f78c59d060fdc5c0b93c0',
-            appId: 'wxe6cfa3fe641f170e',
-            token: 'HF_CheOO_Token_CS',
-            fromUserName: 'gh_c4d372ec0899',
-            signatureTemp: 'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}',
-            jsapiTicket: 'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
+            key: 'MrCarTest12345678901234567890123'
         },
         pub: {
-            key: 'SoToMrCarqaswedfrtghyujkioplkiju',
-            secret: '901d4c7f6f65e870f6cff3551b88d0f1',
-            appId: 'wxe6cfa3fe641f170e',
-            token: 'HF_CheOO_Token',
-            fromUserName: 'gh_3c6b16d565a2',
-            signatureTemp: 'jsapi_ticket={0}&noncestr={1}&timestamp={2}&url={3}',
-            jsapiTicket: 'kgt8ON7yVITDhtdwci0qefwFEneWGI6kecH-hOLqLWckNThRvLlJCbvEJk0TsEGgO6wGPiuHpTwNjPGN9rm83g'
+            key: 'SoToMrCarqaswedfrtghyujkioplkiju'
         }
     },
 
@@ -93,7 +100,7 @@ angular.module('coo.global',[
     /*** methods ***/
     //api request
     config.resource = function (api,params) {
-        var method = globalConfig.mode == 'dev' ? 'get' : 'post'
+        var method = globalConfig.mode == 'dev' ? 'post' : 'post'
         return $resource(api, params || {}, {
             query: {method: method, isArray: false},
             save: {method: method, isArray: false},

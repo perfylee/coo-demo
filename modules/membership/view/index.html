@@ -39,7 +39,8 @@
 
             <div class="name">{{item.ItemName}}</div>
             <div class="expire">有效期至：{{(item.ExpireTime == null || item.ExpireTime == '2099-01-01 00:00:00' || item.ExpireTime == '')?'永不过期':item.ExpireTime}}</div>
-            <div class="times">{{item.SurplusValue}}<span>次</span></div>
+            <div class="times" ng-if="item.SurplusValue!=9999">{{item.SurplusValue }}<span>次</span></div>
+            <div class="times" ng-if="item.SurplusValue == 9999"><span>不记次</span></div>
         </div>
     </div>
 
@@ -62,8 +63,10 @@
             <div class="price">
                 <s class="priceOld" ng-if="false">100元</s>
                 {{packageToPay.Price}}元/
+
+                <span ng-if="packageToPay.Banalce>0">储值 {{packageToPay.Banalce}}元 </span>
                 <span ng-repeat="item in packageToPay.VipCardTemplateItems">
-                    {{item.ItemName}} {{item.Amount}}次
+                    {{item.ItemName}} {{item.Amount == 9999?'不记':item.Amount.toString()}}次
                 </span>
             </div>
             <i class="icon angle arrow up"></i>
@@ -89,6 +92,7 @@
         <div class="package" ng-repeat="item in package.items | limitTo:2" ng-click="package.select(item)">
             <div class="name">{{item.TemplateName}}</div>
             <div class="services">
+                <div class="service" ng-if="item.Banalce>0">储值金额 {{item.Banalce}}元</div>
                 <div class="service" ng-repeat="service in item.VipCardTemplateItems">{{service.ItemName}} {{service.Amount}} 次</div>
             </div>
             <div class="price">优惠价：{{item.Price}} 元</div>
